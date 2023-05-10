@@ -63,10 +63,10 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="button-container">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="big-black-button _black" on:click={()=> goto('#')}>
+        <div class="big-black-button _black" on:click={()=> goto('/params')}>
             <div class="start-training-text text-16s">Зарегистрироваться</div>
         </div>
-        <div class="big-black-button __white" on:click={()=> goto('/registration/user_registration')}>
+        <div class="big-black-button __white" on:click={()=> goto('/registration')}>
             <div class="start-training-text c-black text-16s">Войти</div>
         </div>
     </div>
@@ -81,7 +81,7 @@
         flex-direction: column;
     }
     .name-contain, .lastname-container, .email-container, .password-container  {
-        margin-bottom: 24px;
+        margin-bottom: 5.3vw;
     }
     form div input {
         border-bottom: 1px solid #DCDEE3;
@@ -100,7 +100,7 @@
         margin-bottom: 4.1vw;
     }
     .reg-descr {
-        margin-bottom: 6.15vw;
+        margin-bottom: 4.15vw;
     }
     .reg-title {
         margin-top: 4.1vw;
@@ -119,5 +119,16 @@
         bottom: 22px;
         left: 50%;
         transform: translateX(-50%);
+    }
+    @media (max-width: 389px) {
+        .button-container {
+            bottom: 0;
+        }
+        .reg-title {
+            margin-top: 0;
+        }
+        .big-black-button._black {
+            margin-bottom: 1vw;
+        }
     }
 </style>

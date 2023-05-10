@@ -29,14 +29,14 @@
     
     <div class="start-training-button">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="big-black-button _white" on:click={()=> goto('#')}>
+        <div class="big-black-button _white" on:click={()=> goto('/params')}>
             <div class="start-training-icon"><img src="{vk}" alt="start"></div>
             <div class="start-training-text text-16s c-black">Продолжить с Вконтакте</div>
             <div class="start-training-icon"><img src="{nextBlack}" alt="start"></div>
         </div>
 
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="big-black-button _blue" on:click={()=> goto('#')}>
+        <div class="big-black-button _blue" on:click={()=> goto('/params')}>
             <div class="start-training-icon"><img src="{mail}" alt="start"></div>
             <div class="start-training-text text-16s">Продолжить с E-mail</div>
             <div class="start-training-icon"><img src="{nextWhite}" alt="start"></div>
@@ -59,9 +59,13 @@
         background: var(--white);
         border: 1px solid #E8EBF2;
         margin-bottom: 3.07vw;
+        padding: 4.615vw 3.59vw 4.615vw 6.15vw;
+        justify-content: space-between;
     }
     .big-black-button._blue {
         background-color: var(--blue);
+        padding: 4.615vw 3.59vw 4.615vw 6.15vw;
+        justify-content: space-between;
     }
     .start-training-button {
         /* position: fixed; */

@@ -1,12 +1,13 @@
+<script>
+    export let bgcolor;
+</script>
 
-
-<header>
+<header class='{bgcolor ? bgcolor : 'bg-white'}'>
     <slot></slot>
 </header>
 
 <style>
     header {
-        background-color: var(--white);
         padding: 4.19vw 7.18vw;
         border-radius: 0px 0px 20px 20px;
         position: fixed;

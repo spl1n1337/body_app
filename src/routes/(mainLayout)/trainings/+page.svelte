@@ -69,4 +69,12 @@
         width: auto;
         height: 100%;
     }
+    @media (max-width: 389px) {
+        .training-card {
+            overflow: hidden;
+        }
+        .container {
+            padding: 20.5vw 7.18vw 28vw;
+        }
+    }
 </style>

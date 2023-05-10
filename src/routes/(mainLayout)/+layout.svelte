@@ -36,6 +36,8 @@
         font-family: 'Unbounded', cursive;
         color: var(--dark);
         position: relative;
+        height: 100vh;
+        overflow-x: hidden;
     }
     :global(a) {
         display: block;
@@ -102,6 +104,12 @@
         font-weight: 700;
         line-height: 1.25em;
     }
+    :global(.text-32s) {
+        font-family: 'Unbounded', cursive;
+        font-size: calc(32/390*100vw);
+        font-weight: 600;
+        line-height: 1.25em;
+    }
     :global(.text-20b) {
         font-family: 'Unbounded', cursive;
         font-size: calc(20/390*100vw);
@@ -117,7 +125,13 @@
     :global(.text-16s) {
         font-family: 'Inter', sans-serif;
         font-size: calc(16/390*100vw);
-        font-weight: 700;
+        font-weight: 600;
+        line-height: 1.5em;
+    }
+    :global(.text-16s-u) {
+        font-family: 'Unbounded', cursive;
+        font-size: calc(16/390*100vw);
+        font-weight: 600;
         line-height: 1.5em;
     }
     :global(.text-16m) {

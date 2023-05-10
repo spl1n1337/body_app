@@ -1,15 +1,16 @@
 <script>
     import cross from "$lib/icons/cross.svg";
     import finish__bg from "$lib/icons/finish__bg.png";
+    import Cross from "$lib/components/Cross.svelte";
     import {goto} from '$app/navigation';
+    let opacity = true,
+        Goto = ()=> {goto('/trainings')};
 </script>
 
 
 <div class="finish-container bg-blue">
-
-    <div class="cross">
-        <img src="{cross}" alt="qwe" class="cross-img">
-    </div>
+    
+    <Cross {opacity} {Goto}/>
 
     <div class="finish-banner">
         <div class="finish-title text-16b c-white">Ты&nbsp;завершил 
@@ -72,14 +73,9 @@
         overflow: hidden;
         padding: 4.1vw 7.18vw;
     }
-    .cross {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        padding: 3.07vw;
-        width: fit-content;
-        float: right;
-    }
-    .cross img {
-        width: auto;
+    @media (max-width: 389px) {
+        .finish-banner {
+            overflow: hidden;
+        }
     }
 </style>
