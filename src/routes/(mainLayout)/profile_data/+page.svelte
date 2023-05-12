@@ -8,6 +8,7 @@
     import plus from "$lib/icons/plus.svg";
     import right from "$lib/icons/chevron-right-black.svg";
     import myparams from "$lib/icons/myparams.svg";
+    import WeightChart from "$lib/components/WeightChart.svelte";
     import {goto} from '$app/navigation';
     
 </script>
@@ -35,12 +36,8 @@
 
 <Container>
     <div class="nothing-data bg-l-gray">
-        <img src="{paramsicon1}" alt="q" class="nothing-img _1">
-        <img src="{paramsicon2}" alt="q" class="nothing-img _2">
-        <img src="{crossicon}" alt="" class="nothing-img _3">
-
         <div class="nothing-title text-16s">Изменение веса</div>
-        <div class="nothing-descr text-16m c-gray">Здесь будет ваш график изменений массы тела</div>
+        <WeightChart/>
     </div>
 </Container>
 
@@ -83,6 +80,9 @@
 </div>
 
 <style>
+    :global(body) {
+        overflow: hidden;
+    }
     .footer__nav {
         position: fixed;
         bottom: 0;
@@ -152,6 +152,10 @@
         border-radius: 20px;
         overflow: hidden;
         min-height: 65.64vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
     }
     .nothing-img {
         width: auto;

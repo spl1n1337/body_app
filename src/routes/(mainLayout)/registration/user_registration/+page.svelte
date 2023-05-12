@@ -1,4 +1,7 @@
 <script>
+    import showicon from "$lib/icons/show.png";
+    import hideicon from "$lib/icons/hide.png";
+    import hide from "$lib/icons/hide.png";
     import BackArrow from "$lib/components/BackArrow.svelte";
     import TrainingHeader from "$lib/components/TrainingHeader.svelte";
     import Container from "$lib/components/Container.svelte"
@@ -12,6 +15,8 @@
     event.stopPropagation();
     history.back()
     };
+    let show1 = false;
+    let show2 = false;
 
 </script>
 
@@ -45,13 +50,19 @@
         
                 <div class="password-container">
                     <label class="text-12s c-dark-gray" for="password">Придумайте пароль</label>
-                    <input class="text-14s" type="password" name="password"/>
+                    <input class="text-14s" type={show1 ? 'text' : 'password'} name="password"/>
+                    <button class="hide-btn" on:click|preventDefault={()=> show1 = !show1}>
+                        <img src="{!show1 ? showicon : hideicon}" alt="q">                  
+                    </button>
                 </div>
 
 
                 <div class="passwordconfirm-container">
                     <label class="text-12s c-dark-gray" for="passwordConfirmation">Повторите пароль</label>
-                    <input class="text-14s" type="password" name="passwordConfirmation"/>
+                    <input class="text-14s" type={show2 ? 'text' : 'password'} name="passwordConfirmation"/>
+                    <button class="hide-btn" on:click|preventDefault={()=> show2 = !show2}>
+                        <img src="{!show2 ? showicon : hideicon}" alt="q">                  
+                    </button>
                 </div>
 
         
@@ -76,6 +87,19 @@
 
 
 <style>
+    .password-container, .passwordconfirm-container {
+        position: relative;
+    }
+    .hide-btn {
+        all: unset;
+        position: absolute;
+        bottom: 1.5vw;
+        right: 0;
+    }
+    .hide-btn img {
+        width: auto;
+    }
+
     form div {
         display: flex;
         flex-direction: column;

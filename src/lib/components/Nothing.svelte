@@ -14,7 +14,7 @@
     <div class="cross-icon"><img src="{cross_icon}" alt="qwe"></div>
     <div class="nothing-text-block">
         <div class="nothing-title text-20b">Здесь пока ничего нет</div>
-        <div class="nothing-descr text-16m c-dark-gray">Для того, чтобы получить расширенный доступ к тренировкам и видеть свой прогресс тебе необходимо пройти короткую регистрацию</div>
+        <div class="nothing-descr text-16m c-dark-gray">Для того, чтобы получить расширенный доступ к тренировкам и видеть свой прогресс, тебе необходимо пройти короткую регистрацию</div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="big-black-button" on:click={()=> goto('/registration')}>
             <div class="start-training-text text-16s">Зарегистрироваться</div>

@@ -11,8 +11,11 @@
     import TrainingHeader from "$lib/components/TrainingHeader.svelte";
     import BackArrow from "$lib/components/BackArrow.svelte";
     let backFunction =()=> history.back();
-
-
+    import Picker from "$lib/components/Picker.svelte";
+	let isActive = false;
+    function handleClick() {
+    isActive = !isActive;
+    }
 </script>
 
 <TrainingHeader>
@@ -24,36 +27,42 @@
     <div class="reg-title text-20b">Ваши параметры</div>
 
     <div class="params-grid">
-        <div class="params-grid-item bg-l-gray">
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div class="params-grid-item bg-l-gray" on:click={handleClick}>
             <img src="{chest}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">Грудь</div>
             <!-- <div class="value text-14s">Добавить</div> -->
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <div class="params-item-add text-14s c-blue" on:click={console.log('click')}>Добавить</div>
         </div>
-        <div class="params-grid-item bg-l-gray">
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div class="params-grid-item bg-l-gray" on:click={handleClick}>
             <img src="{waist}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">Талия</div>
             <div class="value text-14s">68</div>
         </div>
-        <div class="params-grid-item bg-l-gray">
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div class="params-grid-item bg-l-gray" on:click={handleClick}>
             <img src="{hips}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">Бёдра</div>
             <div class="value text-14s">98</div>
         </div>
-        <div class="params-grid-item bg-l-gray">
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div class="params-grid-item bg-l-gray" on:click={handleClick}>
             <img src="{arm}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">Рука</div>
             <!-- <div class="value text-14s">Добавить</div> -->
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <div class="params-item-add text-14s c-blue" on:click={console.log('click')}>Добавить</div>
         </div>
-        <div class="params-grid-item bg-l-gray">
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div class="params-grid-item bg-l-gray" on:click={handleClick}>
             <img src="{hip}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">Бедро</div>
             <div class="value text-14s">60</div>
         </div>
-        <div class="params-grid-item bg-l-gray">
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div class="params-grid-item bg-l-gray" on:click={handleClick}>
             <img src="{leg}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">Голень</div>
             <div class="value text-14s">34</div>
@@ -101,7 +110,7 @@
     </a>
 </div>
 
-
+<Picker {isActive}/>
 <style>
     .big-black-button._black {
         margin-bottom: 26.15vw !important;

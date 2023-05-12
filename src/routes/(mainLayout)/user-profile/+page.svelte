@@ -5,6 +5,7 @@
     import Container from "$lib/components/Container.svelte";
     import TrainingHeader from "$lib/components/TrainingHeader.svelte";
     import BackArrow from "$lib/components/BackArrow.svelte";
+    import TimeChart from "$lib/components/TimeChart.svelte";
     import {goto} from '$app/navigation';
     let backFunction = ()=> goto('/user-profile-edit');
 
@@ -32,6 +33,10 @@
         </div>
     </div>
 
+    <div class="nothing-data bg-black">
+        <div class="nothing-title text-14s c-white">Минут за тренировкой</div>
+        <TimeChart/>
+    </div>
 
 </Container>
 
@@ -121,14 +126,7 @@
         left: 50%;
         transform: translateX(-50%);
     }
-    @media (max-width: 389px) {
-        .button-container {
-            bottom: 0;
-        }
-        .big-black-button._black {
-            margin-bottom: 1vw;
-        }
-    }
+   
     .footer__nav {
         position: fixed;
         bottom: 0;
@@ -158,5 +156,76 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+    .nothing-data {
+        position: fixed;
+        left: 7.18vw;
+        right: 7.18vw;
+        top: 94vw;
+        padding: 6.15vw;
+        padding-bottom: 10vw;
+        border-radius: 20px;
+        overflow: hidden;
+        min-height: 74vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+    }
+    .nothing-img {
+        width: auto;
+        position: absolute;
+    }
+    .nothing-img._1 {
+        top: 19.23vw;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .nothing-img._2 {
+        top: 13.3vw;
+        right: 10.26vw;
+    }
+    .nothing-img._3 {
+        top: 31.2vw;
+        left: 14.8vw;
+    }
+    .nothing-descr {
+        position: absolute;
+        bottom: 5.89vw;
+        left: 15.38vw;
+        right: 15.38vw;
+        text-align: center;
+    }
+    .my-params {
+        position: absolute;
+        border-radius: 16px;
+        z-index: 5;
+        top: 130vw;
+        left: 7.18vw;
+        right: 7.18vw;
+        padding: 4.1vw 5.12vw;
+        display: flex;
+        align-items: center;
+    }
+    .my-params-icon {
+        width: auto;
+    }
+    .my-params-text {
+        width: 100%;
+        margin-left: 16px;
+    }
+    @media (max-width: 389px) {
+        .button-container {
+            bottom: 0;
+        }
+        .big-black-button._black {
+            margin-bottom: 1vw;
+        }
+        .nothing-data {
+            min-height: auto;
+        }
+        .nothing-title {
+            margin-bottom: 20px;
+        }
     }
 </style>

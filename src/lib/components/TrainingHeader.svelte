@@ -14,7 +14,7 @@
         top: 0;
         left: 0;
         right: 0;
-        z-index: 5;
+        z-index: 3;
         height: 20.5vw;
         display: flex;
         align-items: flex-end;

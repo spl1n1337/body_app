@@ -177,11 +177,7 @@
         }
     }
     label.sex-male {
-        flex-direction: row;
-    }
-    label.sex-male input {
-        margin-right: 0;
-        margin-left: 12px;
+        /* flex-direction: row; */
     }
     .name-container::after {
         content: 'кг';
