@@ -211,5 +211,8 @@
         .canvas-container {
             overflow: hidden;
         }
+        .line-wrapper {
+            padding-top: 15px;
+        }
     }
 </style>

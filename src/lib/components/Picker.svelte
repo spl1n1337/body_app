@@ -138,14 +138,6 @@
 	}
 </script>
 
-<svelte:head>
-	<link
-		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/keen-slider@6.8.5/keen-slider.min.css"
-	/>
-	<script src="https://cdn.jsdelivr.net/npm/keen-slider@6.8.5/keen-slider.min.js"></script>
-</svelte:head>
-
 <div class="modal-wrapper {isActive ? '_active' : ''}">
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<div class="modal-head" on:click={handleClick}>
