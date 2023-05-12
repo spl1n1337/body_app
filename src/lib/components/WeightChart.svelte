@@ -1,14 +1,8 @@
 <script>
 	import { Chart } from 'chart.js/auto';
-	// import ChartDataLabels from 'chartjs-plugin-datalabels';
+	import ChartDataLabels from 'chartjs-plugin-datalabels';
 	import { onMount } from 'svelte';
 
-
-	let ChartDataLabels;
-
-	onMount(async () => {
-		ChartDataLabels = await import("https://cdn.skypack.dev/chartjs-plugin-datalabels@2.0.0");
-	});
 	onMount(() => {
 		Chart.register(ChartDataLabels);
 		const ctx = document.getElementById('myChart');
