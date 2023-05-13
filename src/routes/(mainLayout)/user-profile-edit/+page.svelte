@@ -11,7 +11,8 @@
 
 <TrainingHeader {bgcolor}>
     <BackArrow {backFunction}/>
-    <div class="save text-16s c-blue">Сохранить</div>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <div class="save text-16s c-blue" on:click={backFunction}>Сохранить</div>
 </TrainingHeader>
 
 <Container>
@@ -19,7 +20,8 @@
 
     <div class="user-container bg-l-gray">
         <div class="user-icon"><img src="{user}" alt="q"></div>
-        <div class="edit-photo text-14s c-blue">Редактировать фото </div>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div class="edit-photo text-14s c-blue" on:click={()=> document.querySelector('.modalphoto').classList.add('_active')}>Редактировать фото </div>
     </div>
     <form action="#" class="edit-form">
         <div class="name-container">
@@ -41,7 +43,8 @@
 
 
     <div class="edit-btn-wrapper">
-        <div class="exit text-14s bg-l-gray">Выход</div>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div class="exit text-14s bg-l-gray" on:click={()=> document.querySelector('.modalexit').classList.add('_active')}>Выход</div>
         <div class="delete text-14s c-red">Удалить профиль</div>
     </div>
 
@@ -80,8 +83,89 @@
 </div>
 
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="modalphoto" on:click={()=> document.querySelector('.modalphoto').classList.remove('_active')}>
+    <div class="photo-dialog">
+        <div class="swiper"></div>
+        <div class="photo-dialog__wrapper">
+            <div class="photo-dialog__title text-14s">Выбрать из галереи</div>
+            <div class="delete-button text-14s c-red">Удалить</div>
+            <div class="cancel text-14s bg-l-gray">Отменить</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="modalexit" on:click={()=> document.querySelector('.modalexit').classList.remove('_active')}>
+    <div class="photo-dialog">
+        <div class="swiper"></div>
+        <div class="photo-dialog__wrapper">
+            <div class="photo-dialog__title text-14s">Вы уверены, что хотите<br>выйти из профиля?</div>
+            <div class="cancel text-14s bg-l-gray">Да</div>
+            <div class="delete-button text-14s">Отмена</div>
+            
+        </div>
+
+    </div>
+</div>
+
 
 <style>
+    .modalexit .photo-dialog__title {
+        margin-bottom: 8.2vw;
+    }
+    .swiper {
+        width: 28px;
+        height: 4px;
+        background: #E7EBF4;
+        border-radius: 20px;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .delete-button {
+        padding: 2vw 0;
+        text-align: center;
+        width: 100%;
+        margin-top: 2vw;
+        margin-bottom: 3vw;
+    }
+    .cancel {
+        border-radius: 16px;
+        padding: 3vw 0;
+        text-align: center;
+        margin-bottom: 4vw;
+    }
+    .photo-dialog__title {
+        text-align: center;
+        padding: 2vw 0;
+    }
+    .photo-dialog {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1.5vw 7vw 4vw 7vw;
+        background: #FFFFFF;
+        border-radius: 20px 20px 0px 0px;
+        opacity: 1;
+    }
+    .photo-dialog__wrapper {
+        padding-top: 6vw;
+    }
+    .modalphoto, .modalexit {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgb(31 40 48 / 50%);
+        z-index: 6;
+        visibility: hidden;
+    }
     .edit-btn-wrapper {
         position: fixed;
         bottom: 22vw;
@@ -180,5 +264,8 @@
         .user-icon img {
             transform: translate(-67%, -3%);
         }
+    }
+    :global(.modalphoto._active, .modalexit._active) {
+        visibility: visible !important;
     }
 </style>
