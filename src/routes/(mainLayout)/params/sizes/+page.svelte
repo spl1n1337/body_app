@@ -15,6 +15,7 @@
 	let isActive = false;
     function handleClick() {
     isActive = !isActive;
+    console.log(isActive)
     }
 </script>
 
@@ -33,7 +34,7 @@
             <div class="item-title text-12s c-dark-gray">Грудь</div>
             <!-- <div class="value text-14s">Добавить</div> -->
             <!-- svelte-ignore a11y-click-events-have-key-events -->
-            <div class="params-item-add text-14s c-blue" on:click={console.log('click')}>Добавить</div>
+            <div class="params-item-add text-14s c-blue">Добавить</div>
         </div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="params-grid-item bg-l-gray" on:click={handleClick}>
@@ -53,7 +54,7 @@
             <div class="item-title text-12s c-dark-gray">Рука</div>
             <!-- <div class="value text-14s">Добавить</div> -->
             <!-- svelte-ignore a11y-click-events-have-key-events -->
-            <div class="params-item-add text-14s c-blue" on:click={console.log('click')}>Добавить</div>
+            <div class="params-item-add text-14s c-blue">Добавить</div>
         </div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="params-grid-item bg-l-gray" on:click={handleClick}>

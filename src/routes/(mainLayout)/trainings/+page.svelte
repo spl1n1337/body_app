@@ -33,6 +33,9 @@
 
 
 <style>
+    :global(body) {
+        overflow-y: auto;
+    }
     .trainings__heading {
         width: 100%;
     }
