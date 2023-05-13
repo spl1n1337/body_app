@@ -118,7 +118,7 @@
         padding-top: 10px;
 	}
 	.line {
-		width: 286px;
+		width: 100%;
 		height: 1px;
 		border: 1px dashed #dcdee3;
 		opacity: 0.5;
@@ -209,7 +209,7 @@
     }
     @media (max-width: 389px) {
         .canvas-container {
-            overflow: hidden;
+            /* overflow: hidden; */
         }
         .line-wrapper {
             padding-top: 15px;

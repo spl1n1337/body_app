@@ -133,14 +133,12 @@
 		// }
 	});
 	export let isActive = false;
-	export function handleClick() {
-		isActive = !isActive;
-	}
+	export let close;
 </script>
 
 <div class="modal-wrapper {isActive ? '_active' : ''}">
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<div class="modal-head" on:click={handleClick}>
+	<div class="modal-head" on:click={close}>
 		<div class="modal-close"><img src={cross} alt="q" /></div>
 		<div class="modal-title text-14s">Талия</div>
 		<div class="modal-check"><img src={check} alt="q" /></div>

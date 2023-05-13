@@ -111,7 +111,7 @@
     </a>
 </div>
 
-<Picker handleClick={handleClick}/>
+<Picker {isActive} close={handleClick}/>
 <style>
     .big-black-button._black {
         margin-bottom: 26.15vw !important;
