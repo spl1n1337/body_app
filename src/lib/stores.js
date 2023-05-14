@@ -21,11 +21,11 @@ export const trainingsInfo = readable(
 
 export const exercises = readable(
     [
-        {id: 0, name: 'Отведение бедра в сторону в фитнес\u2011резинке', icon: dumbbell, amount: '3х25', img: training1},
+        {id: 0, name: 'Отведение бедра в сторону в фитнес\u2011резинке', icon: dumbbell, amount: '25', img: training1},
         {id: 1, name: 'Наклоны вперед в фитнес\u2011резинке', icon: timer, amount: '2 мин', img: training2},
         {id: 2, name: 'Подъём бедра в фитнес\u2011резинке', icon: timer, amount: '2 мин', img: training3},
-        {id: 3, name: 'Отведение бедра в сторону в фитнес\u2011резинке', icon: dumbbell, amount: '3х25', img: training4},
-        {id: 3, name: 'Отведение бедра в сторону в фитнес\u2011резинке', icon: dumbbell, amount: '3х25', img: training4},
-        {id: 3, name: 'Отведение бедра в сторону в фитнес\u2011резинке', icon: dumbbell, amount: '3х25', img: training4},
+        {id: 3, name: 'Отведение бедра в сторону в фитнес\u2011резинке', icon: dumbbell, amount: '25', img: training4},
+        {id: 3, name: 'Отведение бедра в сторону в фитнес\u2011резинке', icon: dumbbell, amount: '25', img: training4},
+        {id: 3, name: 'Отведение бедра в сторону в фитнес\u2011резинке', icon: dumbbell, amount: '25', img: training4},
     ]
 )

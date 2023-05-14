@@ -1,7 +1,6 @@
 <script>
-    import showicon from "$lib/icons/show.png";
-    import hideicon from "$lib/icons/hide.png";
-    import hide from "$lib/icons/hide.png";
+    import showicon from "$lib/icons/show.svg";
+    import hideicon from "$lib/icons/hide.svg";
     import BackArrow from "$lib/components/BackArrow.svelte";
     import TrainingHeader from "$lib/components/TrainingHeader.svelte";
     import Container from "$lib/components/Container.svelte"
