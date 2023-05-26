@@ -17,6 +17,7 @@
     isActive = !isActive;
     console.log(isActive)
     }
+    
 </script>
 
 <TrainingHeader>

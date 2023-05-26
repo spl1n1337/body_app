@@ -1,10 +1,19 @@
 <script>
-    import { trainingsInfo } from '$lib/stores.js';
+    // import { trainingsInfo } from '$lib/stores.js';
+    import { linkRoad } from "$lib/stores.js"
     import TrainingHeader from '$lib/components/TrainingHeader.svelte';
     import NavFooter from '$lib/components/NavFooter.svelte';
     import Container from '$lib/components/Container.svelte';
     import {goto} from '$app/navigation';
-    
+    import { onMount } from 'svelte';
+
+    export let data;
+
+    let trainingsInfo = data.trainingsData 
+
+    console.log(trainingsInfo)
+
+
     let trainingsACtive = 1;
 </script>
 
@@ -16,14 +25,14 @@
 
 <Container>
     <div class="training-container">
-        {#each $trainingsInfo as item}
+        {#each trainingsInfo as item}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div on:click={() => goto(`/trainings/${item.id}`)} class="training-card {item.bgcolor}">
+        <div on:click={() => goto(`/trainings/${item.id}`)} class="training-card {item.bg_color}">
             <div class="training__text-block">
                 <div class="treaining__title text-16b">{item.name}</div>
                 <div class="training__cta text-14s bg-l-gray">Начать</div>
             </div>
-            <div class="training__img"><img src={item.img} alt="qwe"></div>
+            <div class="training__img"><img src={$linkRoad}{item.preview} alt="qwe"></div>
         </div>
         {/each}
     </div>

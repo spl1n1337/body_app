@@ -1,4 +1,4 @@
-import { readable } from 'svelte/store';
+import { readable, writable } from 'svelte/store';
 
 import ExpressIcon from '$lib/TrainingsIcons/training-express.png';
 import CardioIcon from '$lib/TrainingsIcons/training-cardio.png';
@@ -29,3 +29,11 @@ export const exercises = readable(
         {id: 3, name: 'Отведение бедра в сторону в фитнес\u2011резинке', icon: dumbbell, amount: '25', img: training4},
     ]
 )
+
+
+export const linkRoad = readable(
+    'https://e2d9-212-58-120-54.ngrok-free.app'
+    )
+
+
+export let currentTraining = writable(1);
