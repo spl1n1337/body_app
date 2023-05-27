@@ -43,15 +43,13 @@
         clearInterval(interval);
         isTimerActive = false;
         topButtonValue = trainingProgramm[exerciseIndex].repeats;
-        waitForVideoReadyState(videoElement);
+        waitForVideoReadyState(videoElement, 'play');
         }
         if(trainingProgramm[exerciseIndex].type == 'time') {
         clearInterval(interval);
         isTimerActive = false;
         topButtonValue = trainingProgramm[exerciseIndex].time;
-        // startTimer(topButtonValue, isRest);
-        waitForVideoReadyState(videoElement, startTimer(topButtonValue, isRest));
-        // playVideoIfLoaded();
+        waitForVideoReadyState(videoElement, 'play', startTimer(topButtonValue, isRest));
         }
    }
    function isRest() {
@@ -61,7 +59,7 @@
         state = 'rest';
         exerciseIndex++;
         startTimer(30, isExercise);
-        videoElement.pause();
+        waitForVideoReadyState(videoElement, 'pause');
    }
    function isStart() {
         clearInterval(interval);
@@ -133,13 +131,18 @@
 
         return word;
     }
-    async function waitForVideoReadyState(videoElement, callback) {
+    async function waitForVideoReadyState(videoElement, action, callback) {
         await new Promise((resolve) => {
             const checkReadyState = () => {
-            if (videoElement != undefined && videoElement != null) {
+            if (videoElement != undefined && videoElement != null && videoElement.src === $linkRoad + trainingProgramm[exerciseIndex].video)  {
                 if (videoElement.readyState >= 3) {
                 resolve();
-                videoElement.play()
+                if(action == 'play') {
+                    videoElement.play();
+                }else {
+                    videoElement.pause()
+                    console.log('video pause')
+                }
                 } else {
                 setTimeout(checkReadyState, 100); // Проверяем состояние каждые 100 миллисекунд
                 }
@@ -178,7 +181,7 @@
         };
     onMount(()=> {
         startTimer(10, isExercise);
-        videoElement.pause();
+        waitForVideoReadyState(videoElement, 'pause')
     })
 
 </script>
