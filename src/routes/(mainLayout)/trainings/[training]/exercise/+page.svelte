@@ -61,7 +61,6 @@
         state = 'rest';
         exerciseIndex++;
         startTimer(30, isExercise);
-        videoElement.autoplay = false;
         videoElement.pause();
    }
    function isStart() {
@@ -140,7 +139,6 @@
             if (videoElement != undefined && videoElement != null) {
                 if (videoElement.readyState >= 3) {
                 resolve();
-                videoElement.autoplay = true;
                 videoElement.play()
                 } else {
                 setTimeout(checkReadyState, 100); // Проверяем состояние каждые 100 миллисекунд
@@ -205,6 +203,7 @@
        bind:this={videoElement}
        muted
        preload="auto"
+       autoplay
        playsinline 
        loop 
        class="exercise__video"
