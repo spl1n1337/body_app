@@ -153,6 +153,9 @@
         }
         if(action == 'play') {
             videoElement.play();
+            console.log('video play')
+            console.log(videoElement.paused)
+            console.log(videoElement.readyState())
             }else {
             videoElement.pause()
             console.log('video pause')
