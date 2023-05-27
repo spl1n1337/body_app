@@ -135,7 +135,6 @@
     function playVideoIfLoaded() {
         if (videoElement.readyState >= 3) {
             videoElement.play();
-            videoElement.autoplay();
         } else {
             videoElement.addEventListener('loadeddata', handleVideoLoaded);
         }
@@ -200,8 +199,9 @@
    <!-- svelte-ignore a11y-media-has-caption -->
    <video 
        bind:this={videoElement}
-       muted 
+       muted
        preload="auto"
+       autoplay
        playsinline 
        loop 
        class="exercise__video"
