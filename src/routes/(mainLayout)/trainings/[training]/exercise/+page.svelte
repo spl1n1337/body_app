@@ -147,10 +147,6 @@
             checkReadyState();
         });
 
-        // Вызываем колбэк после выполнения условий
-        if (typeof callback === 'function' && videoElement.paused == false) {
-            callback();
-        }
         if(action == 'play') {
             videoElement.play();
             console.log('video play')
@@ -159,6 +155,9 @@
             }else {
             videoElement.pause()
             console.log('video pause')
+        }
+        if (typeof callback === 'function' && videoElement.paused == false) {
+            callback();
         }
     }
 
