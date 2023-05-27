@@ -41,7 +41,8 @@
     <div class="exercise__header text-b20">{trainingInfo.name}</div>
     <div class="exercise__wrapper">
         {#each trainingInfo.exercises as exercise}
-            <div class="exercise__item">
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <div class="exercise__item" on:click={()=> goto(`${pageIndex}/exercise`)}>
                 <div class="exercise__img">
                     <div class="play-icon"><img src="{playIcon}" alt="q"></div>
                     <img class="exercise__image" src="{$linkRoad+'/'+exercise.preview}" alt="{exercise.name}">

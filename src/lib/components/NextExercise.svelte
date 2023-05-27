@@ -1,12 +1,14 @@
 <script>
     export let nextExercise,
                nextExerciseTitle,
-               disable;
+               disable,
+               goNext;
 </script>
 
 
 
-<div class="exercise__item {disable}">
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="exercise__item {disable}" on:click={goNext}>
     <img class="exercise__img" src="{nextExercise}" alt="qwe">
     <div class="exercise__text">
         <div class="next-exercise">Далее</div>
