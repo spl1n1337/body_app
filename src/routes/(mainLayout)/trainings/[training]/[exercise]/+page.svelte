@@ -1,7 +1,7 @@
 <script>
     // /** @type {import('./$types').PageData} */
     export let data;
-
+   import playIcon from '$lib/icons/big-play.svg';
    import TrainingHeader from "$lib/components/TrainingHeader.svelte";
    import BackArrow from "$lib/components/BackArrow.svelte";
    import TrainingTimer from "$lib/components/TrainingTimer.svelte";
@@ -15,41 +15,43 @@
 
    let videoElement;
    let disable;
-   let trainingProgramm;
+   let trainingProgramm = data.trainingData.exercises;
+   let videoPause = true;
+   let videoLoading = true;
 
    const formatter = new Intl.DateTimeFormat('en', {
        minute: '2-digit',
        second: '2-digit'
    });
-   let repeatsOrTime = 10;
-   let countdownTimer;
    let currentTime = 0;
    let isTimerActive = false;
    let interval;
-   currentTraining.subscribe(value => {
-       trainingProgramm = value;
-   })
+//    currentTraining.subscribe(value => {
+    //    trainingProgramm = value;
+//    })
    let exercisesCount = trainingProgramm.length;
    let exerciseIndex = 0;
-
 
 // new methods
    let topButtonValue = '00:10';
 //    State
    let state = 'start';
-   function isExercise() {
+   async function isExercise() {
         state = 'exercise';
         if(trainingProgramm[exerciseIndex].type == 'repeats') {
-        clearInterval(interval);
-        isTimerActive = false;
-        topButtonValue = trainingProgramm[exerciseIndex].repeats;
-        waitForVideoReadyState(videoElement, 'play');
+            clearInterval(interval);
+            isTimerActive = false;
+            topButtonValue = trainingProgramm[exerciseIndex].repeats;
+            waitForVideoReadyState(videoElement)
         }
         if(trainingProgramm[exerciseIndex].type == 'time') {
-        clearInterval(interval);
-        isTimerActive = false;
-        topButtonValue = trainingProgramm[exerciseIndex].time;
-        waitForVideoReadyState(videoElement, 'play', startTimer(topButtonValue, isRest));
+            clearInterval(interval);
+            isTimerActive = false;
+            topButtonValue = trainingProgramm[exerciseIndex].time;
+            await waitForVideoReadyState(videoElement);
+            videoElement.play();
+            videoPause = false;
+            startTimer(topButtonValue, isRest);
         }
    }
    function isRest() {
@@ -64,6 +66,7 @@
    function isStart() {
         clearInterval(interval);
         videoElement.pause();
+        videoPause = true;
         isTimerActive = false;
         topButtonValue = '00:10';
         state = 'start';
@@ -133,16 +136,11 @@
     }
     async function waitForVideoReadyState(videoElement, action, callback) {
         await new Promise((resolve) => {
+            videoLoading = true;
             const checkReadyState = () => {
             if (videoElement != undefined && videoElement != null && videoElement.src === $linkRoad + trainingProgramm[exerciseIndex].video)  {
                 if (videoElement.readyState >= 3) {
                 resolve();
-                if(action == 'play') {
-                    videoElement.play();
-                }else {
-                    videoElement.pause()
-                    console.log('video pause')
-                }
                 } else {
                 setTimeout(checkReadyState, 100); // Проверяем состояние каждые 100 миллисекунд
                 }
@@ -153,20 +151,20 @@
             checkReadyState();
         });
 
-        // Вызываем колбэк после выполнения условий
-        if (typeof callback === 'function') {
+        if(!action) {
+            videoElement.play();
+            videoPause = false;
+            videoLoading = false;
+            console.log('video play')
+            console.log(videoElement.paused)
+            console.log(videoElement.readyState)
+
+            }else
+        if (typeof callback === 'function' && videoElement.paused == false) {
             callback();
         }
     }
-
-    
-
-
-
-    function handleVideoLoaded() {
-        videoElement.play();
-        videoElement.removeEventListener('loadeddata', handleVideoLoaded);
-    }
+    const stop = ()=> videoElement.pause();
     const backFunction = () => {
             if(state == 'start'){
                 history.back()
@@ -174,14 +172,21 @@
                 isStart();
             }else if(state == 'rest') {
                 state = 'exercise';
-                stopTimer()
+                stopTimer();
                 exerciseIndex--;
-                setTimeout(isExercise, 1000)
+                isExercise()
+            }else if(state == 'exercise' && exerciseIndex != 0){
+                stopTimer();
+                exerciseIndex--;
+                isExercise()
             }
         };
+
     onMount(()=> {
         startTimer(10, isExercise);
-        waitForVideoReadyState(videoElement, 'pause')
+        waitForVideoReadyState(videoElement);
+        stop()
+        console.log(trainingProgramm)
     })
 
 </script>
@@ -198,7 +203,10 @@
     }/>
 </TrainingHeader>
 
-<NextExercise nextExercise={nextExercisePic} nextExerciseTitle={trainingProgramm[exerciseIndex].name} disable={(state === 'exercise') ? ('disable') : ('')}/>
+<NextExercise 
+nextExercise={nextExercisePic} nextExerciseTitle={trainingProgramm[exerciseIndex].name} disable={(state === 'exercise') ? ('disable') : ('')}
+goNext={isExercise}
+/>
 
 <div class="exercise__bg {(state === 'exercise') ? ('disable') : ('')}">
    <!-- svelte-ignore a11y-media-has-caption -->
@@ -210,11 +218,25 @@
        playsinline 
        loop 
        class="exercise__video"
-       poster="{$linkRoad + trainingProgramm[exerciseIndex].preview}" 
        src="{$linkRoad + trainingProgramm[exerciseIndex].video}"
        >
    </video>
-   <div class="poster"></div>
+   {#if isTimerActive == false && state == 'exercise' && trainingProgramm[exerciseIndex].type == 'time'}
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <div class="play-icon" on:click={()=>{
+        if(trainingProgramm[exerciseIndex].type == 'time'){
+            videoElement.play()
+            videoPause = false;
+            resumeTimer()
+        }else {
+            videoPause = false;
+            videoElement.play()
+        }
+    }}><img src="{playIcon}" alt="q"></div>
+   {/if}
+   {#if state == 'rest' || state == 'start' || videoLoading}
+    <img src="{$linkRoad + trainingProgramm[exerciseIndex].preview}" alt="qwe" class="poster">
+   {/if}
    <div class="overlay"></div>
    <div class="exercise__title c-white">
     {#if state === 'start'}
@@ -243,7 +265,11 @@
            }
        }}>
            <img src="{pause}" alt="qwe" class="exercise__pause__icon mr-4">
+           {#if isTimerActive == false}
+           <div class="exercise__pause-text text-14s c-white">Продолжить</div>
+           {:else}
            <div class="exercise__pause-text text-14s c-white">Пауза</div>
+           {/if}
        </div>
        <!-- svelte-ignore a11y-click-events-have-key-events -->
        <div class="exercise__pause bg-blue"
@@ -277,6 +303,12 @@
 
 
 <style>
+    .poster {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
    .exercise__progressbar {
        height: 1.54vw;
        background: #DCE1F2;
@@ -366,4 +398,22 @@
        height: 100%;
        object-fit: cover;
    }
+   .play-icon img {
+        width: auto;
+    }
+    .play-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.24);
+        backdrop-filter: blur(6px);
+        border-radius: 20px;
+        padding: 6vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 22.5vw;
+        height: 22.5vw;
+    }
 </style>
