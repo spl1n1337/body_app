@@ -16,6 +16,8 @@
    let videoElement;
    let disable;
    let trainingProgramm;
+   let videoPause = true;
+   let videoLoading = true;
 
    const formatter = new Intl.DateTimeFormat('en', {
        minute: '2-digit',
@@ -51,6 +53,7 @@
             topButtonValue = trainingProgramm[exerciseIndex].time;
             await waitForVideoReadyState(videoElement);
             videoElement.play();
+            videoPause = false;
             startTimer(topButtonValue, isRest);
         }
    }
@@ -66,6 +69,7 @@
    function isStart() {
         clearInterval(interval);
         videoElement.pause();
+        videoPause = true;
         isTimerActive = false;
         topButtonValue = '00:10';
         state = 'start';
@@ -135,6 +139,7 @@
     }
     async function waitForVideoReadyState(videoElement, action, callback) {
         await new Promise((resolve) => {
+            videoLoading = true;
             const checkReadyState = () => {
             if (videoElement != undefined && videoElement != null && videoElement.src === $linkRoad + trainingProgramm[exerciseIndex].video)  {
                 if (videoElement.readyState >= 3) {
@@ -151,18 +156,17 @@
 
         if(!action) {
             videoElement.play();
+            videoPause = false;
+            videoLoading = false;
             console.log('video play')
             console.log(videoElement.paused)
             console.log(videoElement.readyState)
-            }else if(action) {
-            videoElement.pause()
-            console.log('video pause')
-        }
+
+            }else
         if (typeof callback === 'function' && videoElement.paused == false) {
             callback();
         }
     }
-
     const backFunction = () => {
             if(state == 'start'){
                 history.back()
@@ -217,9 +221,19 @@ goNext={isExercise}
        >
    </video>
    {#if isTimerActive == false && state == 'exercise' && trainingProgramm[exerciseIndex].type == 'time'}
-    <div class="play-icon"><img src="{playIcon}" alt="q"></div>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <div class="play-icon" on:click={()=>{
+        if(trainingProgramm[exerciseIndex].type == 'time'){
+            videoElement.play()
+            videoPause = false;
+            resumeTimer()
+        }else {
+            videoPause = false;
+            videoElement.play()
+        }
+    }}><img src="{playIcon}" alt="q"></div>
    {/if}
-   {#if state == 'rest' || state == 'start'}
+   {#if state == 'rest' || state == 'start' || videoLoading}
     <img src="{$linkRoad + trainingProgramm[exerciseIndex].preview}" alt="qwe" class="poster">
    {/if}
    <div class="overlay"></div>
