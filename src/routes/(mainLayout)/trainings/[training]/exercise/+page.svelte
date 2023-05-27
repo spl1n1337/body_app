@@ -137,12 +137,6 @@
             if (videoElement != undefined && videoElement != null && videoElement.src === $linkRoad + trainingProgramm[exerciseIndex].video)  {
                 if (videoElement.readyState >= 3) {
                 resolve();
-                if(action == 'play') {
-                    videoElement.play();
-                }else {
-                    videoElement.pause()
-                    console.log('video pause')
-                }
                 } else {
                 setTimeout(checkReadyState, 100); // Проверяем состояние каждые 100 миллисекунд
                 }
@@ -156,6 +150,12 @@
         // Вызываем колбэк после выполнения условий
         if (typeof callback === 'function' && videoElement.paused == false) {
             callback();
+        }
+        if(action == 'play') {
+            videoElement.play();
+            }else {
+            videoElement.pause()
+            console.log('video pause')
         }
     }
 
