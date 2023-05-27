@@ -140,7 +140,6 @@
                 if (videoElement.readyState >= 3) {
                 resolve();
                 videoElement.play()
-                videoElement.autoplay()
                 } else {
                 setTimeout(checkReadyState, 100); // Проверяем состояние каждые 100 миллисекунд
                 }
@@ -204,6 +203,7 @@
        bind:this={videoElement}
        muted
        preload="auto"
+       autoplay
        playsinline 
        loop 
        class="exercise__video"
