@@ -154,7 +154,7 @@
         });
 
         // Вызываем колбэк после выполнения условий
-        if (typeof callback === 'function' && videoElement.paused == true) {
+        if (typeof callback === 'function' && videoElement.paused == false) {
             callback();
         }
     }
