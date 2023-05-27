@@ -49,7 +49,8 @@
             clearInterval(interval);
             isTimerActive = false;
             topButtonValue = trainingProgramm[exerciseIndex].time;
-            await waitForVideoReadyState(videoElement, 'play');
+            await waitForVideoReadyState(videoElement, 'play');]
+            videoElement.play()
             startTimer(topButtonValue, isRest);
         }
    }
