@@ -43,24 +43,25 @@
         clearInterval(interval);
         isTimerActive = false;
         topButtonValue = trainingProgramm[exerciseIndex].repeats;
-        playVideoIfLoaded();
+        waitForVideoReadyState(videoElement);
         }
         if(trainingProgramm[exerciseIndex].type == 'time') {
         clearInterval(interval);
         isTimerActive = false;
         topButtonValue = trainingProgramm[exerciseIndex].time;
-        startTimer(topButtonValue, isRest);
-        playVideoIfLoaded();
+        // startTimer(topButtonValue, isRest);
+        waitForVideoReadyState(videoElement, startTimer(topButtonValue, isRest));
+        // playVideoIfLoaded();
         }
    }
    function isRest() {
         clearInterval(interval);
-        videoElement.pause();
         isTimerActive = false;
         topButtonValue = '00:30';
         state = 'rest';
         exerciseIndex++;
         startTimer(30, isExercise);
+        videoElement.pause();
    }
    function isStart() {
         clearInterval(interval);
@@ -113,7 +114,7 @@
    function resumeTimer() {
        console.log('resume')
        if(state == 'exercise') {
-        playVideoIfLoaded();
+        videoElement.play()
        }
         startTimer(currentTime);
    }
@@ -132,13 +133,32 @@
 
         return word;
     }
-    function playVideoIfLoaded() {
-        if (videoElement.readyState >= 3) {
-            videoElement.play();
-        } else {
-            videoElement.addEventListener('loadeddata', handleVideoLoaded);
+    async function waitForVideoReadyState(videoElement, callback) {
+        await new Promise((resolve) => {
+            const checkReadyState = () => {
+            if (videoElement != undefined && videoElement != null) {
+                if (videoElement.readyState >= 3) {
+                resolve();
+                videoElement.play()
+                videoElement.autoplay()
+                } else {
+                setTimeout(checkReadyState, 100); // Проверяем состояние каждые 100 миллисекунд
+                }
+            } else {
+                setTimeout(checkReadyState, 100); // Проверяем состояние каждые 100 миллисекунд
+            }
+            };
+            checkReadyState();
+        });
+
+        // Вызываем колбэк после выполнения условий
+        if (typeof callback === 'function') {
+            callback();
         }
     }
+
+    
+
 
 
     function handleVideoLoaded() {
@@ -156,28 +176,11 @@
                 exerciseIndex--;
                 setTimeout(isExercise, 1000)
             }
-        };  
-        
-        async function waitForVideoReady(videoElement, callback) {
-            return new Promise((resolve) => {
-                if (videoElement.readyState >= 3) {
-                console.log('video ready to play');
-                callback();
-                resolve();
-                } else {
-                videoElement.addEventListener('canplaythrough', function listener() {
-                    videoElement.removeEventListener('canplaythrough', listener);
-                    console.log('video ready to play');
-                    callback();
-                    resolve();
-                });
-                }
-            });
-        }
-
-   onMount(()=> {
-       startTimer(10, isExercise);
-   })
+        };
+    onMount(()=> {
+        startTimer(10, isExercise);
+        videoElement.pause();
+    })
 
 </script>
 
@@ -201,7 +204,6 @@
        bind:this={videoElement}
        muted
        preload="auto"
-       autoplay
        playsinline 
        loop 
        class="exercise__video"
