@@ -49,7 +49,14 @@
         clearInterval(interval);
         isTimerActive = false;
         topButtonValue = trainingProgramm[exerciseIndex].time;
-        waitForVideoReadyState(videoElement, 'play', startTimer(topButtonValue, isRest));
+        async function waitingVideo() {
+            await new Promise(resolve => {
+                waitForVideoReadyState(videoElement, 'play');
+                resolve();
+            })
+            startTimer(topButtonValue, isRest)
+        }
+        
         }
    }
    function isRest() {
