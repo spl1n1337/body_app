@@ -154,11 +154,19 @@
         });
 
         // Вызываем колбэк после выполнения условий
-        if (typeof callback === 'function' && videoElement.paused == true) {
+        if (typeof callback === 'function') {
             callback();
         }
     }
 
+    
+
+
+
+    function handleVideoLoaded() {
+        videoElement.play();
+        videoElement.removeEventListener('loadeddata', handleVideoLoaded);
+    }
     const backFunction = () => {
             if(state == 'start'){
                 history.back()
