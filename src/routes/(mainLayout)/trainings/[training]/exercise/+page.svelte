@@ -37,26 +37,20 @@
    let topButtonValue = '00:10';
 //    State
    let state = 'start';
-   function isExercise() {
+   async function isExercise() {
         state = 'exercise';
         if(trainingProgramm[exerciseIndex].type == 'repeats') {
-        clearInterval(interval);
-        isTimerActive = false;
-        topButtonValue = trainingProgramm[exerciseIndex].repeats;
-        waitForVideoReadyState(videoElement, 'play');
+            clearInterval(interval);
+            isTimerActive = false;
+            topButtonValue = trainingProgramm[exerciseIndex].repeats;
+            waitForVideoReadyState(videoElement, 'play')
         }
         if(trainingProgramm[exerciseIndex].type == 'time') {
-        clearInterval(interval);
-        isTimerActive = false;
-        topButtonValue = trainingProgramm[exerciseIndex].time;
-        async function waitingVideo() {
-            await new Promise(resolve => {
-                waitForVideoReadyState(videoElement, 'play');
-                resolve();
-            })
-            startTimer(topButtonValue, isRest)
-        }
-        
+            clearInterval(interval);
+            isTimerActive = false;
+            topButtonValue = trainingProgramm[exerciseIndex].time;
+            await waitForVideoReadyState(videoElement, 'play');
+            startTimer(topButtonValue, isRest);
         }
    }
    function isRest() {
