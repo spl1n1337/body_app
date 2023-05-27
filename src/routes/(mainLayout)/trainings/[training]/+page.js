@@ -12,6 +12,6 @@ export async function load({ fetch, params }) {
   const res = await fetch(`${link}/api/trainings/${training_index}`);
   const trainingData = await res.json();
 
-  return { trainingData };
+  return { trainingData, training_index };
 }
 

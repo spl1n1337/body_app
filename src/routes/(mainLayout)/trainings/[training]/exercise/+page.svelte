@@ -55,12 +55,12 @@
    }
    function isRest() {
         clearInterval(interval);
+        videoElement.pause();
         isTimerActive = false;
         topButtonValue = '00:30';
         state = 'rest';
         exerciseIndex++;
         startTimer(30, isExercise);
-        console.log(exerciseIndex)
    }
    function isStart() {
         clearInterval(interval);
@@ -72,7 +72,9 @@
         startTimer(10, isExercise);
    }
    function goToFinish() {
-    goto('trainings/finish')
+    clearInterval(interval);
+    isTimerActive = false;
+    goto('/trainings/finish')
    }
 
 // new methods
@@ -92,11 +94,13 @@
                topButtonValue = formatter.format(currentTime * 1000);
            } else {
                 if(state == 'exercise' && exerciseIndex == exercisesCount-1 && currentTime == 0) {
-                    goto('/trainings/finish')
+                    goToFinish();
+                }else {
+                    clearInterval(interval);
+                    isTimerActive = false;
+                    if(callback){callback()};
                 }
-               clearInterval(interval);
-               isTimerActive = false;
-               if(callback){callback()};
+               
            }
        }, 1000)
    }
@@ -131,6 +135,7 @@
     function playVideoIfLoaded() {
         if (videoElement.readyState >= 3) {
             videoElement.play();
+            videoElement.autoplay();
         } else {
             videoElement.addEventListener('loadeddata', handleVideoLoaded);
         }
@@ -154,7 +159,23 @@
             }
         };  
         
-   
+        async function waitForVideoReady(videoElement, callback) {
+            return new Promise((resolve) => {
+                if (videoElement.readyState >= 3) {
+                console.log('video ready to play');
+                callback();
+                resolve();
+                } else {
+                videoElement.addEventListener('canplaythrough', function listener() {
+                    videoElement.removeEventListener('canplaythrough', listener);
+                    console.log('video ready to play');
+                    callback();
+                    resolve();
+                });
+                }
+            });
+        }
+
    onMount(()=> {
        startTimer(10, isExercise);
    })
@@ -188,6 +209,7 @@
        src="{$linkRoad + trainingProgramm[exerciseIndex].video}"
        >
    </video>
+   <div class="poster"></div>
    <div class="overlay"></div>
    <div class="exercise__title c-white">
     {#if state === 'start'}

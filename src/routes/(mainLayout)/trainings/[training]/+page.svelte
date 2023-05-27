@@ -16,8 +16,7 @@
     let trainingsACtive = 1;
 
     let trainingInfo = data.trainingData;
-    
-
+    let pageIndex = data.training_index;
     const backFunction = (event) => {
     event.stopPropagation();
     history.back()
@@ -30,8 +29,6 @@
     function passCurrentTraining () {
         currentTraining.set(trainingInfo.exercises)
     }
-
-
 
 </script>
 
@@ -71,8 +68,9 @@
 
 <NavFooter {trainingsACtive}>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <StartTraining backFunction={()=> goto('/exercise')} on:click={passCurrentTraining()}/>
+    <StartTraining backFunction={()=> goto(`${pageIndex}/exercise`)} on:click={passCurrentTraining()}/>
 </NavFooter>
+
 
 
 <style>
