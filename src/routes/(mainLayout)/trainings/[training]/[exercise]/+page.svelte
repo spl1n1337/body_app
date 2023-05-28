@@ -209,6 +209,9 @@ goNext={isExercise}
 />
 
 <div class="exercise__bg {(state === 'exercise') ? ('disable') : ('')}">
+    {#if state == 'rest' || state == 'start' || videoLoading}
+        <img src="{$linkRoad + trainingProgramm[exerciseIndex].preview}" alt="qwe" class="poster">
+    {/if}
    <!-- svelte-ignore a11y-media-has-caption -->
    <video 
        bind:this={videoElement}
@@ -234,9 +237,7 @@ goNext={isExercise}
         }
     }}><img src="{playIcon}" alt="q"></div>
    {/if}
-   {#if state == 'rest' || state == 'start' || videoLoading}
-    <img src="{$linkRoad + trainingProgramm[exerciseIndex].preview}" alt="qwe" class="poster">
-   {/if}
+   
    <div class="overlay"></div>
    <div class="exercise__title c-white">
     {#if state === 'start'}
