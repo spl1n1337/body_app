@@ -61,7 +61,7 @@
         state = 'rest';
         exerciseIndex++;
         startTimer(30, isExercise);
-        waitForVideoReadyState(videoElement, 'pause');
+        waitForVideoReadyState(videoElement, stop);
    }
    function isStart() {
         clearInterval(interval);
@@ -107,10 +107,9 @@
        }, 1000)
    }
    function stopTimer() {
-       console.log('sttop');
-        videoElement.pause();
-       clearInterval(interval);
-       isTimerActive = false;
+        stop()
+        clearInterval(interval);
+        isTimerActive = false;
    }
    function resumeTimer() {
        console.log('resume')
@@ -134,7 +133,7 @@
 
         return word;
     }
-    async function waitForVideoReadyState(videoElement, action, callback) {
+    async function waitForVideoReadyState(videoElement, callback) {
         await new Promise((resolve) => {
             videoLoading = true;
             const checkReadyState = () => {
@@ -150,21 +149,17 @@
             };
             checkReadyState();
         });
-
-        if(!action) {
             videoElement.play();
             videoPause = false;
             videoLoading = false;
-            console.log('video play')
-            console.log(videoElement.paused)
-            console.log(videoElement.readyState)
-
-            }else
         if (typeof callback === 'function' && videoElement.paused == false) {
             callback();
         }
     }
-    const stop = ()=> videoElement.pause();
+    const stop = ()=> {
+        videoElement.pause()
+        console.log('stop')
+    };
     const backFunction = () => {
             if(state == 'start'){
                 history.back()
@@ -184,9 +179,7 @@
 
     onMount(()=> {
         startTimer(10, isExercise);
-        waitForVideoReadyState(videoElement);
-        stop()
-        console.log(trainingProgramm)
+        waitForVideoReadyState(videoElement, stop);
     })
 
 </script>
@@ -209,9 +202,6 @@ goNext={isExercise}
 />
 
 <div class="exercise__bg {(state === 'exercise') ? ('disable') : ('')}">
-    {#if state == 'rest' || state == 'start' || videoLoading}
-        <img src="{$linkRoad + trainingProgramm[exerciseIndex].preview}" alt="qwe" class="poster">
-    {/if}
    <!-- svelte-ignore a11y-media-has-caption -->
    <video 
        bind:this={videoElement}
@@ -237,7 +227,9 @@ goNext={isExercise}
         }
     }}><img src="{playIcon}" alt="q"></div>
    {/if}
-   
+   {#if state == 'rest' || state == 'start' || videoLoading}
+        <img src="{$linkRoad + trainingProgramm[exerciseIndex].preview}" alt="qwe" class="poster">
+    {/if}
    <div class="overlay"></div>
    <div class="exercise__title c-white">
     {#if state === 'start'}
