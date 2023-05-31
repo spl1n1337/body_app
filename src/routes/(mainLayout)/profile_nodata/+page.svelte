@@ -23,7 +23,8 @@
         <div class="params-name text-16s c-white">Вес <span class="params-date"></span></div>
         <div class="params-value">
             <div class="params-weight text-32s c-white">- -</div>
-            <div class="params-plus bg-white">
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <div class="params-plus bg-white" on:click={()=>goto('/new-weight')}>
                 <img src="{plus}" alt="plus">
             </div>
         </div>
@@ -45,7 +46,7 @@
 </Container>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="my-params bg-l-gray" on:click={()=> goto('/params/sizes')}>
+<div class="my-params bg-l-gray" on:click={()=> goto('/params/my-data')}>
     <img src="{myparams}" alt="" class="my-params-icon">
     <div class="my-params-text text-16s">Мои параметры</div>
     <img src="{right}" alt="" class="my-params-icon">

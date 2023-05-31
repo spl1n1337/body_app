@@ -5,7 +5,7 @@
     import TrainingHeader from "$lib/components/TrainingHeader.svelte";
     import BackArrow from "$lib/components/BackArrow.svelte";
     import {goto} from '$app/navigation';
-    let backFunction =()=> goto('/profile_data');
+    let backFunction = ()=> history.back();
 
 
     const weekdays = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];

@@ -27,7 +27,7 @@
 </script>
 
 <TrainingHeader>
-    <BackArrow {backFunction}/>
+    <BackArrow backFunction={()=>history.back()}/>
     <BackArrow backFunction={backFunction1} {buttonIcon}/>
 </TrainingHeader>
 

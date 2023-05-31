@@ -42,7 +42,7 @@
 </Container>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="my-params bg-l-gray" on:click={()=> goto('/params/sizes')}>
+<div class="my-params bg-l-gray" on:click={()=> goto('/params/my-data')}>
     <img src="{myparams}" alt="" class="my-params-icon">
     <div class="my-params-text text-16s">Мои параметры</div>
     <img src="{right}" alt="" class="my-params-icon">
