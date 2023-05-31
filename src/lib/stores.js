@@ -32,7 +32,7 @@ export const exercises = readable(
 
 
 export const linkRoad = readable(
-    'https://rustydimes.pythonanywhere.com'
+    'http://127.0.0.1:8000'
     )
 
 
