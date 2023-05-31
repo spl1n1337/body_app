@@ -7,7 +7,12 @@
     import vk from "$lib/icons/vk.svg";
     import mail from "$lib/icons/mail.svg";
     import {goto} from '$app/navigation';
+    import showicon from "$lib/icons/show.svg";
+    import hideicon from "$lib/icons/hide.svg";
 
+
+    let show1 = false;
+    let show2 = false;
     const backFunction = (event) => {
     event.stopPropagation();
     history.back()
@@ -25,28 +30,37 @@
 <Container>
 
     <div class="reg-title text-32b">Войти</div>
-    <div class="reg-descr text-16m c-dark-gray">Выберите способ авторизации в приложении TopBody</div>
-    
-    <div class="start-training-button">
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="big-black-button _white" on:click={()=> goto('/params')}>
-            <div class="start-training-icon"><img src="{vk}" alt="start"></div>
-            <div class="start-training-text text-16s c-black">Продолжить с Вконтакте</div>
-            <div class="start-training-icon"><img src="{nextBlack}" alt="start"></div>
-        </div>
+    <div class="reg-descr text-16m c-dark-gray">Введите почту и пароль для<br>авторизации</div>
+    <div class="form-container">
+            <form>
 
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="big-black-button _blue" on:click={()=> goto('/params')}>
-            <div class="start-training-icon"><img src="{mail}" alt="start"></div>
-            <div class="start-training-text text-16s">Продолжить с E-mail</div>
-            <div class="start-training-icon"><img src="{nextWhite}" alt="start"></div>
-        </div>
+                <div class="email-container">
+                    <label class="text-12s c-dark-gray" for="email">Почта</label>
+                    <input class="text-14s" type="email" name="email"/>
+                </div>
+        
+                <div class="password-container">
+                    <label class="text-12s c-dark-gray" for="password">Пароль</label>
+                    <input class="text-14s" type={show1 ? 'text' : 'password'} name="password"/>
+                    <button class="hide-btn" on:click|preventDefault={()=> show1 = !show1}>
+                        <img src="{!show1 ? showicon : hideicon}" alt="q">                  
+                    </button>
+                </div>
+
+        
+            </form>
     </div>
+
+    
 
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="button-container">
-        <div class="big-black-button __white" on:click={()=> goto('/registration/user_registration')}>
-            <div class="start-training-text c-black text-16s">Зарегистрироваться</div>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div class="big-black-button _black" on:click={()=> goto('/registration/user_registration')}>
+            <div class="start-training-text text-16s">Зарегистрироваться</div>
+        </div>
+        <div class="big-black-button __white" on:click={()=> goto('/profile_nodata')}>
+            <div class="start-training-text c-black text-16s">Войти</div>
         </div>
     </div>
 </Container>
@@ -55,32 +69,47 @@
 
 
 <style>
-    .big-black-button._white {
-        background: var(--white);
-        border: 1px solid #E8EBF2;
-        margin-bottom: 3.07vw;
-        padding: 4.615vw 3.59vw 4.615vw 6.15vw;
-        justify-content: space-between;
+    .password-container {
+        position: relative;
     }
-    .big-black-button._blue {
-        background-color: var(--blue);
-        padding: 4.615vw 3.59vw 4.615vw 6.15vw;
-        justify-content: space-between;
+    .hide-btn {
+        all: unset;
+        position: absolute;
+        bottom: 1.5vw;
+        right: 0;
     }
-    .start-training-button {
-        /* position: fixed; */
-        width: 100%;
-        background: linear-gradient(360deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
-    }
-    .start-training-icon {
-        margin-right: 2.56vw;
+    .hide-btn img {
+        width: auto;
     }
 
+    form div {
+        display: flex;
+        flex-direction: column;
+    }
+    .email-container  {
+        margin-bottom: 5.3vw;
+    }
+    form div input {
+        border-bottom: 1px solid #DCDEE3;
+        padding-bottom: 6px;
+    }
+    form div input:focus {
+        border-bottom: 1px solid #589BFF;
+    }
+    .form-container {
+        background: #F7F8FC;
+        border-radius: 16px;
+        padding: 5.13vw 6.15vw;
+        margin-bottom: 20vw;
+    }
+    .big-black-button._black {
+        margin-bottom: 4.1vw;
+    }
     .reg-descr {
-        margin-bottom: 8.2vw;
+        margin-bottom: 4.15vw;
     }
     .reg-title {
-        margin-top: 6.15vw;
+        margin-top: 4.1vw;
         margin-bottom: 2vw;
     }
     .big-black-button.__white {
@@ -89,10 +118,23 @@
     }
     .button-container {
         display: flex;
+        flex-direction: column;
+        width: 100%;
         padding: 0 7.18vw;
         position: fixed;
-        bottom: 8.71vw;
+        bottom: 22px;
         left: 50%;
         transform: translateX(-50%);
+    }
+    @media (max-width: 389px) {
+        .button-container {
+            bottom: 0;
+        }
+        .reg-title {
+            margin-top: 0;
+        }
+        .big-black-button._black {
+            margin-bottom: 1vw;
+        }
     }
 </style>
