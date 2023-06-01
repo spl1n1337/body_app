@@ -62,7 +62,7 @@
         text-align: center;
         margin-bottom: 22.56vw;
     }
-    @media (max-width: 321px){
+    @media (max-width: 375px){
         .nothing-descr {
             margin-bottom: 8.5vw;
         }
