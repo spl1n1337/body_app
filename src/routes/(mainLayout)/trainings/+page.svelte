@@ -14,7 +14,6 @@
     console.log(trainingsInfo)
 
 
-    let trainingsACtive = 1;
 </script>
 
 
@@ -38,7 +37,7 @@
     </div>
 </Container>
 
-<NavFooter {trainingsACtive}/>
+<NavFooter/>
 
 
 <style>
@@ -54,6 +53,10 @@
         justify-content: space-between;
         align-items: stretch;
         margin-bottom: 4.1vw;
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        height: 53.3vw;
     }
     .training__text-block {
         padding-top: 5.13vw;
@@ -63,9 +66,8 @@
         flex-direction: column;
         justify-content: space-between;
         width: 44%;
-    }
-    .treaining__title {
-        margin-bottom: 20.5vw;
+        position: relative;
+        z-index: 2;
     }
     .training__cta {
         padding: 2.56vw 5.13vw;
@@ -73,13 +75,15 @@
         width: min-content;
     }
     .training__img {
-        width: 66%;
-        display: flex;
-        justify-content: flex-end;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
     }
     .training__img img {
-        width: auto;
-        height: 100%;
     }
     @media (max-width: 389px) {
         .training-card {

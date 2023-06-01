@@ -1,8 +1,11 @@
 <script>
     import { onMount } from 'svelte';
+	import NavFooter from '$lib/components/NavFooter.svelte';
+	import { page } from '$app/stores'
 </script>
 
-<slot />
+<slot/>
+<NavFooter/>
 
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@700&display=swap');
