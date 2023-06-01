@@ -12,7 +12,7 @@
     import {goto} from '$app/navigation';
     import { onMount } from 'svelte';
 
-    export let data; // <---Данные пользоватлея здесь
+    export let data; // <---Данные пользоватлея здесь (смотри +page.server.js)
 
 
     onMount(async () => {
