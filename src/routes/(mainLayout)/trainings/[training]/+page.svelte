@@ -13,8 +13,6 @@
     import {goto} from '$app/navigation';
 
 
-    let trainingsACtive = 1;
-
     let trainingInfo = data.trainingData;
     let pageIndex = data.training_index;
     const backFunction = (event) => {

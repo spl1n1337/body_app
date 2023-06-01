@@ -1,10 +1,13 @@
 <script>
+    import { goto } from '$app/navigation';
     import hero from "$lib/TrainingsIcons/main.jpg"
+    export let data;
+    
 </script>
 
 <main>
     <div class="main-title text-32b c-white">TopBody</div>
-    <div class="main-vers text-20b c-white">version 0.1</div>
+    <div class="main-vers text-20b c-white">version 0.2</div>
     <div class="overlay"></div>
     <img src={hero} alt="q" class="main-img">
     <a href="/trainings" class="main-descr text-16s c-white">Начать тестирование</a>

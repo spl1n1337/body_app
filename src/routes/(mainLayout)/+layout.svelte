@@ -1,12 +1,12 @@
 <script>
 	import NavFooter from '$lib/components/NavFooter.svelte';
 	import { page } from '$app/stores'
-
+	$: currentPath = $page.url.pathname;
 </script>
 
 <slot/>
 <!-- svelte-ignore empty-block -->
-{#if $page.url.pathname == '/registration'}
+{#if currentPath == '/registration' || currentPath == '/'}
 {:else}
 <NavFooter/>
 {/if}

@@ -1,10 +1,17 @@
 <script>
-    import cross from "$lib/icons/cross.svg";
+    import { onMount } from "svelte";
     import finish__bg from "$lib/icons/finish__bg.png";
     import Cross from "$lib/components/Cross.svelte";
     import {goto} from '$app/navigation';
+    export let data; // <---Данные пользоватлея здесь (смотри +page.server.js)
     let opacity = true,
         Goto = ()=> {goto('/trainings')};
+
+
+
+    onMount(async () => {
+        console.log(data.user); // <---Данные пользоватлея здесь
+	});
 </script>
 
 
@@ -21,10 +28,12 @@
     </div>
     
    <div class="buttons-container">
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    {#if !data.user}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="big-black-button _gray" on:click={()=> goto('/registration')}>
         <div class="start-training-text text-16s">Зарегистрироваться</div>
     </div>
+    {/if}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="big-black-button" on:click={()=> goto('/trainings')}>
         <div class="start-training-text text-16s">Завершить тренировку</div>
@@ -72,6 +81,7 @@
         position: relative;
         overflow: hidden;
         padding: 4.1vw 7.18vw;
+        z-index: 5;
     }
     @media (max-width: 389px) {
         .finish-banner {
