@@ -202,42 +202,44 @@ goNext={isExercise}
 />
 
 <div class="exercise__bg {(state === 'exercise') ? ('disable') : ('')}">
-   <!-- svelte-ignore a11y-media-has-caption -->
-   <video 
-       bind:this={videoElement}
-       muted
-       preload="auto"
-       autoplay
-       playsinline 
-       loop 
-       class="exercise__video"
-       src="{$linkRoad + trainingProgramm[exerciseIndex].video}"
-       >
-   </video>
-   {#if isTimerActive == false && state == 'exercise' && trainingProgramm[exerciseIndex].type == 'time'}
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <div class="play-icon" on:click={()=>{
-        if(trainingProgramm[exerciseIndex].type == 'time'){
-            videoElement.play()
-            videoPause = false;
-            resumeTimer()
-        }else {
-            videoPause = false;
-            videoElement.play()
-        }
-    }}><img src="{playIcon}" alt="q"></div>
-   {/if}
-   {#if state == 'rest' || state == 'start' || videoLoading}
-        <img src="{$linkRoad + trainingProgramm[exerciseIndex].preview}" alt="qwe" class="poster">
-    {/if}
-   <div class="overlay"></div>
-   <div class="exercise__title c-white">
-    {#if state === 'start'}
-        Начинаем <br>тренировку
-    {:else if state === 'rest'}
-        Отдыхаем
-    {/if}
-   </div>
+    <div class="exercise__container">
+          <!-- svelte-ignore a11y-media-has-caption -->
+        <video 
+        bind:this={videoElement}
+        muted
+        preload="auto"
+        autoplay
+        playsinline 
+        loop 
+        class="exercise__video"
+        src="{$linkRoad + trainingProgramm[exerciseIndex].video}"
+        >
+        </video>
+        {#if isTimerActive == false && state == 'exercise' && trainingProgramm[exerciseIndex].type == 'time'}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div class="play-icon" on:click={()=>{
+            if(trainingProgramm[exerciseIndex].type == 'time'){
+                videoElement.play()
+                videoPause = false;
+                resumeTimer()
+            }else {
+                videoPause = false;
+                videoElement.play()
+            }
+        }}><img src="{playIcon}" alt="q"></div>
+        {/if}
+        {#if state == 'rest' || state == 'start' || videoLoading}
+            <img src="{$linkRoad + trainingProgramm[exerciseIndex].preview}" alt="qwe" class="poster">
+        {/if}
+        <div class="overlay"></div>
+        <div class="exercise__title c-white">
+        {#if state === 'start'}
+            Начинаем <br>тренировку
+        {:else if state === 'rest'}
+            Отдыхаем
+        {/if}
+        </div>
+    </div>
 </div>
 
 <div class="exercise__footer__wrapper">
@@ -412,5 +414,12 @@ goNext={isExercise}
         align-items: center;
         width: 22.5vw;
         height: 22.5vw;
+    }
+    .exercise__container {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
     }
 </style>
