@@ -14,7 +14,7 @@
             return string;
         }
     }
-    let trainingsACtive = getSubstring($page.url.pathname);
+    $: trainingsACtive = getSubstring($page.url.pathname);
 </script>
 
 <slot></slot>
@@ -38,14 +38,14 @@
         <div class="footer__text text-12s c-dark-gray {trainingsACtive == '/targets' ? 'c-blue' : 'c-dark-gray'}">Цели</div>
     </a>
     <a href="/profile" class="footer__nav-item">
-        <div class="footer__icon-container {trainingsACtive == '/prfile' ? '__active' : ''}">
+        <div class="footer__icon-container {trainingsACtive == '/profile' ? '__active' : ''}">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.98 18.7a6.75 6.75 0 0 1 12.04 0"/>
               </svg>
         </div>
-        <div class="footer__text text-12s c-dark-gray {trainingsACtive == '/prfile' ? 'c-blue' : 'c-dark-gray'}">Профиль</div>
+        <div class="footer__text text-12s c-dark-gray {trainingsACtive == '/profile' ? 'c-blue' : 'c-dark-gray'}">Профиль</div>
     </a>
 </div>
 

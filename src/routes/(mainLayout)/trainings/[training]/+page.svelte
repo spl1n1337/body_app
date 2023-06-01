@@ -67,10 +67,8 @@
 </Container>
 
 
-<NavFooter {trainingsACtive}>
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <StartTraining backFunction={()=> goto(`${pageIndex}/exercise`)} on:click={passCurrentTraining()}/>
-</NavFooter>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<StartTraining backFunction={()=> goto(`${pageIndex}/exercise`)} on:click={passCurrentTraining()}/>
 
 
 

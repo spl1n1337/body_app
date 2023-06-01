@@ -56,12 +56,12 @@
 
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="button-container">
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="big-black-button _black" on:click={()=> goto('/registration/user_registration')}>
-            <div class="start-training-text text-16s">Зарегистрироваться</div>
+        <div class="big-black-button _black" on:click={() => document.querySelector('form').submit()}>
+            <div class="start-training-text text-16s">Войти</div>
         </div>
-        <div class="big-black-button __white" on:click={() => document.querySelector('form').submit()}>
-            <div class="start-training-text c-black text-16s">Войти</div>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div class="big-black-button __white" on:click={()=> goto('/registration/user_registration')}>
+            <div class="start-training-text c-black text-16s">Зарегистрироваться</div>
         </div>
     </div>
 </Container>
