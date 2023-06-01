@@ -64,7 +64,7 @@
     }
     @media (max-width: 375px){
         .nothing-descr {
-            margin-bottom: 8.5vw;
+            margin-bottom: 7.5vw;
         }
     }
 </style>
