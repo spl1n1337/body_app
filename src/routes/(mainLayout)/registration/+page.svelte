@@ -3,7 +3,7 @@
     import TrainingHeader from "$lib/components/TrainingHeader.svelte";
     import Container from "$lib/components/Container.svelte"
     import nextWhite from "$lib/icons/chevron-right.svg";
-    import nextBlack from "$lib/icons/chevron-right-black.svg"
+    import nextBlack from "$lib/icons/chevron-right-black.svg";
     import vk from "$lib/icons/vk.svg";
     import mail from "$lib/icons/mail.svg";
     import {goto} from '$app/navigation';
