@@ -10,6 +10,16 @@
     import myparams from "$lib/icons/myparams.svg";
     import WeightChart from "$lib/components/WeightChart.svelte";
     import {goto} from '$app/navigation';
+    import { onMount } from 'svelte';
+
+    export let data; // <---Данные пользоватлея здесь
+
+
+    onMount(async () => {
+        console.log(data.user); // <---Данные пользоватлея здесь
+	});
+
+
     
 </script>
 

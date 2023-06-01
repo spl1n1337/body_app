@@ -10,7 +10,6 @@
     import mail from "$lib/icons/mail.svg";
     import {goto} from '$app/navigation';
     import { enhance } from '$app/forms';
-	import { query_selector_all } from "svelte/internal";
 
     const backFunction = (event) => {
     event.stopPropagation();
