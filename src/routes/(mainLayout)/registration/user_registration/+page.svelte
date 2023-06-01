@@ -9,6 +9,7 @@
     import vk from "$lib/icons/vk.svg";
     import mail from "$lib/icons/mail.svg";
     import {goto} from '$app/navigation';
+    import { enhance } from '$app/forms';
 
     const backFunction = (event) => {
     event.stopPropagation();
@@ -31,25 +32,25 @@
     <div class="reg-title text-32b">Регистрация</div>
     <div class="reg-descr text-16m c-dark-gray">Введите свои персональыне данные, чтобы зарегистрироваться</div>
     <div class="form-container">
-            <form>
+            <form use:enhance method="post">
                 <div class="name-contain">
                     <label class="text-12s c-dark-gray" for="name">Имя</label>
-                    <input class="text-14s" type="text" name="name"  />
+                    <input class="text-14s" type="text" name="name"  required/>
                 </div>
         
                 <div class="lastname-container">
                     <label class="text-12s c-dark-gray" for="lastname">Фамилия</label>
-                    <input class="text-14s" type="text" name="lastname"  />
+                    <input class="text-14s" type="text" name="lastname"  required/>
                 </div>
 
                 <div class="email-container">
                     <label class="text-12s c-dark-gray" for="email">Почта</label>
-                    <input class="text-14s" type="email" name="email"/>
+                    <input class="text-14s" type="email" name="email" required/>
                 </div>
         
                 <div class="password-container">
                     <label class="text-12s c-dark-gray" for="password">Придумайте пароль</label>
-                    <input class="text-14s" type={show1 ? 'text' : 'password'} name="password"/>
+                    <input class="text-14s" type={show1 ? 'text' : 'password'} name="password" required/>
                     <button class="hide-btn" on:click|preventDefault={()=> show1 = !show1}>
                         <img src="{!show1 ? showicon : hideicon}" alt="q">                  
                     </button>
@@ -58,7 +59,7 @@
 
                 <div class="passwordconfirm-container">
                     <label class="text-12s c-dark-gray" for="passwordConfirmation">Повторите пароль</label>
-                    <input class="text-14s" type={show2 ? 'text' : 'password'} name="passwordConfirmation"/>
+                    <input class="text-14s" type={show2 ? 'text' : 'password'} name="passwordConfirmation" required/>
                     <button class="hide-btn" on:click|preventDefault={()=> show2 = !show2}>
                         <img src="{!show2 ? showicon : hideicon}" alt="q">                  
                     </button>
@@ -73,7 +74,7 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="button-container">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="big-black-button _black" on:click={()=> goto('/params')}>
+        <div class="big-black-button _black" on:click={() => document.querySelector('form').submit()}>
             <div class="start-training-text text-16s">Зарегистрироваться</div>
         </div>
         <div class="big-black-button __white" on:click={()=> goto('/registration')}>

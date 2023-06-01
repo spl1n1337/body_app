@@ -3,12 +3,13 @@
     import TrainingHeader from "$lib/components/TrainingHeader.svelte";
     import Container from "$lib/components/Container.svelte"
     import nextWhite from "$lib/icons/chevron-right.svg";
-    import nextBlack from "$lib/icons/chevron-right-black.svg"
+    import nextBlack from "$lib/icons/chevron-right-black.svg";
     import vk from "$lib/icons/vk.svg";
     import mail from "$lib/icons/mail.svg";
     import {goto} from '$app/navigation';
     import showicon from "$lib/icons/show.svg";
     import hideicon from "$lib/icons/hide.svg";
+	import { enhance } from "$app/forms";
 
 
     let show1 = false;
@@ -32,7 +33,7 @@
     <div class="reg-title text-32b">Войти</div>
     <div class="reg-descr text-16m c-dark-gray">Введите почту и пароль для<br>авторизации</div>
     <div class="form-container">
-            <form>
+            <form use:enhance method="post">
 
                 <div class="email-container">
                     <label class="text-12s c-dark-gray" for="email">Почта</label>
@@ -59,7 +60,7 @@
         <div class="big-black-button _black" on:click={()=> goto('/registration/user_registration')}>
             <div class="start-training-text text-16s">Зарегистрироваться</div>
         </div>
-        <div class="big-black-button __white" on:click={()=> goto('/profile_nodata')}>
+        <div class="big-black-button __white" on:click={() => document.querySelector('form').submit()}>
             <div class="start-training-text c-black text-16s">Войти</div>
         </div>
     </div>
