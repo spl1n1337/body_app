@@ -11,7 +11,9 @@
 
     let trainingsInfo = data.trainingsData 
 
-    console.log(trainingsInfo)
+    onMount(()=>{
+        console.log(data)
+    })
 
 
 </script>

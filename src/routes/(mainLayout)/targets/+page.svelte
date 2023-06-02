@@ -14,18 +14,13 @@
 
 
     export let data; // <---Данные пользоватлея здесь (смотри +page.server.js)
-    let lastTimeStamp;
-    let userWeightsData = data.user ? data.user.params.weight : null;
-    let userWeights = (userWeightsData) ? (userWeightsData.slice(-4).map((item) => item.weight)) : null;
-    if(userWeightsData) {
-        lastTimeStamp = (function() {
-        let x = userWeightsData.slice(-1)[0].timestamp.split(/[\/\s:]/)
-        return `${x[1]}.${x[0]}.${x[2].slice(-2)}`
-    })();
-    }
+    console.log(data)
+    let userWeightsData = data.user && data.user.params.weight.length ? data.user.params.weight : undefined;
+    let userWeights = (userWeightsData) ? (userWeightsData.slice(-4).map((item) => item.weight)) : undefined;
+    let lastTimeStamp = (userWeightsData) ? (userWeightsData.slice(-1)[0].timestamp) : undefined;
+
     let weightsCount = userWeightsData ? userWeightsData.length : 0;
     onMount(async () => {
-        console.log(data);
 	});
 
 
@@ -45,7 +40,7 @@
         </div>
         <div class="params-value">
             <div class="params-weight text-32s c-white">
-                {!userWeights ? '- -' : userWeights.slice(-1)}
+                {!userWeights || !userWeights.length ? '- -' : userWeights.slice(-1)}
             </div>
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <div class="params-plus bg-white" on:click={()=> goto('/targets/new-weight')}>

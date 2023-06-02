@@ -9,6 +9,9 @@
     import {goto} from '$app/navigation';
     
     let bgcolor = 'bg-blue params-header';
+    export let data;
+
+    console.log(data.user.params.weight)
 </script>
 
 
