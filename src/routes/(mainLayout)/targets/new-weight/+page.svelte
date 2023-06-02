@@ -14,66 +14,28 @@
 
     let backFunction = ()=> history.back();
 
-    // const horizontalWheelScroll = (node) => {
-    //     console.log(node)
-    //     let isDragging = false;
-    //     let startPosition = null;
-    //     node.addEventListener("touchstart", (evt) => {
-    //     isDragging = true;
-    //     startPosition = evt.touches[0].clientX;
-    //     });
-
-    //     node.addEventListener("touchmove", (evt) => {
-    //     if (isDragging) {
-    //         const currentPosition = evt.touches[0].clientX;
-    //         const distance = currentPosition - startPosition;
-    //         node.scrollLeft -= distance;
-    //         startPosition = currentPosition;
-    //     }
-    //     });
-
-    //     node.addEventListener("touchend", (evt) => {
-    //     isDragging = false;
-    //     });
-    // };
-    // const horizontalWheelScroll = (node) => {
-    //     let isDragging = false;
-    //     let startPosition = null;
-
-    //     node.style.scrollBehavior = "smooth";
-
-    //     node.addEventListener("touchstart", (evt) => {
-    //     isDragging = true;
-    //     startPosition = evt.touches[0].clientX;
-    //     });
-
-    //     node.addEventListener("touchmove", (evt) => {
-    //     if (isDragging) {
-    //         const currentPosition = evt.touches[0].clientX;
-    //         const distance = currentPosition - startPosition;
-    //         node.scrollLeft -= distance;
-    //         startPosition = currentPosition;
-    //     }
-    //     });
-
-    //     node.addEventListener("touchend", (evt) => {
-    //     isDragging = false;
-    //     });
-    // };
-
     const items = Array.from({ length: 1200 });
-
-    let wheelElementWidth;
-
-    const getWheelElementWidth = () => {
-    const wheelElement = document.querySelector('.wheel-element');
-    wheelElementWidth = wheelElement.offsetWidth;
-    console.log('Ширина элемента .wheel-element:', wheelElementWidth);
-    console.log('Ширина элемента .wheel-element:', wheelElementWidth);
-    };
+    let wheelElement;
+    let wheelWrapper;
+    let wheelWidth;
+    let picker;
+    $: x = undefined
+    let pickerItem;
     onMount(()=>{
-        // getWheelElementWidth()
-        console.log(document.querySelector('.wheel-item').offsetWidth)
+        wheelWidth = wheelWrapper.getBoundingClientRect()
+        // pickerItem = wheelWrapper.children[wheelWrapper.children.length - 1];
+        // pickerItem = wheelWrapper.children[0];
+        pickerItem = wheelWrapper;
+        // console.log(pickerItem.getBoundingClientRect())
+        x = pickerItem.getBoundingClientRect().left
+        wheelElement.addEventListener(('scroll'), ()=>{
+            x = pickerItem.getBoundingClientRect().left
+            // console.log(pickerItem.getBoundingClientRect().width)
+            // console.log(x)
+        })
+        window.addEventListener(('resize'), ()=>{
+            console.log((wheelWidth.width/390*100))
+        })
     })
 </script>
 
@@ -102,9 +64,11 @@
         </svg>
         
 
-        <div class="picker"></div>
-        <div class="wheel-element" style="scroll-behavior: smooth;" use:horizontalWheelScroll on:scroll={() => horizontalWheelScroll}>
-            <div class="wheel-wrapper">
+        
+        <!-- <div class="wheel-element" style="scroll-behavior: smooth;" use:horizontalWheelScroll on:scroll={() => horizontalWheelScroll}> -->
+            <div class="wheel-element" bind:this={wheelElement}>
+            <div class="wheel-wrapper" bind:this={wheelWrapper}>
+                <div class="picker" bind:this={picker}></div>
                 {#each items as item}
                 <div class="wheel-item"></div>
                 {/each}
@@ -113,17 +77,17 @@
     </div>
 
     <div class="wheel-value text-32b">
-        52.0
+        {Math.abs(((x+20)/117).toFixed(1))}
     </div>
 
 </Container>
      <!-- svelte-ignore a11y-click-events-have-key-events -->
-     <div class="button-container">
+     <!-- <div class="button-container"> -->
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="big-black-button _black" on:click={backFunction}>
-            <div class="start-training-text text-16s">Сохранить</div>
-        </div>
-    </div>
+        <!-- <div class="big-black-button _black" on:click={backFunction}> -->
+            <!-- <div class="start-training-text text-16s">Сохранить</div> -->
+        <!-- </div> -->
+    <!-- </div> -->
 
 
 
@@ -155,8 +119,8 @@
     .wheel-container {
         position: fixed;
         top: 84vw;
-        left: 20px;
-        right: 20px;
+        left: 5.13vw;
+        right: 5.13vw;
         overflow: hidden;
     }
     :global(.wheel-element) {
@@ -171,18 +135,16 @@
     .wheel-wrapper {
         display: flex;
         align-items: flex-start;
-        scroll-snap-type: x mandatory;
-        overflow-x: scroll;
-        -webkit-overflow-scrolling: touch;
+        padding-left: 1.28vw;
     }
     .wheel-wrapper::-webkit-scrollbar{
         display: none;
     }
     .wheel-item {
         height: 16px;
-        border-left: 1px solid #DCDEE3;
+        border-left: 0.2564102564vw solid #DCDEE3;
         width: 0;
-        padding-right: 12px;
+        padding-right: 3.08vw;
     }
     .wheel-item:nth-of-type(5n) {
         height: 32px;
