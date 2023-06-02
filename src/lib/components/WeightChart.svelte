@@ -2,7 +2,13 @@
 	import { Chart } from 'chart.js/auto';
 	import ChartDataLabels from 'chartjs-plugin-datalabels';
 	import { onMount } from 'svelte';
-
+	export let datapoints = [11, 22, 33, 44];
+	function getMaxOfArray(numArray) {
+  		return Math.max.apply(null, numArray);
+	}
+	function getMinOfArray(numArray) {
+  		return Math.min.apply(null, numArray);
+	}
 	onMount(() => {
 		Chart.register(ChartDataLabels);
 		const ctx = document.getElementById('myChart');
@@ -12,7 +18,6 @@
 		for (let i = 0; i < DATA_COUNT; ++i) {
 			labels.push(i.toString());
 		}
-		const datapoints = [56.6, 54.2, 54.8, 53.7];
 
 		new Chart(ctx, {
 			defaults: {
@@ -89,8 +94,10 @@
 						ticks: {
 							display: false
 						},
-						suggestedMin: 48,
-						suggestedMax: 60,
+						suggestedMax: getMaxOfArray(datapoints) + 3.5,
+						suggestedMin: getMinOfArray(datapoints) - 5.7,
+						// 60 - 56.6 = 3.5  Больше максимального значения на 3.5
+						// 53.7 - 48 = 5.7  Меньше минимального значения на 5.7
 					}
 				}
 			}

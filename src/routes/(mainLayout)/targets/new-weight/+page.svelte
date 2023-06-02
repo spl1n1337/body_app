@@ -8,22 +8,6 @@
     let backFunction = ()=> history.back();
 
 
-    const weekdays = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
-    const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
-
-    const now = new Date();
-
-    const weekday = weekdays[now.getDay()];
-    const day = now.getDate();
-    const month = months[now.getMonth()];
-    const year = now.getFullYear();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-
-    const timeString = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
-    const dateString = `${day} ${month} ${year}, ${weekday}`;
-
-
     const horizontalWheelScroll = (node) => {
         let isDragging = false;
         let startPosition = null;

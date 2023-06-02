@@ -6,7 +6,7 @@
 
 <slot/>
 <!-- svelte-ignore empty-block -->
-{#if currentPath == '/registration' || currentPath == '/'}
+{#if currentPath.includes('/registration') || currentPath == '/'}
 {:else}
 <NavFooter/>
 {/if}

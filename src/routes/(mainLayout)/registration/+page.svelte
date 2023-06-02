@@ -2,10 +2,6 @@
     import BackArrow from "$lib/components/BackArrow.svelte";
     import TrainingHeader from "$lib/components/TrainingHeader.svelte";
     import Container from "$lib/components/Container.svelte"
-    import nextWhite from "$lib/icons/chevron-right.svg";
-    import nextBlack from "$lib/icons/chevron-right-black.svg";
-    import vk from "$lib/icons/vk.svg";
-    import mail from "$lib/icons/mail.svg";
     import {goto} from '$app/navigation';
     import showicon from "$lib/icons/show.svg";
     import hideicon from "$lib/icons/hide.svg";
