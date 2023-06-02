@@ -36,34 +36,44 @@
     //     isDragging = false;
     //     });
     // };
-    const horizontalWheelScroll = (node) => {
-        let isDragging = false;
-        let startPosition = null;
+    // const horizontalWheelScroll = (node) => {
+    //     let isDragging = false;
+    //     let startPosition = null;
 
-        node.style.scrollBehavior = "smooth";
+    //     node.style.scrollBehavior = "smooth";
 
-        node.addEventListener("touchstart", (evt) => {
-        isDragging = true;
-        startPosition = evt.touches[0].clientX;
-        });
+    //     node.addEventListener("touchstart", (evt) => {
+    //     isDragging = true;
+    //     startPosition = evt.touches[0].clientX;
+    //     });
 
-        node.addEventListener("touchmove", (evt) => {
-        if (isDragging) {
-            const currentPosition = evt.touches[0].clientX;
-            const distance = currentPosition - startPosition;
-            node.scrollLeft -= distance;
-            startPosition = currentPosition;
-        }
-        });
+    //     node.addEventListener("touchmove", (evt) => {
+    //     if (isDragging) {
+    //         const currentPosition = evt.touches[0].clientX;
+    //         const distance = currentPosition - startPosition;
+    //         node.scrollLeft -= distance;
+    //         startPosition = currentPosition;
+    //     }
+    //     });
 
-        node.addEventListener("touchend", (evt) => {
-        isDragging = false;
-        });
-    };
-    
+    //     node.addEventListener("touchend", (evt) => {
+    //     isDragging = false;
+    //     });
+    // };
+
     const items = Array.from({ length: 1200 });
 
+    let wheelElementWidth;
+
+    const getWheelElementWidth = () => {
+    const wheelElement = document.querySelector('.wheel-element');
+    wheelElementWidth = wheelElement.offsetWidth;
+    console.log('Ширина элемента .wheel-element:', wheelElementWidth);
+    console.log('Ширина элемента .wheel-element:', wheelElementWidth);
+    };
     onMount(()=>{
+        // getWheelElementWidth()
+        console.log(document.querySelector('.wheel-item').offsetWidth)
     })
 </script>
 
@@ -94,9 +104,11 @@
 
         <div class="picker"></div>
         <div class="wheel-element" style="scroll-behavior: smooth;" use:horizontalWheelScroll on:scroll={() => horizontalWheelScroll}>
-            {#each items as item}
-            <div class="wheel-item"></div>
-            {/each}
+            <div class="wheel-wrapper">
+                {#each items as item}
+                <div class="wheel-item"></div>
+                {/each}
+            </div>
         </div>
     </div>
 
@@ -156,11 +168,21 @@
         padding: 10vw 0;
         scroll-behavior: smooth;
     }
+    .wheel-wrapper {
+        display: flex;
+        align-items: flex-start;
+        scroll-snap-type: x mandatory;
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    .wheel-wrapper::-webkit-scrollbar{
+        display: none;
+    }
     .wheel-item {
         height: 16px;
-        border: 1px solid #DCDEE3;
+        border-left: 1px solid #DCDEE3;
         width: 0;
-        margin-right: 12px;
+        padding-right: 12px;
     }
     .wheel-item:nth-of-type(5n) {
         height: 32px;
