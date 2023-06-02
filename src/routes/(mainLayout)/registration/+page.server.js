@@ -30,7 +30,7 @@ export const actions = {
                     cookies.set("access", auth_json.access, {httpOnly: true, path: '/', maxAge: 60 * 60 * 24});
                     cookies.set("refresh", auth_json.refresh, {httpOnly: true, path: '/', maxAge: 60 * 60 * 24 * 30});
                     
-                    throw redirect(302, '/profile_data');
+                    throw redirect(302, '/targets');
                 }
                 else{
                     console.log(auth_json)

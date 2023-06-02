@@ -15,7 +15,7 @@
 
     export let data; // <---Данные пользоватлея здесь (смотри +page.server.js)
     let lastTimeStamp;
-    let userWeightsData = data.user.weigth;
+    let userWeightsData = data.user ? data.user.weigth : null;
     let userWeights = (userWeightsData) ? (userWeightsData.slice(-4).map((item) => item.weight)) : null;
     if(userWeightsData) {
         lastTimeStamp = (function() {
@@ -25,7 +25,7 @@
     }
     let weightsCount = userWeightsData ? userWeightsData.length : 0;
     onMount(async () => {
-        console.log(data.user.weigth);
+        console.log(data);
 	});
 
 
