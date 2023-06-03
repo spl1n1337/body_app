@@ -17,6 +17,7 @@
     };
     let show1 = false;
     let show2 = false;
+    export let form;
 
 </script>
 
@@ -32,7 +33,7 @@
     <div class="reg-title text-32b">Регистрация</div>
     <div class="reg-descr text-16m c-dark-gray">Введите свои персональыне данные, чтобы зарегистрироваться</div>
     <div class="form-container">
-            <form use:enhance method="post">
+            <form id="register" use:enhance method="post">
                 <div class="name-contain">
                     <label class="text-12s c-dark-gray" for="name">Имя</label>
                     <input class="text-14s" type="text" name="name"  required/>
@@ -64,17 +65,19 @@
                         <img src="{!show2 ? showicon : hideicon}" alt="q">                  
                     </button>
                 </div>
-
-        
             </form>
+
+            {#if form?.error}
+            <div class="error">{form.error}</div>
+            {/if}
     </div>
 
-    
+
 
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="button-container">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="big-black-button _black" on:click={() => document.querySelector('form').submit()}>
+        <div class="big-black-button _black" on:click={() => document.querySelector('form').requestSubmit()}>
             <div class="start-training-text text-16s">Зарегистрироваться</div>
         </div>
         <div class="big-black-button __white" on:click={()=> goto('/registration')}>
@@ -87,6 +90,10 @@
 
 
 <style>
+    button{
+        border: none;
+    }
+
     .password-container, .passwordconfirm-container {
         position: relative;
     }

@@ -18,6 +18,8 @@ export const actions = {
         const data = await request.formData();
         const email = data.get('email');
         const password = data.get('password');
+        // const passwordConfirmation = data.get('passwordConfirmation');
+
         const payload = {
             name: data.get('name'),
             lastname: data.get('lastname'),
@@ -53,7 +55,11 @@ export const actions = {
             }
         else{
             console.log(register_json);
-        }
+            return fail(422, {
+                            error: register_json.detail
+                    }
+                )
+            }
             
     }
 };
