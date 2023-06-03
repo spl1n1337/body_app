@@ -1,7 +1,6 @@
 /** @type {import('./$types').PageServersLoad} */
-export async function load({locals, cookies}) {
+export async function load({locals}) {
     const user = locals.user;
-    const token = cookies.get("access");
-    return {user, token}; // <---Передаем данные пользователя с сервера на страницу.
+    return {user}; // <---Передаем данные пользователя с сервера на страницу.
                    //  На всех страницах, где тебе нужны данные юзера, нужно добавить такой файл
 };

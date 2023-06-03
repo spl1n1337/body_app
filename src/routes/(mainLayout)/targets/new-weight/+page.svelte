@@ -6,9 +6,9 @@
     import BackArrow from "$lib/components/BackArrow.svelte";
     import {goto} from '$app/navigation';
     import { onMount } from "svelte";
+    import { linkRoad } from '$lib/stores.js';
 
     export let data;
-
     let lastWeighing = data.user.params.weight.slice(-1)[0] || [];
 
 
@@ -16,23 +16,39 @@
     const items = Array.from({ length: 1201 });
     let wheelElement;
     let wheelWrapper;
-    
-    
     let x = 0;
-    let y = 0;
+    let token = data.token;
+
     function transformNumber(number) {
         
         var integerPart = Math.floor(+number / 10) + 30;
         var decimalPart = +(number % 10);
         return integerPart.toString() + "." + decimalPart.toString();
     }
-    
-    onMount(()=>{
-        // ДИАПАЗОН 30КГ - 150КГ
+
+    async function postWeight() {
+        const response = await fetch(`${$linkRoad}/api/user`, {
+
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            Authorization:`Bearer ${token}`,
+            },
+            body: JSON.stringify({weight: x})
+        }).then(()=>goto('/targets'))
         
+        // return response; 
+    }
+
+    onMount(()=>{
+
+        // ДИАПАЗОН 30КГ - 150КГ
         x = transformNumber(((((wheelElement.children[1].getBoundingClientRect().left) * -1) / 14)).toFixed())
+        
         wheelElement.addEventListener(('scroll'), (event)=>{
             x = transformNumber(((((event.target.children[1].getBoundingClientRect().left) * -1) / 14)).toFixed())
+            // console.log(JSON.stringify({weight: x}))
+            console.log(x)
         })
         wheelElement.scrollLeft = 8400
     })
@@ -81,12 +97,12 @@
 
 </Container>
      <!-- svelte-ignore a11y-click-events-have-key-events -->
-     <!-- <div class="button-container"> -->
+     <div class="button-container">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <!-- <div class="big-black-button _black" on:click={backFunction}> -->
-            <!-- <div class="start-training-text text-16s">Сохранить</div> -->
-        <!-- </div> -->
-    <!-- </div> -->
+        <div class="big-black-button _black" on:click={postWeight}>
+            <div class="start-training-text text-16s">Сохранить</div>
+        </div>
+    </div>
 
 
 
