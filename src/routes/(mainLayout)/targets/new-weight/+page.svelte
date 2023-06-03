@@ -33,7 +33,7 @@
         x = ((wheelWrapper.getBoundingClientRect().left - 15) * -1)
         wheelElement.addEventListener(('scroll'), (event)=>{
             // convertPoint(-wheelWrapper.children[601].getBoundingClientRect().left, wheelWrapper.getBoundingClientRect().width + (wheelWrapper.children[601].getBoundingClientRect().width/390*100))
-            x = transformNumber(((((event.target.children[1].getBoundingClientRect().left - 15) * -1) / 14 - 1)).toFixed())
+            x = transformNumber(((((event.target.children[1].getBoundingClientRect().left - 15) * -1) / 14 + 14)).toFixed())
             // console.log(((event.target.children[1].getBoundingClientRect().left - 15) * -1))
             // console.log(event.target.children[1])
             // console.log(event.target.children[1].getBoundingClientRect().width)
