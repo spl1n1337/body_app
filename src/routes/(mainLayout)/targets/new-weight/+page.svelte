@@ -28,24 +28,13 @@
     }
     
     onMount(()=>{
-        // x = convertPoint(-wheelWrapper.children[601].getBoundingClientRect().left, wheelWrapper.getBoundingClientRect().width + (wheelWrapper.children[601].getBoundingClientRect().width/390*100))
         // ДИАПАЗОН 30КГ - 150КГ
         
-        x = ((wheelWrapper.getBoundingClientRect().left - 15) * -1)
+        x = transformNumber(((((wheelElement.children[1].getBoundingClientRect().left) * -1) / 14)).toFixed())
         wheelElement.addEventListener(('scroll'), (event)=>{
-            // convertPoint(-wheelWrapper.children[601].getBoundingClientRect().left, wheelWrapper.getBoundingClientRect().width + (wheelWrapper.children[601].getBoundingClientRect().width/390*100))
             x = transformNumber(((((event.target.children[1].getBoundingClientRect().left) * -1) / 14)).toFixed())
-            // console.log(((event.target.children[1].getBoundingClientRect().left - 15) * -1))
-            // console.log(event.target.children[1])
-            // console.log(event.target.children[1].getBoundingClientRect().width)
-            y = +(((((wheelElement.children[1].getBoundingClientRect().left) * -1) / 14)).toFixed()) + 300;
         })
-        // console.log(-wheelWrapper.children[601].getBoundingClientRect().left)
         wheelElement.scrollLeft = 8400
-        // console.log(parseInt(wheelWrapper.children[600].getBoundingClientRect().right))
-        console.log(wheelWrapper.children[600].getBoundingClientRect().right)
-        console.log(wheelWrapper.getBoundingClientRect().width)
-        console.log(((((wheelElement.children[1].getBoundingClientRect().left) * -1) / 14)))
     })
 </script>
 
@@ -88,7 +77,6 @@
 
     <div class="wheel-value text-32b">
         {x}
-        {y}
     </div>
 
 </Container>
@@ -137,15 +125,17 @@
     }
     :global(.wheel-element) {
         /* min-width: 100vw; */
-        /* scroll-snap-type: x mandatory;	 */
-		/* display: flex; */
-		/* -webkit-overflow-scrolling: touch; */
+        /* display: flex; */
+        scroll-snap-type: x mandatory;	
+		-webkit-overflow-scrolling: touch;
 		overflow-x: scroll;
         padding: 10vw 0;
         scroll-behavior: smooth;
 
     }
     .wheel-wrapper {
+        scroll-snap-type: x mandatory;	
+		-webkit-overflow-scrolling: touch;
         display: flex;
         align-items: flex-start;
         width: fit-content;
