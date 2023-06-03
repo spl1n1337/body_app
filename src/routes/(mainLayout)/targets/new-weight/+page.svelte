@@ -13,41 +13,37 @@
 
 
     let backFunction = ()=> history.back();
-    const items = Array.from({ length: 1200 });
+    const items = Array.from({ length: 1201 });
     let wheelElement;
     let wheelWrapper;
-    let wheelWidth;
-    let pointWidth;
-
-    function convertPoint(value, wheel) {
-        var startPoint = -(wheel / 2).toFixed();
-        var endPoint = +(wheel / 2).toFixed();
-        var startValue = 30;
-        var endValue = 130;
-        console.log(startPoint)
-        var normalizedValue = (value - startPoint) / (endPoint - startPoint);
-        var convertedValue = startValue + (endValue - startValue) * normalizedValue;
-
-        x = (convertedValue * 10 / 10).toFixed(2);
-        }
+    
     
     let x = 0;
+    function transformNumber(number) {
+        
+        var integerPart = Math.ceil(number / 10) + 30;
+        var decimalPart = +(number % 10);
+        
+        return integerPart.toString() + "." + decimalPart.toString();
+    }
     
     onMount(()=>{
-        wheelWidth = wheelWrapper.getBoundingClientRect().width;
-        pointWidth = +wheelWrapper.children[601].getBoundingClientRect().width
-        x = convertPoint(-wheelWrapper.children[601].getBoundingClientRect().left, wheelWrapper.getBoundingClientRect().width + (wheelWrapper.children[601].getBoundingClientRect().width/390*100))
+        // x = convertPoint(-wheelWrapper.children[601].getBoundingClientRect().left, wheelWrapper.getBoundingClientRect().width + (wheelWrapper.children[601].getBoundingClientRect().width/390*100))
+        // ДИАПАЗОН 30КГ - 150КГ
         
-        wheelElement.addEventListener(('scroll'), ()=>{
-            // console.log(wheelWrapper.children[601].offsetLeft)
-            // console.log(-wheelWrapper.children[601].getBoundingClientRect().width)
-            // console.log(wheelWrapper.getBoundingClientRect().width)
+        x = ((wheelWrapper.getBoundingClientRect().left - 15) * -1)
+        wheelElement.addEventListener(('scroll'), (event)=>{
+            // convertPoint(-wheelWrapper.children[601].getBoundingClientRect().left, wheelWrapper.getBoundingClientRect().width + (wheelWrapper.children[601].getBoundingClientRect().width/390*100))
+            x = transformNumber(((((event.target.children[1].getBoundingClientRect().left - 15) * -1) / 14 - 1)).toFixed())
+            // console.log(((event.target.children[1].getBoundingClientRect().left - 15) * -1))
+            // console.log(event.target.children[1])
+            // console.log(event.target.children[1].getBoundingClientRect().width)
         })
-        wheelElement.addEventListener(('scroll'), ()=>{
-            convertPoint(-wheelWrapper.children[601].getBoundingClientRect().left, wheelWrapper.getBoundingClientRect().width + (wheelWrapper.children[601].getBoundingClientRect().width/390*100))
-        })
-        wheelElement.scrollLeft = (wheelWrapper.getBoundingClientRect().width) / 2
-        
+        // console.log(-wheelWrapper.children[601].getBoundingClientRect().left)
+        wheelElement.scrollLeft = 8400
+        // console.log(parseInt(wheelWrapper.children[600].getBoundingClientRect().right))
+        console.log(wheelWrapper.children[600].getBoundingClientRect().right)
+        console.log(wheelWrapper.getBoundingClientRect().width)
     })
 </script>
 
@@ -79,12 +75,10 @@
         
         <!-- <div class="wheel-element" style="scroll-behavior: smooth;" use:horizontalWheelScroll on:scroll={() => horizontalWheelScroll}> -->
             <div class="wheel-element" bind:this={wheelElement}>
+            <div class="picker"></div>
             <div class="wheel-wrapper" bind:this={wheelWrapper}>
-                <div class="picker"></div>
-                {#each items as item, index}
-                <div class="wheel-item" style="
-                {index === 0 ? 'margin-left: 0;' : ''}
-                {index === items.length - 1 ? 'margin-right: 0;' : ''}"></div>
+                {#each items as item}
+                <div class="wheel-item"></div>
                 {/each}
             </div>
         </div>
@@ -133,8 +127,8 @@
     .wheel-container {
         position: fixed;
         top: 84vw;
-        left: 5.128vw;
-        right: 5.128vw;
+        left: 15px;
+        right: 15px;
         overflow: hidden;
         /* width: 390px; */
     }
@@ -158,9 +152,8 @@
     }
     .wheel-item {
         height: 4.1vw;
-        background-color: #DCDEE3;
-        width: 0.52vw;
-        margin: 0 1.5395vw;
+        border-left: 1px solid #DCDEE3;
+        width: 14px;
     }
     .wheel-item:nth-of-type(5n) {
         height: 8.2vw;
