@@ -19,9 +19,10 @@
     
     
     let x = 0;
+    let y = 0;
     function transformNumber(number) {
         
-        var integerPart = Math.floor(number / 10) + 30;
+        var integerPart = Math.floor(+number / 10) + 30;
         var decimalPart = +(number % 10);
         return integerPart.toString() + "." + decimalPart.toString();
     }
@@ -33,16 +34,18 @@
         x = ((wheelWrapper.getBoundingClientRect().left - 15) * -1)
         wheelElement.addEventListener(('scroll'), (event)=>{
             // convertPoint(-wheelWrapper.children[601].getBoundingClientRect().left, wheelWrapper.getBoundingClientRect().width + (wheelWrapper.children[601].getBoundingClientRect().width/390*100))
-            x = transformNumber(((((event.target.children[1].getBoundingClientRect().left - 15) * -1) / 14 - 14)).toFixed())
+            x = transformNumber(((((event.target.children[1].getBoundingClientRect().left) * -1) / 14)).toFixed())
             // console.log(((event.target.children[1].getBoundingClientRect().left - 15) * -1))
             // console.log(event.target.children[1])
             // console.log(event.target.children[1].getBoundingClientRect().width)
+            y = +(((((wheelElement.children[1].getBoundingClientRect().left) * -1) / 14)).toFixed()) + 300;
         })
         // console.log(-wheelWrapper.children[601].getBoundingClientRect().left)
         wheelElement.scrollLeft = 8400
         // console.log(parseInt(wheelWrapper.children[600].getBoundingClientRect().right))
         console.log(wheelWrapper.children[600].getBoundingClientRect().right)
         console.log(wheelWrapper.getBoundingClientRect().width)
+        console.log(((((wheelElement.children[1].getBoundingClientRect().left) * -1) / 14)))
     })
 </script>
 
@@ -85,6 +88,7 @@
 
     <div class="wheel-value text-32b">
         {x}
+        {y}
     </div>
 
 </Container>
