@@ -21,9 +21,8 @@
     let x = 0;
     function transformNumber(number) {
         
-        var integerPart = Math.ceil(number / 10) + 30;
+        var integerPart = Math.floor(number / 10) + 30;
         var decimalPart = +(number % 10);
-        
         return integerPart.toString() + "." + decimalPart.toString();
     }
     
