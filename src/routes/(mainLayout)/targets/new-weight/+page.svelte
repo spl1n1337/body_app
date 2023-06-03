@@ -13,29 +13,41 @@
 
 
     let backFunction = ()=> history.back();
-
     const items = Array.from({ length: 1200 });
     let wheelElement;
     let wheelWrapper;
     let wheelWidth;
-    let picker;
-    $: x = undefined
-    let pickerItem;
+    let pointWidth;
+
+    function convertPoint(value, wheel) {
+        var startPoint = -(wheel / 2).toFixed();
+        var endPoint = +(wheel / 2).toFixed();
+        var startValue = 30;
+        var endValue = 130;
+        console.log(startPoint)
+        var normalizedValue = (value - startPoint) / (endPoint - startPoint);
+        var convertedValue = startValue + (endValue - startValue) * normalizedValue;
+
+        x = (convertedValue * 10 / 10).toFixed(2);
+        }
+    
+    let x = 0;
+    
     onMount(()=>{
-        wheelWidth = wheelWrapper.getBoundingClientRect()
-        // pickerItem = wheelWrapper.children[wheelWrapper.children.length - 1];
-        // pickerItem = wheelWrapper.children[0];
-        pickerItem = wheelWrapper;
-        // console.log(pickerItem.getBoundingClientRect())
-        x = pickerItem.getBoundingClientRect().left
+        wheelWidth = wheelWrapper.getBoundingClientRect().width;
+        pointWidth = +wheelWrapper.children[601].getBoundingClientRect().width
+        x = convertPoint(-wheelWrapper.children[601].getBoundingClientRect().left, wheelWrapper.getBoundingClientRect().width + (wheelWrapper.children[601].getBoundingClientRect().width/390*100))
+        
         wheelElement.addEventListener(('scroll'), ()=>{
-            x = pickerItem.getBoundingClientRect().left
-            // console.log(pickerItem.getBoundingClientRect().width)
-            // console.log(x)
+            // console.log(wheelWrapper.children[601].offsetLeft)
+            // console.log(-wheelWrapper.children[601].getBoundingClientRect().width)
+            // console.log(wheelWrapper.getBoundingClientRect().width)
         })
-        window.addEventListener(('resize'), ()=>{
-            console.log((wheelWidth.width/390*100))
+        wheelElement.addEventListener(('scroll'), ()=>{
+            convertPoint(-wheelWrapper.children[601].getBoundingClientRect().left, wheelWrapper.getBoundingClientRect().width + (wheelWrapper.children[601].getBoundingClientRect().width/390*100))
         })
+        wheelElement.scrollLeft = (wheelWrapper.getBoundingClientRect().width) / 2
+        
     })
 </script>
 
@@ -68,16 +80,18 @@
         <!-- <div class="wheel-element" style="scroll-behavior: smooth;" use:horizontalWheelScroll on:scroll={() => horizontalWheelScroll}> -->
             <div class="wheel-element" bind:this={wheelElement}>
             <div class="wheel-wrapper" bind:this={wheelWrapper}>
-                <div class="picker" bind:this={picker}></div>
-                {#each items as item}
-                <div class="wheel-item"></div>
+                <div class="picker"></div>
+                {#each items as item, index}
+                <div class="wheel-item" style="
+                {index === 0 ? 'margin-left: 0;' : ''}
+                {index === items.length - 1 ? 'margin-right: 0;' : ''}"></div>
                 {/each}
             </div>
         </div>
     </div>
 
     <div class="wheel-value text-32b">
-        {Math.abs(((x+20)/117).toFixed(1))}
+        {x}
     </div>
 
 </Container>
@@ -119,35 +133,37 @@
     .wheel-container {
         position: fixed;
         top: 84vw;
-        left: 5.13vw;
-        right: 5.13vw;
+        left: 5.128vw;
+        right: 5.128vw;
         overflow: hidden;
+        /* width: 390px; */
     }
     :global(.wheel-element) {
-        min-width: 100vw;
-        scroll-snap-type: x mandatory;	
-		display: flex;
-		-webkit-overflow-scrolling: touch;
+        /* min-width: 100vw; */
+        /* scroll-snap-type: x mandatory;	 */
+		/* display: flex; */
+		/* -webkit-overflow-scrolling: touch; */
 		overflow-x: scroll;
         padding: 10vw 0;
         scroll-behavior: smooth;
+
     }
     .wheel-wrapper {
         display: flex;
         align-items: flex-start;
-        padding-left: 1.28vw;
+        width: fit-content;
     }
     .wheel-wrapper::-webkit-scrollbar{
         display: none;
     }
     .wheel-item {
-        height: 16px;
-        border-left: 0.2564102564vw solid #DCDEE3;
-        width: 0;
-        padding-right: 3.08vw;
+        height: 4.1vw;
+        background-color: #DCDEE3;
+        width: 0.52vw;
+        margin: 0 1.5395vw;
     }
     .wheel-item:nth-of-type(5n) {
-        height: 32px;
+        height: 8.2vw;
     }
     .wheel-element::-webkit-scrollbar{
         display: none;
