@@ -10,9 +10,13 @@
     export let data;
     let user = data.user;
     let inputWeight;
+    let form;
 
+    async function formSand() {
+
+    }
     onMount(()=>{
-        console.log(!user.sex)
+        console.log(form.formData())
     })
 
 </script>
@@ -25,7 +29,7 @@
     <div style="position:absolute; top: 50%;left:50%;font-size:30px;color:red;"></div>
     <div class="reg-title text-20b">Ваши параметры</div>
     <div class="form-container">
-            <form>
+            <form bind:this={form}>
                 <div class="name-container">
                     <label class="text-12s c-dark-gray" for="weight">Вес</label>
                     <!-- svelte-ignore missing-declaration -->
