@@ -3,6 +3,11 @@
 	import check from '$lib/icons/modal-check.png';
 	import { onMount } from 'svelte';
 	import '$lib/style.css';
+	import { pickerOutput } from "$lib/stores.js";
+	
+	let minSlides;
+	let hourSlides;
+	
 	onMount(() => {
 		function Wheel(wrapper, options) {
 			var defaultOptions = {
@@ -20,7 +25,7 @@
 			function createMarkup() {
 				for (var i = 0; i < options.length; i++) {
 					var div = document.createElement('div');
-					div.setAttribute('class', 'wheel__slide');
+					div.setAttribute('class', `wheel__slide ${wrapper.id}`);
 					slides.push(div);
 				}
 
@@ -77,7 +82,6 @@
 					mode: 'free-snap'
 				};
 				var slider = new KeenSlider(wheel, sliderOptions);
-                console.log(slider.options)
 				return slider;
 			}
 
@@ -98,8 +102,12 @@
 					values.push({ style, value });
 					slides[i].style.transform = style.transform;
 					slides[i].innerHTML = value;
+					if(style.transform == `rotateX(${0}deg) translateZ(${radius}px)`){
+						(slides[i].classList.contains('hour-wheel') ? (pickerValue.cm = slides[i].textContent) : (pickerValue.mm = slides[i].textContent))
+					}
 				}
 			}
+
 
 			return init();
 		}
@@ -116,39 +124,53 @@
 			loop: false,
 			length: 10,
 			width: 23,
-			perspective: 'left'
+			perspective: 'left',
 		});
-		// const modalWrapper = document.querySelector('.modal-wrapper');
-        // console.log(modalWrapper)
-		// if (modalWrapper.classList.contains('_active')) {
-		// 	document.documentElement.style.overflow = 'hidden';
-		// 	document.documentElement.style.height = '100%';
-		// 	document.body.style.overflow = 'hidden';
-		// 	document.body.style.height = '100%';
-		// } else {
-		// 	document.documentElement.style.overflow = '';
-		// 	document.documentElement.style.height = '';
-		// 	document.body.style.overflow = '';
-		// 	document.body.style.height = '';
-		// }
+
+
+		minSlides = document.querySelectorAll('#minute-wheel .wheel__slide');
+		hourSlides = document.querySelectorAll('#hour-wheel .wheel__slide');
+
+
+
 	});
 	export let isActive = false;
 	export let close;
+	export let pickerValue = {};
+	export let selectedCard;
+	const contextParams =  {
+        chest: 'Грудь',
+        waist: 'Талия',
+        hips: 'Бёдра',
+        arm: 'Рука',
+        hip: 'Бедро',
+        leg: 'Голень',
+    };
+    function setValueToPicker(selectedParam, response) {
+        const paramKey = Object.keys(contextParams).find((key) => contextParams[key] === selectedParam);
+        if (paramKey) {
+            $pickerOutput[paramKey] = parseFloat(response.cm + '.' + response.mm);
+        }
+        console.log($pickerOutput);
+    }
+		
 </script>
+
 
 <div class="modal-wrapper {isActive ? '_active' : ''}">
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<div class="modal-head" on:click={close}>
-		<div class="modal-close"><img src={cross} alt="q" /></div>
-		<div class="modal-title text-14s">Талия</div>
-		<div class="modal-check"><img src={check} alt="q" /></div>
+	<div class="modal-head">
+		<div class="modal-close"><img src={cross} alt="q" on:click={close}/></div>
+		<div class="modal-title text-14s">{selectedCard}</div>
+		<div class="modal-check"><img src={check} alt="q" on:click={setValueToPicker(selectedCard, pickerValue), close}/></div>
 	</div>
 	<div class="wrapper text-14s">
 		<div id="hour-wheel" style="width: 70px" />
 		<div class="dot" />
 		<div id="minute-wheel" style="width: 70px" />
 	</div>
-	<div class="overlay" />
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<div class="overlay" on:click={close}/>
 </div>
 
 <style>

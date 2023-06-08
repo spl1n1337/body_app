@@ -21,7 +21,7 @@
 
     <div class="finish-banner">
         <div class="finish-title text-16b c-white">Ты&nbsp;завершил 
-            эспресс&#8211;
+            экспресс&#8211;
             тренировку!
         </div>
         <div class="finish-img"><img src={finish__bg} alt="qwe"></div>

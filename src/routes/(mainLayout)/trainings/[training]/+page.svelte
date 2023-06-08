@@ -27,6 +27,16 @@
     function passCurrentTraining () {
         currentTraining.set(trainingInfo.exercises)
     }
+    function timeRedactor(time) {
+        let minutes = Math.floor(time / 60),
+            seconds = time % 60,
+            formattedTime = minutes + ":" + (seconds < 10 ? "0" : "") + seconds + ' мин';  
+
+        if (minutes > 0 && seconds === 0) {
+        formattedTime = minutes + ' мин';
+        }
+        return formattedTime
+    }
 
 </script>
 
@@ -38,7 +48,7 @@
 <Container>
     <div class="exercise__header text-b20">{trainingInfo.name}</div>
     <div class="exercise__wrapper">
-        {#each trainingInfo.exercises as exercise}
+        {#each $currentTraining as exercise}
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <div class="exercise__item" on:click={()=> goto(`${pageIndex}/exercise`)}>
                 <div class="exercise__img">
@@ -54,7 +64,7 @@
                         {/if}
                         {#if exercise.type == 'time'}
                         <img src="{timer}" alt="icon" class="exercise__icon">
-                        <div class="exercise__amount">{exercise.time}</div>
+                        <div class="exercise__amount">{timeRedactor(exercise.time)}</div>
                         {/if}
                         
                     </div>

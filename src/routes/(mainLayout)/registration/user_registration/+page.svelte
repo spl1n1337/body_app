@@ -77,7 +77,7 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="button-container">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="big-black-button _black" on:click={(e) => console.log(form?.error) (form?.error) ? (e.preventDefault()) : (document.querySelector('form').requestSubmit())}>
+        <div class="big-black-button _black" on:click={(e) => document.querySelector('form').requestSubmit()}>
             <div class="start-training-text text-16s">Зарегистрироваться</div>
         </div>
         <div class="big-black-button __white" on:click={()=> goto('/registration')}>

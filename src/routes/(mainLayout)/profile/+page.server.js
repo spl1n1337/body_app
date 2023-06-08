@@ -1,6 +1,24 @@
-/** @type {import('./$types').PageServersLoad} */
-export async function load({locals}) {
+import { linkRoad } from "$lib/stores.js";
+/** @type {import('./$types').PageLoad} */
+let link;
+
+linkRoad.subscribe((value) => {
+    link = value;
+});
+
+export async function load({ fetch, locals, cookies }) {
+
+    const token = cookies.get("access");
     const user = locals.user;
-    return {user}; // <---Передаем данные пользователя с сервера на страницу.
-                   //  На всех страницах, где тебе нужны данные юзера, нужно добавить такой файл
-};
+    const res = await fetch(`${link}/api/takes`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization:`Bearer ${token}`,
+        }
+        });
+    const takes = await res.json();
+
+    return { user, takes };
+}
+

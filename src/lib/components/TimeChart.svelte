@@ -10,7 +10,7 @@
 				{
 					label: 'My First Dataset',
 					data: [58, 88, 81, 37, 101, 96, 120],
-                    backgroundColor: '#FFFFFF',
+                    background: 'linear-gradient(180deg, #FFFFFF 1.46%, rgba(255, 255, 255, 0) 100%);',
                     borderColor: '#FFFFFF',
 					borderWidth: 4,
 					// borderSkipped: false,

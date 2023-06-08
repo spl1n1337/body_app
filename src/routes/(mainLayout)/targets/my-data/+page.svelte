@@ -5,12 +5,10 @@
     import TrainingHeader from "$lib/components/TrainingHeader.svelte";
     import BackArrow from "$lib/components/BackArrow.svelte";
     import {goto} from '$app/navigation';
-    let backFunction =()=> goto('/profile_data');
     let paramsEdingGo =()=> goto('./my-data/params');
 
     export let data;
     let params = data.user.params;
-    console.log(params)
 
     const weekdays = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
     const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
@@ -30,7 +28,7 @@
 </script>
 
 <TrainingHeader>
-    <BackArrow backFunction={()=>history.back()}/>
+    <BackArrow backFunction={()=>goto('./')}/>
     <BackArrow backFunction={paramsEdingGo} {buttonIcon}/>
 </TrainingHeader>
 
@@ -48,13 +46,13 @@
         <div class="blue-params-item">
             <div class="params-name text-12s c-white">Возраст</div>
             <div class="params-value text-16s-u c-white">
-                {!data.user.height ? '- -' : data.user.height}
+                {!data.user.age ? '- -' : data.user.age}
             </div>
         </div>
         <div class="blue-params-item">
             <div class="params-name text-12s c-white">Вес</div>
             <div class="params-value text-16s-u c-white">
-                {(params.weight[data.user.params.weight.length - 1].weight.toFixed(1)) ? params.weight[params.weight.length - 1].weight + ' кг' : '- -'}
+                {(params.weight.length) ? params.weight[params.weight.length - 1].weight + ' кг' : '- -'}
             </div>
         </div>
     </div>
@@ -107,7 +105,7 @@
      <!-- svelte-ignore a11y-click-events-have-key-events -->
      <div class="button-container">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="big-black-button _black" on:click={()=> goto('/params/sizes')}>
+        <div class="big-black-button _black" on:click={()=> goto('/targets/my-data/sizes')}>
             <img src="{plus}" alt="q" class="button-icon">
             <div class="start-training-text text-16s">Добавить замеры тела</div>
         </div>

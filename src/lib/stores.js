@@ -39,6 +39,9 @@ export const linkRoad = readable(
 
 export let currentTraining = writable(1);
 
+// for Picker in my-data/size
+export let pickerOutput = writable({});
+
 //Some comments for deploy
 
 

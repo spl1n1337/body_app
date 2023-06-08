@@ -26,6 +26,7 @@ export const actions = {
                 body: JSON.stringify(payload)
                 });
                 const auth_json = await auth_resp.json();
+                console.log(auth_json)
                 if (auth_resp.status === 200){
                     cookies.set("access", auth_json.access, {httpOnly: true, path: '/', maxAge: 60 * 60 * 24});
                     cookies.set("refresh", auth_json.refresh, {httpOnly: true, path: '/', maxAge: 60 * 60 * 24 * 30});

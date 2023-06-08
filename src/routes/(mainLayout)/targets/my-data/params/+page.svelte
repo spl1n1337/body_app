@@ -4,19 +4,62 @@
     import Container from "$lib/components/Container.svelte";
     import {goto} from '$app/navigation';
     import { onMount } from "svelte";
+    import { linkRoad } from '$lib/stores.js';
+
+
+    export let data;
+
+    let token = data.token;
     let opacity = false;
     let Goto=()=> goto('./');
 
-    export let data;
     let user = data.user;
-    let inputWeight;
-    let form;
+    let inputWeight,
+        inputHeight,
+        inputAge,
+        inputMale,
+        inputFemale,
+        form;
 
     async function formSand() {
+        // Получение значений полей формы
+        const userWeight = inputWeight.value;
+        const userHeight = inputHeight.value;
+        const userAge = inputAge.value;
+        const userSex = inputMale.checked ? 'male' : 'female';
 
+        const outputData = {
+            height: (userHeight || user) ? (userHeight || user.height) : (''),
+            sex: (userSex || user) ? (userSex || user.sex) : (''),
+            age: (userAge || user) ? (userAge || user.age) : (''),
+        }
+        if(userWeight){
+            outputData.weight = userWeight;
+        }
+        // Отправка данных формы (здесь замените URL на ваш URL для обработки формы)
+        try {
+            const response = await fetch(`${$linkRoad}/api/user`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization:`Bearer ${token}`,
+            },
+            body: JSON.stringify(outputData),
+            });
+
+            if (response.ok) {
+            const data = await response.json();
+            Goto();
+            } else {
+            throw new Error('Произошла ошибка при отправке формы.');
+            }
+        } catch (error) {
+            console.error('Ошибка при отправке формы:', error);
+            alert('Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.');
+        }
     }
+
     onMount(()=>{
-        console.log(form.formData())
     })
 
 </script>
@@ -33,24 +76,26 @@
                 <div class="name-container">
                     <label class="text-12s c-dark-gray" for="weight">Вес</label>
                     <!-- svelte-ignore missing-declaration -->
-                    <input bind:this={inputWeight} class="text-14s" type="text" name="weight" value={user.params.weight[user.params.weight.length - 1].weight} />
+                    <input  bind:this={inputWeight} class="text-14s" type="number" name="weight" maxlength="6" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" placeholder={user.params.weight[user.params.weight.length - 1].weight} />
                 </div>
         
                 <div class="lastname-container">
                     <label class="text-12s c-dark-gray" for="height">Рост</label>
-                    <input class="text-14s" type="text" name="height"  value={user.height}/>
+                    <input bind:this={inputHeight} class="text-14s" type="number" name="height" maxlength="3" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                    placeholder={user.height}/>
                 </div>
 
                 <div class="email-container">
                     <label class="text-12s c-dark-gray" for="age">Возраст</label>
-                    <input class="text-14s" type="number" name="age" value={user.age}/>
+                    <input bind:this={inputAge} class="text-14s" type="number" name="age" maxlength="3"     oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                    placeholder={user.age}/>
                 </div>
         
                 <div class="password-container">
                     <label class="text-12s c-dark-gray" for="password">Пол</label>
                     <div class="sex-container">
-                        <label class="text-14s sex-female" for="sex">Женский<input type="radio" name="sex" value="female" id="female" checked={(!user.sex || user.sex == 'female') ? (true) : ('')}></label>
-                        <label class="text-14s sex-male" for="sex">Мужской<input type="radio" name="sex" value="male" id="male" checked={(user.sex == 'male') ? (true) : ('')}></label>
+                        <label  class="text-14s sex-female" for="sex">Женский<input bind:this={inputFemale} type="radio" name="sex" value="female" id="female" checked={(!user.sex || user.sex == 'female') ? (true) : ('')}></label>
+                        <label  class="text-14s sex-male" for="sex">Мужской<input bind:this={inputMale} type="radio" name="sex" value="male" id="male" checked={(user.sex == 'male') ? (true) : ('')}></label>
                     </div>
                 </div>
 
@@ -63,7 +108,7 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="button-container">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="big-black-button _black" on:click={() => document.querySelector('form').submit()}>
+        <div class="big-black-button _black" on:click={() => formSand()}>
             <div class="start-training-text text-16s">Сохранить</div>
         </div>
     </div>
