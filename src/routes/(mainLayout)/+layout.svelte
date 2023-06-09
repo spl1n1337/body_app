@@ -11,10 +11,10 @@
 <NavFooter/>
 {/if}
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@700&display=swap');
 	:global(html) {
 		width: 100% !important;
 	}
-	@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@700&display=swap');
 	:global(*) {
 		-webkit-user-select: none; /* Safari */
 		-moz-user-select: none; /* Firefox */
