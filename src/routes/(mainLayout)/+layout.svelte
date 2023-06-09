@@ -1,7 +1,14 @@
 <script>
 	import NavFooter from '$lib/components/NavFooter.svelte';
 	import { page } from '$app/stores'
+	import { onMount } from 'svelte';
 	$: currentPath = $page.url.pathname;
+	
+	onMount(()=>{
+		document.addEventListener('touchmove', function (event) {
+    	if (event.scale !== 1) { event.preventDefault(); }
+  		}, false);
+	})
 </script>
 
 <slot/>
