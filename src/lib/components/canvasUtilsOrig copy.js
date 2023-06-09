@@ -27,7 +27,7 @@ export async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
 
-  const safeArea = Math.max(image.width, image.height);
+  const safeArea = Math.max(image.width, image.height)ж
 
   // set each dimensions to double largest dimension to allow for a safe area for the
   // image to rotate in without being clipped by canvas context
@@ -54,8 +54,8 @@ export async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
   // paste generated rotate image with correct offsets for x,y crop values.
   ctx.putImageData(
     data,
-    0 - safeArea / 2 + image.width - pixelCrop.x,
-    0 - safeArea / 2 + image.height - pixelCrop.y
+    Math.round(0 - safeArea / 2 + image.width - pixelCrop.x),
+    Math.round(0 - safeArea / 2 + image.height - pixelCrop.y)
   )
 
   // return new Promise((resolve) => {
@@ -65,16 +65,16 @@ export async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
   // })
 
   // As Base64 string
-  return canvas.toDataURL('image/jpeg');
+  // return canvas.toDataURL('image/jpeg');
 
   // As a blob
-  // return new Promise((resolve) => {
-  //   canvas.toBlob((file) => {
-  //     console.log(file)
-  //     resolve(URL.createObjectURL(file))
-  //     console.log(resolve)
-  //   }, 'image/jpeg')
-  // })
+  return new Promise((resolve) => {
+    canvas.toBlob((file) => {
+      console.log(file)
+      resolve(URL.createObjectURL(file))
+      console.log(resolve)
+    }, 'image/jpeg')
+  })
 }
 
 
