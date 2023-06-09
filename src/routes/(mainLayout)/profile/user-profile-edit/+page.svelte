@@ -11,6 +11,8 @@
     let userData = data.user;
     let  avatar;
     let image, fileinput, pixelCrop, croppedImage;
+
+    $: croppedImage = croppedImage;
 	
     function onFileSelected(e) {
         document.querySelector('.modalphoto').classList.remove('_active');
@@ -33,7 +35,6 @@
       
       async function cropImage(){
           croppedImage = await getCroppedImg(image, pixelCrop);
-
       }
       function reset() {
           croppedImage = null;
