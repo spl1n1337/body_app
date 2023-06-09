@@ -12,7 +12,9 @@
     let  avatar;
     let image, fileinput, pixelCrop, croppedImage;
 
-    $: croppedImage = croppedImage;
+    
+
+    $: currentImage = croppedImage;
 	
     function onFileSelected(e) {
         document.querySelector('.modalphoto').classList.remove('_active');
@@ -59,7 +61,7 @@
     <div class="user-container bg-l-gray">
         <div class="user-icon">
             {#if croppedImage}
-            <img src="{croppedImage}" alt="q">
+            <img src="{currentImage}" alt="q">
             {:else}
             <img src="{user}" alt="q">
             {/if}
