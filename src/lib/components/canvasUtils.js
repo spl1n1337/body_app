@@ -28,7 +28,7 @@ export async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
   const ctx = canvas.getContext('2d')
 
   // const maxSize = Math.max(image.width, image.height) 
-  const safeArea = Math.max(image.width, image.height) * 2
+  const safeArea = Math.max(image.width, image.height)
   // const safeArea = 2 * ((maxSize / 2) * Math.sqrt(2))
 
   // set each dimensions to double largest dimension to allow for a safe area for the
