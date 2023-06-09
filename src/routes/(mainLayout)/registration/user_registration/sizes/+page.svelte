@@ -12,7 +12,7 @@
     import Picker from "$lib/components/Picker.svelte";
     import { onMount } from "svelte";
     import { pickerOutput, linkRoad } from "$lib/stores.js";
-
+    import NavFooter from "$lib/components/NavFooter.svelte";
     export let data;
     let token = data.token;
     let pickerName = {
@@ -32,7 +32,7 @@
 
     function backFunction() {
         pickerOutput.set({})
-        goto('/targets/my-data')
+        goto('/registration/user_registration/params')
     }
     function handleClick(key, value) {
         pickerName.key = value;
@@ -137,7 +137,7 @@
             {/if}
         </div>
     </div>
-    
+
 
 </Container>
      <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -148,6 +148,7 @@
         </div>
     </div>
 
+<NavFooter/>
 
 <Picker isActive={isActive} selectedCard={pickerName.key} close={handleClick}/>
 <style>

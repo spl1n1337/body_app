@@ -65,11 +65,13 @@ export async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
   // As a blob
   return new Promise((resolve) => {
     canvas.toBlob((file) => {
+      console.log(file)
       resolve(URL.createObjectURL(file))
       console.log(resolve)
     }, 'image/png')
   })
 }
+
 
 export async function getRotatedImage(imageSrc, rotation = 0) {
   const image = await createImage(imageSrc)

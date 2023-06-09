@@ -5,13 +5,13 @@
     import {goto} from '$app/navigation';
     import { onMount } from "svelte";
     import { linkRoad } from '$lib/stores.js';
-
+    import NavFooter from "$lib/components/NavFooter.svelte";
 
     export let data;
 
     let token = data.token;
     let opacity = false;
-    let Goto=()=> goto('./');
+    let Goto=()=> goto('/targets');
 
     let user = data.user;
     console.log(user)
@@ -50,7 +50,7 @@
 
             if (response.ok) {
             const data = await response.json();
-            Goto();
+                goto('/registration/user_registration/sizes')
             } else {
             throw new Error('Произошла ошибка при отправке формы.');
             }
@@ -115,7 +115,7 @@
     </div>
 </Container>
 
-
+<NavFooter/>
 
 
 <style>

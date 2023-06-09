@@ -1,10 +1,15 @@
+import { redirect } from '@sveltejs/kit';
+import { linkRoad } from '$lib/stores.js';
+
 /** @type {import('./$types').PageServerLoad} */
-export async function load({ cookies, locals }) {
+export async function load({ locals }) {
+    if(locals.user) {
+        throw redirect(302, '/targets');
+    }
     return {};
 };
 
-import { redirect } from '@sveltejs/kit';
-import { linkRoad } from '$lib/stores.js';
+
 let link;
 
 linkRoad.subscribe((value) => {
@@ -26,12 +31,11 @@ export const actions = {
                 body: JSON.stringify(payload)
                 });
                 const auth_json = await auth_resp.json();
-                console.log(auth_json)
                 if (auth_resp.status === 200){
                     cookies.set("access", auth_json.access, {httpOnly: true, path: '/', maxAge: 60 * 60 * 24});
                     cookies.set("refresh", auth_json.refresh, {httpOnly: true, path: '/', maxAge: 60 * 60 * 24 * 30});
                     
-                    throw redirect(302, '/targets');
+                    throw redirect(302, '/registration/user_registration');
                 }
                 else{
                     console.log(auth_json)

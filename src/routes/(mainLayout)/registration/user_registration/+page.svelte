@@ -10,6 +10,18 @@
     import mail from "$lib/icons/mail.svg";
     import {goto} from '$app/navigation';
     import { enhance } from '$app/forms';
+    import {linkRoad} from "$lib/stores.js"
+
+    export let form;
+    
+    $: {
+        if(form?.error) {
+            const email = forma.elements['email'];
+                email.value = email.defaultValue;
+                email.placeholder = 'Почта уже используется';
+                errors.email = true
+        }
+    }
 
     const backFunction = (event) => {
     event.stopPropagation();
@@ -17,8 +29,43 @@
     };
     let show1 = false;
     let show2 = false;
-    export let form;
+    let forma;
+    let errors = {
+        names: false,
+        email: false,
+        passwords: false
+    }
 
+    function formValidate() {
+        
+        errors.names = false,
+        errors.email = false,
+        errors.passwords = false;
+        
+        const name = forma.elements['name'].value;
+        const lastname = forma.elements['lastname'].value;
+        const email = forma.elements['email'].value;
+        const password = forma.elements['password'].value;
+        const passwordConfirmation = forma.elements['passwordConfirmation'].value;
+        const forbiddenChars = /[!@#$%^&*(),.?":{}|<>]/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        
+        if (name.match(forbiddenChars) || lastname.match(forbiddenChars) || name.includes(' ') || lastname.includes(' ') || lastname == '' || name == '') {
+            errors.names = true;
+        }
+        if (!email.match(emailRegex)) {
+            errors.email = true;
+        }
+        if (password.length < 5 || password.includes(' ') || passwordConfirmation.includes(' ') || password.match(forbiddenChars) || passwordConfirmation.match(forbiddenChars) || passwordConfirmation == '' || password == '') {
+            errors.passwords = true;
+        }
+        if (password !== passwordConfirmation || password == '' || passwordConfirmation == '') {
+            errors.passwords = true;
+        }
+        if(!errors.names && !errors.email && !errors.passwords) {
+             forma.requestSubmit();// handleFormSubmit()
+        }
+    }
 </script>
 
 <TrainingHeader>
@@ -33,25 +80,26 @@
     <div class="reg-title text-32b">Регистрация</div>
     <div class="reg-descr text-16m c-dark-gray">Введите свои персональыне данные, чтобы зарегистрироваться</div>
     <div class="form-container">
-            <form id="register" use:enhance method="post">
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <form id="register" use:enhance method="post" bind:this={forma}>
                 <div class="name-contain">
                     <label class="text-12s c-dark-gray" for="name">Имя</label>
-                    <input class="text-14s" type="text" name="name"  required/>
+                    <input class="text-14s {errors.names ? 'error' : ''}" type="text" name="name"  required on:click={()=> errors.names = false}/>
                 </div>
         
                 <div class="lastname-container">
                     <label class="text-12s c-dark-gray" for="lastname">Фамилия</label>
-                    <input class="text-14s" type="text" name="lastname"  required/>
+                    <input class="text-14s {errors.names ? 'error' : ''}" type="text" name="lastname"  required on:click={()=> errors.names = false}/>
                 </div>
 
                 <div class="email-container">
                     <label class="text-12s c-dark-gray" for="email">Почта</label>
-                    <input class="text-14s" type="email" name="email" required/>
+                    <input class="text-14s {errors.email ? 'error' : ''}" type="email" name="email" required/>
                 </div>
         
                 <div class="password-container">
                     <label class="text-12s c-dark-gray" for="password">Придумайте пароль</label>
-                    <input class="text-14s" type={show1 ? 'text' : 'password'} name="password" required/>
+                    <input class="text-14s {errors.passwords ? 'error' : ''}" type={show1 ? 'text' : 'password'} name="password" required/>
                     <button class="hide-btn" on:click|preventDefault={()=> show1 = !show1}>
                         <img src="{!show1 ? showicon : hideicon}" alt="q">                  
                     </button>
@@ -60,24 +108,19 @@
 
                 <div class="passwordconfirm-container">
                     <label class="text-12s c-dark-gray" for="passwordConfirmation">Повторите пароль</label>
-                    <input class="text-14s" type={show2 ? 'text' : 'password'} name="passwordConfirmation" required/>
+                    <input class="text-14s {errors.passwords ? 'error' : ''}" type={show2 ? 'text' : 'password'} name="passwordConfirmation" required/>
                     <button class="hide-btn" on:click|preventDefault={()=> show2 = !show2}>
                         <img src="{!show2 ? showicon : hideicon}" alt="q">                  
                     </button>
                 </div>
             </form>
 
-            {#if form?.error}
-            <div class="error">{form.error}</div>
-            {/if}
     </div>
-
-
 
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="button-container">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="big-black-button _black" on:click={(e) => document.querySelector('form').requestSubmit()}>
+        <div class="big-black-button _black" on:click={() => forma.requestSubmit()}>
             <div class="start-training-text text-16s">Зарегистрироваться</div>
         </div>
         <div class="big-black-button __white" on:click={()=> goto('/registration')}>
@@ -90,6 +133,9 @@
 
 
 <style>
+    input.error {
+        border-color: red;
+    }
     button{
         border: none;
     }

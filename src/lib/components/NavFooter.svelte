@@ -29,7 +29,7 @@
         <div class="footer__text text-12s {trainingsACtive == "/trainings" ? 'c-blue' : 'c-dark-gray'}">Тренировки</div>
     </a>
     <a href="/targets" class="footer__nav-item">
-        <div class="footer__icon-container {trainingsACtive == '/targets' ? '__active' : ''}">
+        <div class="footer__icon-container {trainingsACtive == '/targets' || trainingsACtive == '/registration' ? '__active' : ''}">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m12 12 9-9M18.37 5.63a9.02 9.02 0 1 0 1.75 2.49"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.18 8.82a4.5 4.5 0 1 0 1.31 2.93"/>
