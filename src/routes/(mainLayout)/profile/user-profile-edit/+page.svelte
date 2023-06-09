@@ -303,9 +303,6 @@
             width: 25vw;
             height: 25vw;
         }
-        .user-icon img {
-            transform: translate(-67%, -3%);
-        }
     }
     :global(.modalphoto._active, .modalexit._active) {
         visibility: visible !important;
@@ -336,5 +333,8 @@
       }
       .cropper-box {
         z-index: 10;
+      }
+      :global(.image) {
+        max-height: none !important;
       }
 </style>
