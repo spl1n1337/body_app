@@ -12,6 +12,7 @@
     import StartTraining from "$lib/components/StartTraining.svelte";
     import {goto} from '$app/navigation';
 
+    console.log(data)
 
     let trainingInfo = data.trainingData;
     let pageIndex = data.training_index;

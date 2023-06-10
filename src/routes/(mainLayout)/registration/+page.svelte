@@ -20,36 +20,36 @@
     };
     async function handleFormSubmit() {
         clearErr();
-    const formData = new FormData(form);
+        const formData = new FormData(form);
 
-    const email = formData.get('email');
-    const password = formData.get('password');
-    const payload = {
+        const email = formData.get('email');
+        const password = formData.get('password');
+        const payload = {
             username: email,
             password: password,
         } 
-    console.log(JSON.stringify(payload))
-    try {
-      const response = await fetch(`${$linkRoad}/api/token/pair`, {
-        method: 'POST',
-        body: JSON.stringify(payload)
-      });
+        console.log(JSON.stringify(payload))
+        try {
+        const response = await fetch(`${$linkRoad}/api/token/pair`, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        });
 
-      if (response.ok) {
-        form.submit()
-        // Успешный ответ от сервера
-        // Вы можете выполнить дополнительные действия здесь, например, перенаправление на другую страницу
-        console.log(response)
-      } else {
-        // Обработка ошибки
-        const errorData = await response.json();
-        regErr = true;
-        console.error('Ошибка при отправке формы:', errorData.detail)
-      }
-    } catch (error) {
-      console.error('Ошибка при отправке запроса:', error);
+        if (response.ok) {
+            form.submit()
+            // Успешный ответ от сервера
+            // Вы можете выполнить дополнительные действия здесь, например, перенаправление на другую страницу
+            console.log(response)
+        } else {
+            // Обработка ошибки
+            const errorData = await response.json();
+            regErr = true;
+            console.error('Ошибка при отправке формы:', errorData.detail)
+        }
+        } catch (error) {
+        console.error('Ошибка при отправке запроса:', error);
+        }
     }
-  }
 </script>
 
 <TrainingHeader>

@@ -9,17 +9,17 @@
 
     export let data;
     let token = data.token;
-    console.log(token)
+    // console.log(token)
     let userData = data.user;
-    let image, fileinput, pixelCrop, croppedImage;
+    let image, fileinput, pixelCrop, croppedImage, forma;
 
     async function postAvatar() {
         const qwe =  await url2File(croppedImage, 'smaple.png');
-        console.log(qwe instanceof File)
-        console.log(qwe)
+        // console.log(qwe instanceof File)
+        // console.log(qwe)
         const formData = new FormData();
         formData.append('avatar', qwe);
-        console.log(formData.get('avatar'))
+        // console.log(formData.get('avatar'))
         const response = await fetch(`${$linkRoad}/api/avatar`, {
 
             method: 'POST',
@@ -34,29 +34,10 @@
     }
     async function url2File(url, fileName){
         const blob = await (await fetch(url)).blob()
-        console.log(blob);
+        // console.log(blob);
         return new File([blob], fileName, {type: blob.type})
     }
-
-    function qweqwe(croppedImage) {
-        let answer;
-        if(croppedImage) {
-            answer = croppedImage.split(',')
-            console.log(answer)
-        }
-        
-    }
     $: currentImage = croppedImage;
-    
-    $: {
-        console.log(currentImage)
-    }
-    function blobToFile(theBlob, fileName){
-        //A Blob() is almost a File() - it's just missing the two properties below which we will add
-        theBlob.lastModifiedDate = new Date();
-        theBlob.name = fileName;
-        return theBlob;
-    }
 	
     function onFileSelected(e) {
         document.querySelector('.modalphoto').classList.remove('_active');
@@ -79,6 +60,7 @@
       
       async function cropImage(){
           croppedImage = await getCroppedImg(image, pixelCrop);
+          postAvatar();
       }
       function reset() {
           croppedImage = null;
@@ -86,14 +68,106 @@
       }
 
 
-    let backFunction = () => history.back();
+    let backFunction = () => goto('/profile');
     let bgcolor = 'aic';
+    let errors = {
+        names: false,
+        email: false,
+    }
+    function formValidate() {
+        
+        errors.names = false,
+        errors.email = false
+        
+        const name = forma.elements['name'].value;
+        const lastname = forma.elements['lastname'].value;
+        const email = forma.elements['email'].value;
+        const forbiddenChars = /[!@#$%^&*(),.?":{}|<>]/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        
+        if(name){
+            if (name.match(forbiddenChars) || name.includes(' ')) {
+            errors.names = true;
+            }
+        }
+        if(lastname){
+            if (lastname.match(forbiddenChars) || lastname.includes(' ') || lastname == '') {
+            errors.names = true;
+            }  
+        }
+        if(email) {
+            if (!email.match(emailRegex)) {
+            errors.email = true;
+        }
+        }
+        if(!errors.names && !errors.email) {
+            handleFormSubmit();// handleFormSubmit()
+        }
+    }
+
+    async function handleFormSubmit() {
+        const formData = new FormData(forma);
+        const dataOutput = {};
+        for (const [name, value] of formData.entries()) {
+            if(value) {
+                dataOutput[name] = value;
+            }
+        }
+        console.log(dataOutput)
+        try {
+        const response = await fetch(`${$linkRoad}/api/user`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            Authorization:`Bearer ${token}`},
+            body: JSON.stringify(dataOutput)
+        });
+
+        if (response.ok) {
+            // Успешный ответ от сервера
+            // Вы можете выполнить дополнительные действия здесь, например, перенаправление на другую страницу
+            backFunction()
+        } else {
+            // Обработка ошибки
+            const errorData = await response.json();
+            console.error('Ошибка при отправке формы:', errorData.detail)
+        }
+        } catch (error) {
+        console.error('Ошибка при отправке запроса:', error);
+        }
+    }
+    async function deleteAvatar() {
+        try {
+        const response = await fetch(`${$linkRoad}/api/avatar`, {
+            method: 'DELETE',
+            headers: {Authorization:`Bearer ${token}`},
+        });
+        if(response.ok) {
+            goto('/profile')
+        }
+        } catch (error) {
+        console.error('Ошибка при отправке запроса:', error);
+        }
+    }
+    async function deleteUser() {
+        try {
+        const response = await fetch(`${$linkRoad}/api/delete_user`, {
+            method: 'POST',
+            headers: {Authorization:`Bearer ${token}`},
+        });
+        if(response.ok) {
+            goto('/trainings')
+        }
+        } catch (error) {
+        console.error('Ошибка при отправке запроса:', error);
+        }
+    }
 </script>
 
 <TrainingHeader {bgcolor}>
     <BackArrow {backFunction}/>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <div class="save text-16s c-blue" on:click={()=>{postAvatar()}}>Сохранить</div>
+    <div class="save text-16s c-blue" on:click={()=>{formValidate()}}>Сохранить</div>
 </TrainingHeader>
 
 <Container>
@@ -103,25 +177,27 @@
         <div class="user-icon">
             {#if croppedImage}
             <img src="{croppedImage}" alt="q">
+            {:else if userData.avatar}
+            <img src="{userData.avatar}" alt="q">
             {/if}
         </div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="edit-photo text-14s c-blue" on:click={()=> document.querySelector('.modalphoto').classList.add('_active')}>Редактировать фото </div>
     </div>
-    <form action="#" class="edit-form">
+    <form action="#" class="edit-form" bind:this={forma}>
         <div class="name-container">
             <label class="text-12s c-dark-gray" for="weight">Имя</label>
-            <input class="text-14s" type="text" name="weight" maxlength="20"  placeholder="{userData.name}"/>
+            <input class="text-14s {errors.names ? 'error' : ''}" type="text" name="name" maxlength="20"  placeholder="{userData.name}"/>
         </div>
 
         <div class="lastname-container">
             <label class="text-12s c-dark-gray" for="height">Фамилия</label>
-            <input class="text-14s" type="text" name="height" maxlength="20"  placeholder="{userData.lastname}"/>
+            <input class="text-14s {errors.names ? 'error' : ''}" type="text" name="lastname" maxlength="20"  placeholder="{userData.lastname}"/>
         </div>
 
         <div class="email-container">
-            <label class="text-12s c-dark-gray" for="age">Почта</label>
-            <input class="text-14s" type="email" name="age" maxlength="30" placeholder="{userData.email}"/>
+            <label class="text-12s c-dark-gray" for="email">Почта</label>
+            <input class="text-14s {errors.email ? 'error' : ''}" type="email" name="email" maxlength="30" placeholder="{userData.email}"/>
         </div>
 
     </form>
@@ -130,7 +206,8 @@
     <div class="edit-btn-wrapper">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="exit text-14s bg-l-gray" on:click={()=> document.querySelector('.modalexit').classList.add('_active')}>Выход</div>
-        <div class="delete text-14s c-red">Удалить профиль</div>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div class="delete text-14s c-red" on:click={()=>{deleteUser()}}>Удалить профиль</div>
     </div>
 
 </Container>
@@ -144,7 +221,8 @@
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <div class="cancel text-14s bg-l-gray" on:click={()=>{fileinput.click();}}>Выбрать из галерии</div>
             <input style="display:none" type="file" accept=".jpg, .jpeg, .png" on:change={(e)=>onFileSelected(e)} bind:this={fileinput} >
-            <div class="delete-button text-14s c-red">Удалить</div>
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <div class="delete-button text-14s c-red" on:click={()=>deleteAvatar()}>Удалить</div>
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <div class="cancel text-14s" on:click={()=> document.querySelector('.modalphoto').classList.remove('_active')}>Отменить</div>
         </div>
@@ -173,7 +251,7 @@
     </div>
 
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <div class="save-avatar text-16s c-blue" on:click={async () => {croppedImage = await getCroppedImg(image, pixelCrop)}}>Сохранить</div>
+    <div class="save-avatar text-16s c-blue" on:click={()=>{cropImage()}}>Сохранить</div>
 {/if}
 
 
@@ -380,4 +458,7 @@
       :global(.image) {
         max-height: none !important;
       }
+      input.error {
+        border-color: red;
+    }
 </style>

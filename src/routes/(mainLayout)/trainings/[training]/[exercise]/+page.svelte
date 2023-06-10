@@ -11,8 +11,13 @@
    import NextExercise from "$lib/components/NextExercise.svelte";
    import {goto} from '$app/navigation';
    import {currentTraining, linkRoad} from '$lib/stores.js';
-   import { onMount } from "svelte";
+   import { onMount, onDestroy } from "svelte";
 
+   let takeTimes = {
+        start: '',
+        end: ''
+   }
+   let token = data.dataInfo;
    let videoElement;
    let disable;
    let trainingProgramm = data.trainingData.exercises;
@@ -96,7 +101,7 @@
                topButtonValue = formatter.format(currentTime * 1000);
            } else {
                 if(state == 'exercise' && exerciseIndex == exercisesCount-1 && currentTime == 0) {
-                    goToFinish();
+                    (data.user ? pushNewTake() : goToFinish())
                 }else {
                     clearInterval(interval);
                     isTimerActive = false;
@@ -158,7 +163,6 @@
     }
     const stop = ()=> {
         videoElement.pause()
-        console.log('stop')
     };
     const backFunction = () => {
             if(state == 'start'){
@@ -180,7 +184,69 @@
     onMount(()=> {
         startTimer(10, isExercise);
         waitForVideoReadyState(videoElement, stop);
+        takeTimes.start = getTimeNow()
+        console.log(data.user)
     })
+
+    async function pushNewTake() {
+        takeTimes.end = getTimeNow()
+        console.log(JSON.stringify(takeTimes))
+        try {
+            const response = await fetch(`${$linkRoad}/api/new_take`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization:`Bearer ${token}`,
+            },
+            body: JSON.stringify(takeTimes)
+            });
+            const data = await response.json();
+            console.log(data)
+            if (response.ok) {
+            const data = await response.json();
+            console.log(data)
+                goToFinish()
+            } else {
+            throw new Error('Произошла ошибка при отправке формы.');
+            }
+        } catch (error) {
+            goToFinish()
+        }
+    }
+
+
+function getTimeNow() {
+    let currentDate = new Date();
+    let day = currentDate.getDate();
+    let month = currentDate.getMonth() + 1; // Месяцы в JavaScript начинаются с 0, поэтому добавляем 1
+    let year = currentDate.getFullYear() % 100;
+    let hours = currentDate.getHours();
+    let minutes = currentDate.getMinutes();
+    let seconds = currentDate.getSeconds();
+
+    // Добавляем нули перед числами, если они состоят из одной цифры
+    if (day < 10) {
+        day = '0' + day;
+    }
+    if (month < 10) {
+        month = '0' + month;
+    }
+    if (hours < 10) {
+        hours = '0' + hours;
+    }
+    if (minutes < 10) {
+        minutes = '0' + minutes;
+    }
+    if (seconds < 10) {
+        seconds = '0' + seconds;
+    }
+
+    // Формируем строку в нужном формате
+    let formattedDateTime = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes + ':' + seconds;
+    return formattedDateTime
+}
+
+
 
 </script>
 
@@ -270,7 +336,7 @@ goNext={isExercise}
        <div class="exercise__pause bg-blue"
        on:click={(e) => {            
            if(state == 'exercise' && exerciseIndex == exercisesCount-1) {
-                goToFinish();
+            (data.user ? pushNewTake() : goToFinish())
            }else {
 
            if(state == 'start' || state == 'rest') {
