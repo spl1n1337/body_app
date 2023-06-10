@@ -9,12 +9,15 @@
 		"test": "playwright test",
 		"test:unit": "vitest",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write ."
+		"format": "prettier --plugin-search-dir . --write .",
+		"generate-pwa-assets": "pwa-assets-generator"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.5.0",
+		"@vite-pwa/assets-generator": "^0.0.2",
+		"@vite-pwa/sveltekit": "^0.2.5",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte": "^2.26.0",
@@ -23,6 +26,7 @@
 		"svelte": "^3.54.0",
 		"svelte-touch-datepicker": "^1.4.1",
 		"vite": "^4.3.0",
+		"vite-plugin-pwa": "^0.16.3",
 		"vitest": "^0.25.3"
 	},
 	"type": "module",
