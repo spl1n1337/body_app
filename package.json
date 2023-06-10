@@ -43,6 +43,7 @@
 		"svelte-easy-crop": "^2.0.1",
 		"svelte-generic-datepicker": "^0.0.10",
 		"svelte-keen-slider": "^0.0.9",
-		"svelte-navigator": "^3.2.2"
+		"svelte-navigator": "^3.2.2",
+		"workbox-window": "^7.0.0"
 	}
 }
