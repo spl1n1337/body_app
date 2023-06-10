@@ -4,7 +4,6 @@
     import paramsicon2 from "$lib/icons/paramsicon2.svg";
     import Nothing from "$lib/components/Nothing.svelte";
     import Container from "$lib/components/Container.svelte";
-    import profileicon from "$lib/icons/frame.png";
     import plus from "$lib/icons/plus.svg";
     import right from "$lib/icons/chevron-right-black.svg";
     import myparams from "$lib/icons/myparams.svg";
@@ -31,7 +30,9 @@
 {#if data.user}
 <div class="profile-header bg-blue">
     <div class="profile-icon">
-        <img src="{profileicon}" alt="qweqw">
+        {#if !!data.user.avatar}
+            <img src="{data.user.avatar}" alt="qweqw">
+        {/if}
     </div>
 
     <div class="params-container">
@@ -99,6 +100,7 @@
         height: 12.3vw;
         overflow: hidden;
         margin-bottom: 5.12vw;
+        background-color: var(--light-gray);
     }
     .profile-header {
         flex-direction: column;

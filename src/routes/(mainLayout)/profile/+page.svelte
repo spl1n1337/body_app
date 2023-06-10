@@ -1,7 +1,6 @@
 <script>
 	import buttonIcon from '$lib/icons/sett.svg';
 	import hurt from '$lib/icons/hurt.svg';
-	import user from '$lib/icons/user.jpg';
 	import Container from '$lib/components/Container.svelte';
 	import TrainingHeader from '$lib/components/TrainingHeader.svelte';
 	import Nothing from '$lib/components/Nothing.svelte';
@@ -15,19 +14,8 @@
 	let backFunction = () => goto('/profile/user-profile-edit');
 	let padding = 'pb-0';
     let TimeChart = data.takes;
-	// let TimeChart = {"takes": [
-    //         // {"day": 8, "time": 35}, 
-    //         {"day": 9, "time": 60}, 
-    //         {"day": 10, "time": 80}, 
-    //         {"day": 11, "time": 90}, 
-    //         {"day": 12, "time": 65}, 
-    //         {"day": 13, "time": 22}, 
-    //         {"day": 14, "time": 35}, 
-    //        ],
-    //        "sum": 44,};
-    
 
-    console.log(TimeChart)
+    console.log(data)
 	onMount(() => {});
 </script>
 
@@ -39,7 +27,11 @@
 	<Container>
 
 		<div class="user-container">
-			<div class="user-icon"><img src={user} alt="q" /></div>
+			<div class="user-icon">
+				{#if !!data.user.avatar}
+					<img src={data.user.avatar} alt="q" />
+				{/if}
+			</div>
 			<div class="user-name text-20b">
 				{data.user.name + " " + data.user.lastname}
 			</div>
@@ -148,6 +140,7 @@
 		border-radius: 100px;
 		overflow: hidden;
 		margin-bottom: 5.12vw;
+		background-color: var(--light-gray);
 	}
 	.user-icon img {
 		width: auto;

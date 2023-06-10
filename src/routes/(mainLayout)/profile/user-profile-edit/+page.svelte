@@ -1,20 +1,53 @@
 <script>
-    import user from "$lib/icons/user.jpg"
     import Container from "$lib/components/Container.svelte";
     import TrainingHeader from "$lib/components/TrainingHeader.svelte";
     import BackArrow from "$lib/components/BackArrow.svelte";
     import {goto} from '$app/navigation';
     import Cropper from "svelte-easy-crop";
     import { getCroppedImg } from "$lib/components/canvasUtils.js"
+    import {linkRoad} from "$lib/stores.js"
 
     export let data;
+    let token = data.token;
+    console.log(token)
     let userData = data.user;
-    let  avatar;
     let image, fileinput, pixelCrop, croppedImage;
 
-    
+    async function postAvatar() {
+        const qwe =  await url2File(croppedImage, 'smaple.png');
+        console.log(qwe)
+        const formData = new FormData();
+        formData.append('avatar', currentImage);
+        console.log(formData.get('avatar'))
+        const response = await fetch(`${$linkRoad}/api/avatar`, {
 
-    $: currentImage = croppedImage;
+            method: 'POST',
+            headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization:`Bearer ${token}`,
+            },
+            body: formData
+        })
+        // .then(()=>goto('/targets'))
+        
+    }
+    async function url2File(url, fileName){
+        const blob = await (await fetch(url)).blob()
+        return new File([blob], fileName, {type: blob.type})
+    }
+
+
+    $: currentImage = new File([croppedImage], "name");
+    
+    $: {
+        console.log(currentImage)
+    }
+    function blobToFile(theBlob, fileName){
+        //A Blob() is almost a File() - it's just missing the two properties below which we will add
+        theBlob.lastModifiedDate = new Date();
+        theBlob.name = fileName;
+        return theBlob;
+    }
 	
     function onFileSelected(e) {
         document.querySelector('.modalphoto').classList.remove('_active');
@@ -43,7 +76,6 @@
           image = null;
       }
 
-    console.log(userData)
 
     let backFunction = () => history.back();
     let bgcolor = 'aic';
@@ -52,7 +84,7 @@
 <TrainingHeader {bgcolor}>
     <BackArrow {backFunction}/>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <div class="save text-16s c-blue" on:click={backFunction}>Сохранить</div>
+    <div class="save text-16s c-blue" on:click={()=>{postAvatar()}}>Сохранить</div>
 </TrainingHeader>
 
 <Container>
@@ -61,9 +93,7 @@
     <div class="user-container bg-l-gray">
         <div class="user-icon">
             {#if croppedImage}
-            <img src="{currentImage}" alt="q">
-            {:else}
-            <img src="{user}" alt="q">
+            <img src="{croppedImage}" alt="q">
             {/if}
         </div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -273,6 +303,7 @@
         border-radius: 100px;
         overflow: hidden;
         margin-bottom: 2vw;
+        background-color: #fff;
     }
     .footer__nav {
         position: fixed;

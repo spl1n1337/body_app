@@ -26,7 +26,6 @@ export async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
   const image = await createImage(imageSrc)
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
-
   const maxSize = Math.max(image.width, image.height)
   const safeArea = 2 * ((maxSize / 2))
 console.log(safeArea)
@@ -61,15 +60,15 @@ console.log(safeArea)
   )
 
   // As Base64 string
-  // return canvas.toDataURL('image/jpeg');
+  return canvas.toDataURL('image/jpeg');
 
   // As a blob
-  return new Promise((resolve) => {
-    canvas.toBlob((file) => {
-      resolve(URL.createObjectURL(file))
-      console.log(resolve);
-    }, 'image/png')
-  })
+  // return new Promise((resolve) => {
+  //   canvas.toBlob((file) => {
+  //     resolve(URL.createObjectURL(file))
+  //     console.log(resolve);
+  //   }, 'image/png')
+  // })
 }
 
 export async function getRotatedImage(imageSrc, rotation = 0) {
