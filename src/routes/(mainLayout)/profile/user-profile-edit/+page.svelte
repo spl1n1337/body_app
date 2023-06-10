@@ -14,7 +14,7 @@
     let image, fileinput, pixelCrop, croppedImage;
 
     async function postAvatar() {
-        const qwe =  await url2File(croppedImage, 'smaple.png');
+        const qwe =  await url2File(croppedImage, 'smaple');
         console.log(qwe instanceof File)
         console.log(qwe)
         const formData = new FormData();
@@ -34,11 +34,19 @@
     }
     async function url2File(url, fileName){
         const blob = await (await fetch(url)).blob()
+        console.log(blob);
         return new File([blob], fileName, {type: blob.type})
     }
 
-
-    $: currentImage = new File([croppedImage], "name");
+    function qweqwe(croppedImage) {
+        let answer;
+        if(croppedImage) {
+            answer = croppedImage.split(',')
+            console.log(answer)
+        }
+        
+    }
+    $: currentImage = croppedImage;
     
     $: {
         console.log(currentImage)
