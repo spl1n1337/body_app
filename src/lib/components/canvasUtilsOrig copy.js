@@ -2,7 +2,10 @@
  * @author Valentin Hervieu
  * https://codesandbox.io/s/y09komm059?file=/src/canvasUtils.js 
  */
-
+function reset() {
+  croppedImage = null;
+  image = null;
+}
 const createImage = (url) =>
   new Promise((resolve, reject) => {
     const image = new Image()

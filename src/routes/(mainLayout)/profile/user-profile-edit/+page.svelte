@@ -121,7 +121,6 @@
             zoom=1
             crop={{x:0, y:0}}
             on:cropcomplete={previewCrop}
-            cropSize={{width: 200, height: 200}}
         />
     </div>
     <div class="prof-pic-wrapper">
