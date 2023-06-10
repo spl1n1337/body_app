@@ -14,7 +14,7 @@
     let image, fileinput, pixelCrop, croppedImage;
 
     async function postAvatar() {
-        const qwe =  await url2File(croppedImage, 'smaple');
+        const qwe =  await url2File(croppedImage, 'smaple.png');
         console.log(qwe instanceof File)
         console.log(qwe)
         const formData = new FormData();
@@ -24,7 +24,7 @@
 
             method: 'POST',
             headers: {
-            'Content-Type': 'multipart/form-data',
+            // 'Content-Type': 'multipart/form-data',
             Authorization:`Bearer ${token}`,
             },
             body: formData

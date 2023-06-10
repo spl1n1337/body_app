@@ -29,7 +29,7 @@
 		<div class="user-container">
 			<div class="user-icon">
 				{#if !!data.user.avatar}
-					<img src={data.user.avatar} alt="q" />
+					<img class="avatar-img" src={data.user.avatar} alt="q" />
 				{/if}
 			</div>
 			<div class="user-name text-20b">
@@ -143,10 +143,13 @@
 		background-color: var(--light-gray);
 	}
 	.user-icon img {
-		width: auto;
+		/* width: auto;
 		position: relative;
 		left: 50%;
-		transform: translateX(-67%);
+		transform: translateX(-67%); */
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 	.user-name {
 		margin-bottom: 1vw;
