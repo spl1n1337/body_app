@@ -15,9 +15,10 @@
 
     async function postAvatar() {
         const qwe =  await url2File(croppedImage, 'smaple.png');
+        console.log(qwe instanceof File)
         console.log(qwe)
         const formData = new FormData();
-        formData.append('avatar', currentImage);
+        formData.append('avatar', qwe);
         console.log(formData.get('avatar'))
         const response = await fetch(`${$linkRoad}/api/avatar`, {
 
