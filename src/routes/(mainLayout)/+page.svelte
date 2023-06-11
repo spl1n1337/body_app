@@ -2,6 +2,9 @@
     import { goto } from '$app/navigation';
     import hero from "$lib/TrainingsIcons/main.jpg"
     export let data;
+
+
+
 </script>
 
 <main>
