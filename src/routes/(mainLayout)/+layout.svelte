@@ -26,8 +26,6 @@
   })
 	$: webManifestLink = pwaInfo ? pwaInfo.webManifest.linkTag : ''
 	
-	var browserInfo = navigator.userAgent;
-	console.log(browserInfo);
 </script>
 
 <svelte:head> 
