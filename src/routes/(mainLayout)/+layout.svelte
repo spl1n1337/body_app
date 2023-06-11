@@ -219,6 +219,6 @@
 		border-radius: 20px;
 	}
 	:global(input) {
-		all: unset;
+		/* all: unset; */
 	}
 	</style>
