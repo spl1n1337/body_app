@@ -69,15 +69,4 @@
         justify-content: center;
         flex: 0 0 20.5vw;
     }
-    @media only screen 
-        and (device-width: 375px) 
-        and (device-height: 812px) 
-        and (-webkit-device-pixel-ratio: 3)
-        and (orientation: portrait) {
-            /* Ваш код CSS свойств для iPhone X и выше */
-            :global(body) {
-                background-color: red;
-            }
-            /* Другие CSS свойства для iPhone X и выше */
-    }
 </style>
