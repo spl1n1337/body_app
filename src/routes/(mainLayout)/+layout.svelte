@@ -218,9 +218,9 @@
 		align-items: center;
 		border-radius: 20px;
 	}
-	/* :global(input) { */
-		/* all: unset; */
-	/* } */
+	:global(input) {
+		all: unset;
+	}
 	:global(input, input:before, input:after) {
       -webkit-user-select: initial;
       -khtml-user-select: initial;
