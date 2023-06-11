@@ -69,5 +69,11 @@
         justify-content: center;
         flex: 0 0 20.5vw;
     }
-
+    @media only screen and (max-width: 414px) and (max-height: 896px) and (safe-area-inset-bottom: 34px) {
+    /* CSS свойства для устройств с "жестовой полоской" или "Home Indicator" */
+    /* Например: */
+        .footer__nav {
+            padding: 2.05vw 6.92vw 8vw;
+        }
+    }
 </style>
