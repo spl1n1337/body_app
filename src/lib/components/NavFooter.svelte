@@ -69,11 +69,15 @@
         justify-content: center;
         flex: 0 0 20.5vw;
     }
-    @media only screen and (max-width: 414px) and (max-height: 896px) and (safe-area-inset-bottom: 34px) {
-    /* CSS свойства для устройств с "жестовой полоской" или "Home Indicator" */
-    /* Например: */
-        .footer__nav {
-            padding: 2.05vw 6.92vw 8vw;
-        }
+    @media only screen 
+        and (device-width: 375px) 
+        and (device-height: 812px) 
+        and (-webkit-device-pixel-ratio: 3)
+        and (orientation: portrait) {
+            /* Ваш код CSS свойств для iPhone X и выше */
+            :global(body) {
+                background-color: red;
+            }
+            /* Другие CSS свойства для iPhone X и выше */
     }
 </style>
