@@ -18,14 +18,14 @@
 
     let safeArea;
     onMount(()=>{
-        safeArea = getComputedStyle(document.documentElement).getPropertyValue("--sat");
+        safeArea = getComputedStyle(document.documentElement).getPropertyValue("--sab");
         console.log(safeArea)
     })
 </script>
 
 <slot></slot>
 
-<div class="footer__nav" style="{(safeArea === '0px') ? '' : `padding-bottom: ${safeArea} + 1vw;`}">
+<div class="footer__nav __safe">
     <a href="/trainings" class="footer__nav-item">
         <div class="footer__icon-container {trainingsACtive == "/trainings" ? '__active' : ''}">
             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="24" fill="none" viewBox="0 0 26 24">
@@ -67,6 +67,9 @@
         justify-content: space-between;
         padding: 2.05vw 6.92vw 1vw;
         z-index: 2;
+    }
+    .footer__nav.__safe {
+        padding-bottom: var(--sab) !important;
     }
     .footer__nav-item {
         display: flex;
