@@ -58,6 +58,10 @@
 		--green: #18d183;
 		--pink: #ffcee5;
 		--sand: #ffd9ad;
+		--sat: env(safe-area-inset-top);
+    	--sar: env(safe-area-inset-right);
+    	--sab: env(safe-area-inset-bottom);
+    	--sal: env(safe-area-inset-left);
 	}
 	:global(*) {
 		margin: 0;
