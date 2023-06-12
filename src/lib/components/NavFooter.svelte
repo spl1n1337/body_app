@@ -25,7 +25,7 @@
 
 <slot></slot>
 
-<div class="footer__nav __safe">
+<div class="footer__nav {safeArea === '0px' ? '' : '__safe'}">
     <a href="/trainings" class="footer__nav-item">
         <div class="footer__icon-container {trainingsACtive == "/trainings" ? '__active' : ''}">
             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="24" fill="none" viewBox="0 0 26 24">
