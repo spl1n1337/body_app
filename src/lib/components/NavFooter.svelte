@@ -16,23 +16,17 @@
     }
     $: trainingsACtive = getSubstring($page.url.pathname);
 
-    let safeArea;
 
-    $: {
-        safeArea = getComputedStyle(document.documentElement).getPropertyValue("--sab");
-    }
+
     onMount(()=>{
-        
-        console.log(safeArea)
     })
 </script>
 
 <slot></slot>
 
 
-<div class="area">{safeArea}</div>
 <div class="footer__wrapper">
-    <div class="footer__nav {safeArea === '0px' ? '' : '__safe'}">
+    <div class="footer__nav">
         <a href="/trainings" class="footer__nav-item">
             <div class="footer__icon-container {trainingsACtive == "/trainings" ? '__active' : ''}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="24" fill="none" viewBox="0 0 26 24">
