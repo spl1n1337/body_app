@@ -17,8 +17,12 @@
     $: trainingsACtive = getSubstring($page.url.pathname);
 
     let safeArea;
-    onMount(()=>{
+
+    $: {
         safeArea = getComputedStyle(document.documentElement).getPropertyValue("--sab");
+    }
+    onMount(()=>{
+        
         console.log(safeArea)
     })
 </script>
@@ -26,7 +30,7 @@
 <slot></slot>
 
 
-<div class="area">{$safeArea}</div>
+<div class="area">{safeArea}</div>
 <div class="footer__wrapper">
     <div class="footer__nav {safeArea === '0px' ? '' : '__safe'}">
         <a href="/trainings" class="footer__nav-item">
