@@ -5,8 +5,8 @@
    import TrainingHeader from "$lib/components/TrainingHeader.svelte";
    import BackArrow from "$lib/components/BackArrow.svelte";
    import TrainingTimer from "$lib/components/TrainingTimer.svelte";
-   import pause from "$lib/icons/PauseCircle.svg"
-   import play from "$lib/icons/play.svg"
+   import pause from "$lib/icons/PauseCircle.svg";
+   import play from "$lib/icons/play.svg";
    import nextAr from "$lib/icons/chevron-right.svg"
    import nextExercisePic from "$lib/icons/next-exercise.jpg"
    import NextExercise from "$lib/components/NextExercise.svelte";

@@ -25,6 +25,8 @@
 
 <slot></slot>
 
+
+<div class="area">{$safeArea}</div>
 <div class="footer__wrapper">
     <div class="footer__nav {safeArea === '0px' ? '' : '__safe'}">
         <a href="/trainings" class="footer__nav-item">
@@ -71,7 +73,7 @@
         z-index: 2;
     }
     .footer__wrapper {
-        padding-bottom: env(safe-area-inset-bottom);
+        padding-bottom: var(--sab);
     }
     .footer__nav-item {
         display: flex;
