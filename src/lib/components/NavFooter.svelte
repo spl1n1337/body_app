@@ -61,6 +61,15 @@
 
 
 <style>
+    .area {
+        position: absolute;
+        bottom: 100px;
+        background: #ffffff;
+        left: 50%;
+        color: black;
+        transform: translateX(-50%);
+        z-index: 12;
+    }
     .footer__nav {
         position: fixed;
         bottom: 0;
