@@ -6,6 +6,7 @@
    import BackArrow from "$lib/components/BackArrow.svelte";
    import TrainingTimer from "$lib/components/TrainingTimer.svelte";
    import pause from "$lib/icons/PauseCircle.svg"
+   import play from "$lib/icons/play.svg"
    import nextAr from "$lib/icons/chevron-right.svg"
    import nextExercisePic from "$lib/icons/next-exercise.jpg"
    import NextExercise from "$lib/components/NextExercise.svelte";
@@ -325,7 +326,7 @@ goNext={isExercise}
                { resumeTimer();}
            }
        }}>
-           <img src="{pause}" alt="qwe" class="exercise__pause__icon mr-4">
+           <img src="{isTimerActive == false ? play : pause}" alt="qwe" class="exercise__pause__icon mr-4">
            {#if isTimerActive == false}
            <div class="exercise__pause-text text-14s c-white">Продолжить</div>
            {:else}

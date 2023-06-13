@@ -153,6 +153,7 @@
 	}
 	.user-name {
 		margin-bottom: 1vw;
+		white-space: nowrap;
 	}
 	.blue-params {
 		border-radius: 16px;
