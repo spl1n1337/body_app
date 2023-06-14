@@ -59,7 +59,7 @@
 
 
 <style>
-    .area {
+    /* .area {
         position: absolute;
         bottom: 100px;
         background: #ffffff;
@@ -67,9 +67,9 @@
         color: black;
         transform: translateX(-50%);
         z-index: 12;
-    }
+    } */
     .footer__nav {
-        position: fixed;
+        position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
@@ -78,9 +78,14 @@
         justify-content: space-between;
         padding: 2.05vw 6.92vw 1vw;
         z-index: 2;
+        margin-bottom: var(--sab);
     }
     .footer__wrapper {
-        padding-bottom: var(--sab);
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: var(--light-gray);
     }
     .footer__nav-item {
         display: flex;
