@@ -78,7 +78,6 @@
         justify-content: space-between;
         padding: 2.05vw 6.92vw 1vw;
         z-index: 2;
-        margin-bottom: var(--sab);
     }
     .footer__wrapper {
         position: fixed;
@@ -86,6 +85,7 @@
         left: 0;
         right: 0;
         background-color: var(--light-gray);
+        padding-bottom: var(--sab);
     }
     .footer__nav-item {
         display: flex;
