@@ -120,7 +120,7 @@
 
     <div class="button-container">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="big-black-button _black" on:click={() => formValidate()}>
+        <div class="big-black-button _black" on:tap={() => formValidate()} on:click={() => formValidate()}>
             <div class="start-training-text text-16s">Зарегистрироваться</div>
         </div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->

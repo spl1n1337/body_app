@@ -75,7 +75,6 @@
         email: false,
     }
     function formValidate() {
-        
         errors.names = false,
         errors.email = false
         
@@ -84,6 +83,10 @@
         const email = forma.elements['email'].value;
         const forbiddenChars = /[!@#$%^&*(),.?":{}|<>]/;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        if(!name && !lastname && !email) {
+            backFunction()
+            return
+        }
         
         if(name){
             if (name.match(forbiddenChars) || name.includes(' ')) {

@@ -28,16 +28,17 @@
     function passCurrentTraining () {
         currentTraining.set(trainingInfo.exercises)
     }
-    function timeRedactor(time) {
-        let minutes = Math.floor(time / 60),
-            seconds = time % 60,
-            formattedTime = minutes + ":" + (seconds < 10 ? "0" : "") + seconds + ' мин';  
+    function timeRedactor(minutes) {
+    let totalSeconds = Math.floor(minutes * 60),
+        formattedMinutes = Math.floor(totalSeconds / 60),
+        formattedSeconds = totalSeconds % 60;
 
-        if (minutes > 0 && seconds === 0) {
-        formattedTime = minutes + ' мин';
-        }
-        return formattedTime
+    if (formattedSeconds > 0) {
+        return formattedMinutes.toString().padStart(2, '0') + ':' + formattedSeconds.toString().padStart(2, '0') + ' мин';
+    } else {
+        return formattedMinutes.toString() + ' мин';
     }
+}
 
 </script>
 

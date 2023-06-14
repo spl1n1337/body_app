@@ -53,7 +53,7 @@
         if(trainingProgramm[exerciseIndex].type == 'time') {
             clearInterval(interval);
             isTimerActive = false;
-            topButtonValue = trainingProgramm[exerciseIndex].time;
+            topButtonValue = trainingProgramm[exerciseIndex].time * 60;
             await waitForVideoReadyState(videoElement);
             videoElement.play();
             videoPause = false;
