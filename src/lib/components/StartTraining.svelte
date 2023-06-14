@@ -14,7 +14,7 @@
 <style>
     .start-training-button {
         position: fixed;
-        bottom: 55px;
+        bottom: calc(55px + var(--sab));
         width: 100%;
         padding: 4.1vw 7.18vw 3.07vw;
         background: linear-gradient(360deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
