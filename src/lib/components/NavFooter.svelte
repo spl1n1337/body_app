@@ -69,7 +69,7 @@
         z-index: 12;
     } */
     .footer__nav {
-        position: absolute;
+        /* position: absolute; */
         bottom: 0;
         left: 0;
         right: 0;
