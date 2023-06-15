@@ -1,9 +1,10 @@
 <script>
     import { goto } from '$app/navigation';
     import hero from "$lib/TrainingsIcons/main.jpg"
+    import { redirect } from '@sveltejs/kit';
     export let data;
 
-
+    // goto('/trainings')
 
 </script>
 
