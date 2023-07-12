@@ -20,6 +20,7 @@
 
     let weightsCount = userWeightsData ? userWeightsData.length : 0;
     onMount(async () => {
+        // console.log(data.user.params.weight)
 	});
 
 

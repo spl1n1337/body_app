@@ -1,6 +1,5 @@
 import { redirect } from '@sveltejs/kit';
 /** @type {import('./$types').PageServersLoad} */
-
 export async function load({locals}) {
     const user = locals.user;
     if(user){

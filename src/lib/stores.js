@@ -33,7 +33,7 @@ export const exercises = readable(
 
 export const linkRoad = readable(
     // 'http://127.0.0.1:8000'
-    'https://rustydimes.pythonanywhere.com'
+    'https://96ed-212-58-120-54.ngrok-free.app'
     // "https://6959-212-58-120-54.ngrok-free.app"
     )
 
@@ -45,5 +45,6 @@ export let pickerOutput = writable({});
 
 //Some comments for deploy
 
-
 export let user = writable()
+
+

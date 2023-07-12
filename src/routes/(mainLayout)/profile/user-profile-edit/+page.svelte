@@ -334,7 +334,7 @@
         width: 100vw;
         height: 100vh;
         background: rgb(31 40 48 / 50%);
-        z-index: 6;
+        z-index: 100;
         visibility: hidden;
     }
     .edit-btn-wrapper {

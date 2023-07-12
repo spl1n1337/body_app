@@ -35,6 +35,15 @@
             </div>
             <div class="footer__text text-12s {trainingsACtive == "/trainings" ? 'c-blue' : 'c-dark-gray'}">Тренировки</div>
         </a>
+        <a href="/challange" class="footer__nav-item">
+            <div class="footer__icon-container {trainingsACtive == "/challange" ? '__active' : ''}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+                    <path stroke="#A5AAB4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.25 5.25v5.1656c0 3.7219 2.9812 6.8063 6.7031 6.8344a6.7484 6.7484 0 0 0 4.8033-1.9604A6.7487 6.7487 0 0 0 18.75 10.5V5.25A.7498.7498 0 0 0 18 4.5H6a.75.75 0 0 0-.75.75ZM9 21h6M12 17.25V21"/>
+                    <path stroke="#A5AAB4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5811 12h.9187a3 3 0 0 0 3-3V7.5a.7498.7498 0 0 0-.75-.75h-3M5.4371 12h-.9469a3 3 0 0 1-3-3V7.5a.75.75 0 0 1 .75-.75h3"/>
+                  </svg>
+            </div>
+            <div class="footer__text text-12s {trainingsACtive == "/challange" ? 'c-blue' : 'c-dark-gray'}">Вызов</div>
+        </a>
         <a href="/targets" class="footer__nav-item">
             <div class="footer__icon-container {trainingsACtive == '/targets' || trainingsACtive == '/registration' ? '__active' : ''}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
@@ -81,6 +90,7 @@
     }
     .footer__wrapper {
         position: fixed;
+        z-index: 20;
         bottom: 0;
         left: 0;
         right: 0;

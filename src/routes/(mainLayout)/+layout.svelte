@@ -4,6 +4,7 @@
 	$: currentPath = $page.url.pathname;
 	import { onMount } from 'svelte'
 	import { pwaInfo } from 'virtual:pwa-info'; 
+	
 
 	onMount(async () => {
     if (pwaInfo) {
@@ -34,7 +35,7 @@
 
 <slot/>
 <!-- svelte-ignore empty-block -->
-{#if currentPath.includes('/registration') || currentPath == '/'}
+{#if currentPath.includes('/registration') || currentPath == '/' || currentPath.includes('/finish') || currentPath.includes('/exercise')}
 {:else}
 <NavFooter/>
 {/if}

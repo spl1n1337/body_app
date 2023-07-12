@@ -25,6 +25,7 @@
     const timeString = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
     const dateString = `${day} ${month} ${year}, ${weekday}`;
 
+    console.log(params)
 </script>
 
 <TrainingHeader>

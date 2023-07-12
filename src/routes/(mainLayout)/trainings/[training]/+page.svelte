@@ -36,10 +36,10 @@
     if (formattedSeconds > 0) {
         return formattedMinutes.toString().padStart(2, '0') + ':' + formattedSeconds.toString().padStart(2, '0') + ' мин';
     } else {
-        return formattedMinutes.toString() + ' мин';
+        return formattedMinutes.toString() + ' сек';
     }
 }
-
+    // console.log(trainingInfo)
 </script>
 
 <TrainingHeader>
