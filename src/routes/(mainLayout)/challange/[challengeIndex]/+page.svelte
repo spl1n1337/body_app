@@ -110,10 +110,13 @@
         let pages = document.querySelectorAll('.grid .svelte-jmgdr0')
         setTimeout(()=>{
             pages.forEach((page) =>{
-            let x = Number(page.parentNode.style.transform.substring(11, page.parentNode.style.transform.length - 3))
-            if(x < 100 && x > -100) {
-                console.log(page)
-            }
+                if(!!page.parentNode) {
+                    let x = Number(page.parentNode.style.transform.substring(11, page.parentNode.style.transform.length - 3))
+                    if(x < 100 && x > -100) {
+                        console.log(page)
+                    }
+                }
+
 
         })
         }, 1000)
