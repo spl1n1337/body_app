@@ -126,25 +126,28 @@
         
         pageInfo.calendar.forEach((item) => {
             const keys = Object.keys(item);
-            if(keys[0] == today) {
-                newData.push({...item});
-            }
             if (keys.length > 0) {
-            const date = keys[0];
-            const [day, month, year] = date.split(".");
-            
-            if (parseInt(month) === monthIndex && yearNow - 2000 == year) {
-                const value = item[date];
-                if (value !== null) {
-                newData.push({
-                    date: date,
-                    value: value
-                });
-                }
+                const date = keys[0];
+                const [day, month, year] = date.split(".");
+                    if (parseInt(month) === monthIndex && yearNow - 2000 == year) {
+                        const value = item[date];
+                        if(Object.keys(item)[0] == today) {
+                        newData.push({
+                            date: date,
+                            value: value
+                        });
+                        }
+                        if (value !== null) {
+                        newData.push({
+                            date: date,
+                            value: value
+                        });
+                        }
+                    }   
             }
-            }
+
         });
-        
+        console.log(newData)
         return newData;
     };
     const getCurrentDate = () => {
@@ -185,7 +188,7 @@
                 });
                 if (matchingData) {
                     const { value } = matchingData;
-                    node.classList.add(value);
+                    node.classList.add(!!value ? value : 'this');
                 }
             }
             })
@@ -197,7 +200,6 @@
     onMount(()=>{
         // console.log(user)  
         if(pageInfo.joined) {
-            iframe = document.querySelector('iframe')
             calendarDaysNodes = document.querySelectorAll('.grid.svelte-jmgdr0')
             arrows = document.querySelectorAll('div.button.svelte-1ro74h8')
             calenderLabel = document.querySelector('.button.label.svelte-1ro74h8')
@@ -246,7 +248,6 @@
     function isFollow(){
         calendarDaysNodes = document.querySelectorAll('.grid.svelte-jmgdr0')
 
-        iframe = document.querySelector('iframe')
         arrows = document.querySelectorAll('div.button.svelte-1ro74h8')
         calenderLabel = document.querySelector('.button.label.svelte-1ro74h8')
 
