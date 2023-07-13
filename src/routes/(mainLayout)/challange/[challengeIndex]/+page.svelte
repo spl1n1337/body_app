@@ -180,6 +180,7 @@
             // тут нужно сравнивать значения и тест и добовлять класс
             node.classList.remove('undone')
             node.classList.remove('success')
+            node.classList.remove('this')
             if(!node.classList.contains('outsider')){
                 const day = parseInt(node.textContent);
                 const matchingData = filteredData.find((data) => {
