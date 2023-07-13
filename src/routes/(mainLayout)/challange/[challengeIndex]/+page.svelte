@@ -208,9 +208,6 @@
             events.forEach(function(event) {
                 htmlElements[0].addEventListener(event, eventHandler);
             });
-            events.forEach(function(event) {
-                iframe.addEventListener(event, eventHandler);
-            });
             yearNow = +calenderLabel.textContent.split(' ')[1]
             calenderLabel.textContent = currentMonth + ' ' + yearNow
 
@@ -250,9 +247,6 @@
         calendarDaysNodes = document.querySelectorAll('.grid.svelte-jmgdr0')
 
         iframe = document.querySelector('iframe')
-        events.forEach(function(event) {
-            iframe.addEventListener(event, eventHandler);
-        });
         arrows = document.querySelectorAll('div.button.svelte-1ro74h8')
         calenderLabel = document.querySelector('.button.label.svelte-1ro74h8')
 
