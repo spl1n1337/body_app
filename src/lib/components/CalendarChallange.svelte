@@ -45,11 +45,13 @@
         event.preventDefault();
     };
 
+    let rusWeekDay = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
     onMount(()=>{
 
         weekdays = document.querySelectorAll('.legend.svelte-1unzsxu span')
-        weekdays.forEach(day => {
-            day.textContent = day.textContent.slice(0, 1)
+        weekdays.forEach((day, index) => {
+            console.log(index)
+            day.textContent = rusWeekDay[index]
         });
         arrows = document.querySelectorAll('.button.svelte-1ro74h8')
         arrows[0].querySelector('.left').display = 'none'
@@ -83,7 +85,7 @@
 </script>
 
 
-<InlineCalendar {theme} />
+<InlineCalendar {theme} startOfWeekIndex={1}/>
 
 
 <style>

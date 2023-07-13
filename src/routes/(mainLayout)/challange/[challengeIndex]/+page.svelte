@@ -126,14 +126,15 @@
         
         pageInfo.calendar.forEach((item) => {
             const keys = Object.keys(item);
-            
+            if(keys[0] == today) {
+                newData.push({...item});
+            }
             if (keys.length > 0) {
             const date = keys[0];
             const [day, month, year] = date.split(".");
             
             if (parseInt(month) === monthIndex && yearNow - 2000 == year) {
                 const value = item[date];
-                
                 if (value !== null) {
                 newData.push({
                     date: date,
@@ -175,6 +176,7 @@
             item.querySelectorAll('a.svelte-1unzsxu').forEach((node) => {
             // тут нужно сравнивать значения и тест и добовлять класс
             node.classList.remove('undone')
+            node.classList.remove('success')
             if(!node.classList.contains('outsider')){
                 const day = parseInt(node.textContent);
                 const matchingData = filteredData.find((data) => {
@@ -191,9 +193,11 @@
     }
 
     let calendarDaysNodes
+    let iframe
     onMount(()=>{
         // console.log(user)  
         if(pageInfo.joined) {
+            iframe = document.querySelector('iframe')
             calendarDaysNodes = document.querySelectorAll('.grid.svelte-jmgdr0')
             arrows = document.querySelectorAll('div.button.svelte-1ro74h8')
             calenderLabel = document.querySelector('.button.label.svelte-1ro74h8')
@@ -203,6 +207,9 @@
             console.log(htmlElements)
             events.forEach(function(event) {
                 htmlElements[0].addEventListener(event, eventHandler);
+            });
+            events.forEach(function(event) {
+                iframe.addEventListener(event, eventHandler);
             });
             yearNow = +calenderLabel.textContent.split(' ')[1]
             calenderLabel.textContent = currentMonth + ' ' + yearNow
@@ -231,7 +238,7 @@
                 calenderLabel.textContent = currentMonth + ' ' + yearNow
                 getCurrCalenderPage()
             }) 
-            console.log(pageInfo.calendar)  
+            console.log(pageInfo)  
             filteredData = parseCalendarData(pageInfo, monthIndex + 1);
             console.log(filteredData);
             setActiveDaysClasses()
@@ -242,7 +249,10 @@
     function isFollow(){
         calendarDaysNodes = document.querySelectorAll('.grid.svelte-jmgdr0')
 
-
+        iframe = document.querySelector('iframe')
+        events.forEach(function(event) {
+            iframe.addEventListener(event, eventHandler);
+        });
         arrows = document.querySelectorAll('div.button.svelte-1ro74h8')
         calenderLabel = document.querySelector('.button.label.svelte-1ro74h8')
 
@@ -279,7 +289,7 @@
             calenderLabel.textContent = currentMonth + ' ' + yearNow
             getCurrCalenderPage()
         }) 
-        console.log(pageInfo.calendar)  
+        console.log(pageInfo)  
         filteredData = parseCalendarData(pageInfo, monthIndex + 1);
         console.log(filteredData);
         setActiveDaysClasses()
@@ -505,7 +515,7 @@
         line-height: 24px;
     }
 
-    :global(a.svelte-1unzsxu.this-day) {
+    :global(a.svelte-1unzsxu.this) {
         border-color: var(--blue) !important;
     }
     :global(a.svelte-1unzsxu.success, a.svelte-1unzsxu.success.this) {
@@ -513,7 +523,7 @@
         background: rgba(24, 209, 131, 0.08) !important;
         border-color: transparent !important;
     }
-    :global(a.svelte-1unzsxu.undone, a.svelte-1unzsxu.undone.this) {
+    :global(a.svelte-1unzsxu.undone, a.svelte-1unzsxu.undone.this, a.svelte-1unzsxu.fail) {
         color: var(--red) !important;
         background: rgba(243, 69, 101, 0.08) !important;
         border-color: transparent !important;
