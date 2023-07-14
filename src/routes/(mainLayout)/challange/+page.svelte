@@ -170,7 +170,7 @@
                     {#if challange.status == 'fail'}
                     <div class="load__button fail" on:click|stopPropagation>
                         <input on:change|stopPropagation={(e)=>{handleFileUpload(e, challange.id)}} type="file" accept="video/*">
-                        <div class="load__button-text">Попробовать сново</div>
+                        <div class="load__button-text">Попробовать снова</div>
                     </div>
                     {/if}
                 </div>
@@ -256,7 +256,7 @@
         margin-bottom: 0;
     }
     .curr-date__wrapper {
-        margin-top: 4vw;
+        padding-top: 4vw;
         position: relative;
         background-color: #fff;
     }
@@ -311,7 +311,7 @@
     .challange-card__wrapper .container {
         position: relative;
         top: 32vw;
-        padding-bottom: 32vw;
+        padding-bottom: calc(32vw + var(--sab));
     }
     .challange-card:not(:first-child) {
         margin-top: 20px; /* Замените 20px на желаемое значение отступа */

@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import '$lib/style.css';
 	import { pickerOutput } from "$lib/stores.js";
+	import { invalidateAll } from '$app/navigation';
 	
 	let minSlides;
 	let hourSlides;
@@ -151,7 +152,7 @@
         if (paramKey) {
             $pickerOutput[paramKey] = parseFloat(response.cm + '.' + response.mm);
         }
-        console.log($pickerOutput);
+		console.log($pickerOutput)
     }
 		
 </script>

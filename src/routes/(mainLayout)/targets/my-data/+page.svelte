@@ -10,7 +10,8 @@
 
     export let data;
     let params = data.user.params;
-
+    const reverse = arr => arr.map((_, index) => arr[arr.length - 1 - index]);
+    let parts = reverse(params.parts)
     const weekdays = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
     const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 
@@ -26,7 +27,8 @@
     const timeString = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
     const dateString = `${day} ${month} ${year}, ${weekday}`;
 
-    console.log(data.user)
+    console.log(parts)
+    console.log(params)
 </script>
 
 <TrainingHeader>
@@ -63,51 +65,53 @@
     </div>
     <div class="parts-items">
         <div class="parts-item">
-            {#if params.parts.length}
-            {#each params.parts.reverse() as part}
-            <div class="date-container">
-                <div class="date text-12s c-dark-gray">{typeof(part.timestamp)}</div>
-                <div class="time text-12s c-dark-gray">{timeString}</div>
-            </div>
-        
-            <div class="params-container bg-l-gray">
-                <div class="value-item">
-                    <div class="value-name text-12s c-dark-gray">Грудь</div>
-                    <div class="value-scrore text-16s">
-                        {part.chest ? part.chest : '- -'}
+            {#if params.parts.length > 1}
+            {#each parts as part, i}
+                {#if !!part.chest || !!part.waist || !!part.hips || !!part.arm || !!part.hip || !!part.leg}
+                <div class="date-container">
+                    <div class="date text-12s c-dark-gray">{part.timestamp.slice(part.timestamp, -7)}</div>
+                    <div class="time text-12s c-dark-gray">{part.timestamp.slice(-5)}</div>
+                </div>
+            
+                <div class="params-container bg-l-gray">
+                    <div class="value-item">
+                        <div class="value-name text-12s c-dark-gray">Грудь</div>
+                        <div class="value-scrore text-16s">
+                            {part.chest ? part.chest : '- -'}
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-name text-12s c-dark-gray">Талия</div>
+                        <div class="value-scrore text-16s">
+                            {part.waist ? part.waist : '- -'}
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-name text-12s c-dark-gray">Бёдра</div>
+                        <div class="value-scrore text-16s">
+                            {part.hips ? part.hips : '- -'}
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-name text-12s c-dark-gray">Рука</div>
+                        <div class="value-scrore text-16s">
+                            {part.arm ? part.arm : '- -'}
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-name text-12s c-dark-gray">Бедро</div>
+                        <div class="value-scrore text-16s">
+                            {part.hip ? part.hip : '- -'}
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-name text-12s c-dark-gray">Голень</div>
+                        <div class="value-scrore text-16s">
+                            {part.leg ? part.leg : '- -'}
+                        </div>
                     </div>
                 </div>
-                <div class="value-item">
-                    <div class="value-name text-12s c-dark-gray">Талия</div>
-                    <div class="value-scrore text-16s">
-                        {part.waist ? part.waist : '- -'}
-                    </div>
-                </div>
-                <div class="value-item">
-                    <div class="value-name text-12s c-dark-gray">Бёдра</div>
-                    <div class="value-scrore text-16s">
-                        {part.hips ? part.hips : '- -'}
-                    </div>
-                </div>
-                <div class="value-item">
-                    <div class="value-name text-12s c-dark-gray">Рука</div>
-                    <div class="value-scrore text-16s">
-                        {part.arm ? part.arm : '- -'}
-                    </div>
-                </div>
-                <div class="value-item">
-                    <div class="value-name text-12s c-dark-gray">Бедро</div>
-                    <div class="value-scrore text-16s">
-                        {part.hip ? part.hip : '- -'}
-                    </div>
-                </div>
-                <div class="value-item">
-                    <div class="value-name text-12s c-dark-gray">Голень</div>
-                    <div class="value-scrore text-16s">
-                        {part.leg ? part.leg : '- -'}
-                    </div>
-                </div>
-            </div>
+                {/if}
             {/each}
             {:else}
             <div class="date-container">
@@ -182,14 +186,11 @@
         width: 100%;
         padding: 0 7.18vw;
         position: fixed;
-        bottom: 20vw;
+        bottom: calc(20vw + var(--sab));
         left: 50%;
         transform: translateX(-50%);
     }
     @media (max-width: 389px) {
-        .button-container {
-            bottom: 0;
-        }
         .reg-title {
             margin-top: 0;
         }

@@ -280,7 +280,7 @@
     .save-avatar {
         position: absolute;
         z-index: 11;
-        bottom: 22vw;
+        bottom: calc(20vh + var(--sab));
         left: 50%;
         transform: translateX(-50%);
     }
@@ -339,7 +339,7 @@
     }
     .edit-btn-wrapper {
         position: fixed;
-        bottom: 22vw;
+        bottom: calc(22vw + var(--sab));
         left: 7.18vw;
         right: 7.18vw;
     }
