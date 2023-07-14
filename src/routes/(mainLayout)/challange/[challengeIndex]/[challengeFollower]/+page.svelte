@@ -17,7 +17,6 @@
     let token = data.token
     $: pageInfo = data.challengeData
     $: user = data.user
-    
     const headers = {
         'Content-Type': 'application/json',
         Accept: 'application/json',
@@ -200,7 +199,7 @@
     let calendarDaysNodes
     let iframe
     onMount(()=>{
-        console.log(pageInfo.id) 
+        // console.log(user)  
         if(pageInfo.joined) {
             calendarDaysNodes = document.querySelectorAll('.grid.svelte-jmgdr0')
             arrows = document.querySelectorAll('div.button.svelte-1ro74h8')
@@ -296,7 +295,7 @@
 
 
 <TrainingHeader>
-    <BackArrow backFunction={()=>{goto('/challange')}}/>
+    <BackArrow backFunction={()=>{goto('./')}}/>
             {#if !pageInfo.joined}
                 <div class="allow__users">
                     <div class="allow__users__icon">
@@ -309,14 +308,14 @@
             {:else}
             <div class="challange__header">
                 <div class="challange__header-title text-14s">Результаты вызова</div>
-                <div class="challange__header-name text-16b">Вы</div>
+                <div class="challange__header-name text-16b">{pageInfo.username}</div>
             </div>
 
             <div class="profile-icon">
-                {#if user.avatar}
-                    <img src={user.avatar} alt="qweqw">
+                {#if pageInfo.avatar}
+                    <img src={$linkRoad + pageInfo.avatar} alt="qweqw">
                 {:else}
-                    <div class="name-word">{user.name.slice(0, 1)}</div>
+                    <div class="name-word">{pageInfo.username.slice(0, 1)}</div>
                 {/if}
             </div>
             {/if}
@@ -329,48 +328,8 @@
     {:else if pageInfo.joined}
     <div class="calender-container">
         <CalendarChallange/>
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="unfollow__challange text-14b c-blue" on:click={()=>{subscribeChallenge('cancel', pageInfo.id)}}>Отказаться от вызова</div>
     </div>
     {/if}
-
-
-    <div class="description__title text-16b">Список участников</div>
-    {#if pageInfo.accepted_by.length}
-    <div class="subscribed__users">
-        {#each pageInfo.accepted_by as user }
-
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="subscribed__user-item" on:click={()=>{goto(`${pageInfo.id}/${user.id}`)}}>
-            <div class="subscribed__user-info">
-                {#if user.avatar}
-                    <div class="subscribed__user-icon">
-                        <img src={$linkRoad + user.avatar} alt="">
-                    </div>
-                {/if}
-                {#if !user.avatar}
-                    <div class="subscribed__user-icon name-word" >
-                        <div>{user.name.slice(0, 1)}</div>
-                    </div>
-                {/if}
-                <div class="subscribed__user-name text-16s">{user.name}</div>
-            </div>
-            {#if !user.followed}
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <div class="subscribed__user-button text-14s" on:click|stopPropagation={()=>{subscribeUser('follow', user.id)}}>Отслеживать</div>
-            {:else}
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <div class="subscribed__user-button text-14s __active" on:click|stopPropagation={()=>{subscribeUser('unfollow' ,user.id)}}>Отписаться</div>
-            {/if}
-        </div>
-        {/each}
-    </div>
-    {/if}
-
-
-
-
-
 </Container>
 
 <style>

@@ -50,7 +50,6 @@
 
         weekdays = document.querySelectorAll('.legend.svelte-1unzsxu span')
         weekdays.forEach((day, index) => {
-            console.log(index)
             day.textContent = rusWeekDay[index]
         });
         arrows = document.querySelectorAll('.button.svelte-1ro74h8')

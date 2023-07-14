@@ -20,7 +20,9 @@
     };
     
     let isActive = false;
-    let params = data.user.params;
+    let params = data.user.params.parts;
+    let lastIndex = params.length - 1
+    console.log(params.length)
     const contextParams =  {
         chest: 'Грудь',
         waist: 'Талия',
@@ -29,7 +31,13 @@
         hip: 'Бедро',
         leg: 'Голень',
     };
-
+    function setValue(response) {
+        const paramKey = Object.keys(contextParams).find((key) => contextParams[key]);
+        if (paramKey) {
+            $pickerOutput[paramKey] = response[paramKey];
+        }
+        console.log($pickerOutput);
+    }
     function backFunction() {
         pickerOutput.set({})
         goto('/targets/my-data')
@@ -41,6 +49,7 @@
     async function pickerDatasSend() {
         // Отправка данных формы (здесь замените URL на ваш URL для обработки формы)
         try {
+            console.log($pickerOutput)
             const response = await fetch(`${$linkRoad}/api/user`, {
             method: 'POST',
             headers: {
@@ -63,6 +72,8 @@
     }
 
     onMount(()=>{
+        console.log(JSON.stringify(params[lastIndex]))
+        setValue(params[lastIndex])
     })
     
 </script>
@@ -80,30 +91,30 @@
         <div class="params-grid-item bg-l-gray" on:click={()=>{handleClick(chest, contextParams.chest)}}>
             <img src="{chest}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">{contextParams.chest}</div>
-            {#if !params.chest && !$pickerOutput.chest}
+            {#if !params[lastIndex].chest && !$pickerOutput.chest}
                 <div class="params-item-add text-14s c-blue">Добавить</div>
             {:else}
-                <div class="value text-14s">{$pickerOutput.chest ? $pickerOutput.chest : params.chest}</div>
+                <div class="value text-14s">{$pickerOutput.chest ? $pickerOutput.chest : params[lastIndex].chest}</div>
             {/if}
         </div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="params-grid-item bg-l-gray" on:click={()=>{handleClick(waist, contextParams.waist)}}>
             <img src="{waist}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">{contextParams.waist}</div>
-            {#if !params.waist && !$pickerOutput.waist}
+            {#if !params[lastIndex].waist && !$pickerOutput.waist}
             <div class="params-item-add text-14s c-blue">Добавить</div>
             {:else}
-            <div class="value text-14s">{$pickerOutput.waist ? $pickerOutput.waist : params.waist}</div>
+            <div class="value text-14s">{$pickerOutput.waist ? $pickerOutput.waist : params[lastIndex].waist}</div>
             {/if}
         </div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="params-grid-item bg-l-gray" on:click={()=>{handleClick(hips, contextParams.hips)}}>
             <img src="{hips}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">{contextParams.hips}</div>
-            {#if !params.hips && !$pickerOutput.hips}
+            {#if !params[lastIndex].hips && !$pickerOutput.hips}
             <div class="params-item-add text-14s c-blue">Добавить</div>
             {:else}
-            <div class="value text-14s">{$pickerOutput.hips ? $pickerOutput.hips : params.hips}</div>
+            <div class="value text-14s">{$pickerOutput.hips ? $pickerOutput.hips : params[lastIndex].hips}</div>
             {/if}
         </div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -113,27 +124,27 @@
             {#if !params.arm && !$pickerOutput.arm}
             <div class="params-item-add text-14s c-blue">Добавить</div>
             {:else}
-            <div class="value text-14s">{$pickerOutput.arm ? $pickerOutput.arm : params.arm}</div>
+            <div class="value text-14s">{$pickerOutput.arm ? $pickerOutput.arm : params[lastIndex].arm}</div>
             {/if}
         </div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="params-grid-item bg-l-gray" on:click={()=>{handleClick(hip, contextParams.hip)}}>
             <img src="{hip}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">{contextParams.hip}</div>
-            {#if !params.hip && !$pickerOutput.hip}
+            {#if !params[lastIndex].hip && !$pickerOutput.hip}
             <div class="params-item-add text-14s c-blue">Добавить</div>
             {:else}
-            <div class="value text-14s">{$pickerOutput.hip ? $pickerOutput.hip : params.hip}</div>
+            <div class="value text-14s">{$pickerOutput.hip ? $pickerOutput.hip : params[lastIndex].hip}</div>
             {/if}
         </div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="params-grid-item bg-l-gray" on:click={()=>{handleClick(leg, contextParams.leg)}}>
             <img src="{leg}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">{contextParams.leg}</div>
-            {#if !params.leg && !$pickerOutput.leg}
+            {#if !params[lastIndex].leg && !$pickerOutput.leg}
             <div class="params-item-add text-14s c-blue">Добавить</div>
             {:else}
-            <div class="value text-14s">{$pickerOutput.leg ? $pickerOutput.leg : params.leg}</div>
+            <div class="value text-14s">{$pickerOutput.leg ? $pickerOutput.leg : params[lastIndex].leg}</div>
             {/if}
         </div>
     </div>

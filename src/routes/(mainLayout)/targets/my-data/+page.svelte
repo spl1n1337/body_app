@@ -5,6 +5,7 @@
     import TrainingHeader from "$lib/components/TrainingHeader.svelte";
     import BackArrow from "$lib/components/BackArrow.svelte";
     import {goto} from '$app/navigation';
+	import { each } from "svelte/internal";
     let paramsEdingGo =()=> goto('./my-data/params');
 
     export let data;
@@ -25,7 +26,7 @@
     const timeString = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
     const dateString = `${day} ${month} ${year}, ${weekday}`;
 
-    console.log(params)
+    console.log(params.parts)
 </script>
 
 <TrainingHeader>
@@ -35,70 +36,78 @@
 
 <Container>
 
-    <div class="reg-title text-20b">Мои параметры</div>
+    <div class="params__header">
+        <div class="reg-title text-20b">Мои параметры</div>
 
-    <div class="blue-params bg-blue">
-        <div class="blue-params-item">
-            <div class="params-name text-12s c-white">Рост</div>
-            <div class="params-value text-16s-u c-white">
-                {!data.user.height ? '- -' : data.user.height}
+        <div class="blue-params bg-blue">
+            <div class="blue-params-item">
+                <div class="params-name text-12s c-white">Рост</div>
+                <div class="params-value text-16s-u c-white">
+                    {!data.user.height ? '- -' : data.user.height}
+                </div>
+            </div>
+            <div class="blue-params-item">
+                <div class="params-name text-12s c-white">Возраст</div>
+                <div class="params-value text-16s-u c-white">
+                    {!data.user.age ? '- -' : data.user.age}
+                </div>
+            </div>
+            <div class="blue-params-item">
+                <div class="params-name text-12s c-white">Вес</div>
+                <div class="params-value text-16s-u c-white">
+                    {(params.weight.length) ? params.weight[params.weight.length - 1].weight + ' кг' : '- -'}
+                </div>
             </div>
         </div>
-        <div class="blue-params-item">
-            <div class="params-name text-12s c-white">Возраст</div>
-            <div class="params-value text-16s-u c-white">
-                {!data.user.age ? '- -' : data.user.age}
-            </div>
-        </div>
-        <div class="blue-params-item">
-            <div class="params-name text-12s c-white">Вес</div>
-            <div class="params-value text-16s-u c-white">
-                {(params.weight.length) ? params.weight[params.weight.length - 1].weight + ' кг' : '- -'}
-            </div>
-        </div>
+    
     </div>
-
-    <div class="date-container">
-        <div class="date text-12s c-dark-gray">{dateString}</div>
-        <div class="time text-12s c-dark-gray">{timeString}</div>
-    </div>
-
-    <div class="params-container bg-l-gray">
-        <div class="value-item">
-            <div class="value-name text-12s c-dark-gray">Грудь</div>
-            <div class="value-scrore text-16s">
-                {params.chest ? params.chest : '- -'}
+    <div class="parts-items">
+        <div class="parts-item">
+            {#each params.parts.reverse() as part}
+            <div class="date-container">
+                <div class="date text-12s c-dark-gray">{part.timestamp.slice(part.timestamp, -7)}</div>
+                <div class="time text-12s c-dark-gray">{timeString}</div>
             </div>
-        </div>
-        <div class="value-item">
-            <div class="value-name text-12s c-dark-gray">Талия</div>
-            <div class="value-scrore text-16s">
-                {params.waist ? params.waist : '- -'}
+        
+            <div class="params-container bg-l-gray">
+                <div class="value-item">
+                    <div class="value-name text-12s c-dark-gray">Грудь</div>
+                    <div class="value-scrore text-16s">
+                        {part.chest ? part.chest : '- -'}
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-name text-12s c-dark-gray">Талия</div>
+                    <div class="value-scrore text-16s">
+                        {part.waist ? part.waist : '- -'}
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-name text-12s c-dark-gray">Бёдра</div>
+                    <div class="value-scrore text-16s">
+                        {part.hips ? part.hips : '- -'}
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-name text-12s c-dark-gray">Рука</div>
+                    <div class="value-scrore text-16s">
+                        {part.arm ? part.arm : '- -'}
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-name text-12s c-dark-gray">Бедро</div>
+                    <div class="value-scrore text-16s">
+                        {part.hip ? part.hip : '- -'}
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-name text-12s c-dark-gray">Голень</div>
+                    <div class="value-scrore text-16s">
+                        {part.leg ? part.leg : '- -'}
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="value-item">
-            <div class="value-name text-12s c-dark-gray">Бёдра</div>
-            <div class="value-scrore text-16s">
-                {params.hips ? params.hips : '- -'}
-            </div>
-        </div>
-        <div class="value-item">
-            <div class="value-name text-12s c-dark-gray">Рука</div>
-            <div class="value-scrore text-16s">
-                {params.arm ? params.arm : '- -'}
-            </div>
-        </div>
-        <div class="value-item">
-            <div class="value-name text-12s c-dark-gray">Бедро</div>
-            <div class="value-scrore text-16s">
-                {params.hip ? params.hip : '- -'}
-            </div>
-        </div>
-        <div class="value-item">
-            <div class="value-name text-12s c-dark-gray">Голень</div>
-            <div class="value-scrore text-16s">
-                {params.leg ? params.leg : '- -'}
-            </div>
+            {/each}
         </div>
     </div>
 
@@ -115,7 +124,7 @@
 
 <style>
     .big-black-button._black {
-        margin-bottom: 26.15vw !important;
+        /* margin-bottom: 26.15vw !important; */
     }
     .reg-title {
         margin-top: 2.05vw;
@@ -127,7 +136,7 @@
         width: 100%;
         padding: 0 7.18vw;
         position: fixed;
-        bottom: 22px;
+        bottom: 20vw;
         left: 50%;
         transform: translateX(-50%);
     }
@@ -181,6 +190,7 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: 2vw;
+        margin-top: 4.16vw;
     }
     .params-container {
         padding: 4.1vw 6.15vw;
@@ -197,5 +207,17 @@
         width: auto;
         filter: invert(100%);
         margin-right: 2.56vw;
+    }
+    .params__header {
+        position: fixed;
+        top: 19.56vw;
+        left: 0;
+        right: 0;
+        padding: 0 7.18vw;
+        background: #fff;
+    }
+    .parts-items {
+        padding-top: 33.06vw;
+        padding-bottom: 24.36vw;
     }
 </style>

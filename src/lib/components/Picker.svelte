@@ -175,7 +175,7 @@
 
 <style>
 	.modal-wrapper {
-		z-index: 6;
+		z-index: 100;
 	}
 	.overlay {
 		background: #1f2830;

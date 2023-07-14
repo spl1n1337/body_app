@@ -197,12 +197,13 @@
                         <div class="user__box">
                             {#if challange.accepted_by.length}
                                 {#each challange.accepted_by as accepted_by, i}
-                                    {#if i == 0}
-                                    <div class="user__item" style="z-index: {i + 1};"><img class="{(accepted_by.status === "success") ? 'done' : 'wait'}" src="{$linkRoad + accepted_by.avatar}" alt="q"></div>
+                                <div class="user__item" style="z-index: {i + 1};">
+                                    {#if accepted_by.avatar}
+                                        <img class="{(accepted_by.status === "success") ? 'done' : 'wait'}" src="{$linkRoad + accepted_by.avatar}" alt="q">
+                                    {:else}
+                                        <div class="name-word {(accepted_by.status === "success") ? 'done' : 'wait'}">{accepted_by.name.slice(0, 1)}</div>
                                     {/if}
-                                    {#if !!accepted_by.followed}
-                                    <div class="user__item" style="z-index: {i + 1};"><img class="{(accepted_by.status === "success") ? 'done' : 'wait'}" src="{$linkRoad + accepted_by.avatar}" alt="q"></div>
-                                    {/if}
+                                </div>
                                 {/each}
                             {/if}
                         </div>
