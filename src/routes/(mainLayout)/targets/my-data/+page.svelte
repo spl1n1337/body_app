@@ -26,7 +26,7 @@
     const timeString = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
     const dateString = `${day} ${month} ${year}, ${weekday}`;
 
-    console.log(params.parts)
+    console.log(data.user)
 </script>
 
 <TrainingHeader>
@@ -63,9 +63,10 @@
     </div>
     <div class="parts-items">
         <div class="parts-item">
+            {#if params.parts.length}
             {#each params.parts.reverse() as part}
             <div class="date-container">
-                <div class="date text-12s c-dark-gray">{part.timestamp.slice(part.timestamp, -7)}</div>
+                <div class="date text-12s c-dark-gray">{typeof(part.timestamp)}</div>
                 <div class="time text-12s c-dark-gray">{timeString}</div>
             </div>
         
@@ -108,6 +109,51 @@
                 </div>
             </div>
             {/each}
+            {:else}
+            <div class="date-container">
+                <!-- <div class="date text-12s c-dark-gray">{part.timestamp.slice(part.timestamp, -7)}</div> -->
+                <!-- <div class="time text-12s c-dark-gray">{timeString}</div> -->
+            </div>
+        
+            <div class="params-container bg-l-gray">
+                <div class="value-item">
+                    <div class="value-name text-12s c-dark-gray">Грудь</div>
+                    <div class="value-scrore text-16s">
+                        - -
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-name text-12s c-dark-gray">Талия</div>
+                    <div class="value-scrore text-16s">
+                        - -
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-name text-12s c-dark-gray">Бёдра</div>
+                    <div class="value-scrore text-16s">
+                        - -
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-name text-12s c-dark-gray">Рука</div>
+                    <div class="value-scrore text-16s">
+                        - -
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-name text-12s c-dark-gray">Бедро</div>
+                    <div class="value-scrore text-16s">
+                        - -
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-name text-12s c-dark-gray">Голень</div>
+                    <div class="value-scrore text-16s">
+                        - -
+                    </div>
+                </div>
+            </div>
+            {/if}
         </div>
     </div>
 

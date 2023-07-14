@@ -21,8 +21,8 @@
     
     let isActive = false;
     let params = data.user.params.parts;
-    let lastIndex = params.length - 1
-    console.log(params.length)
+    let lastIndex = params.length - 1 || 0
+    console.log(params)
     const contextParams =  {
         chest: 'Грудь',
         waist: 'Талия',
@@ -49,6 +49,7 @@
     async function pickerDatasSend() {
         // Отправка данных формы (здесь замените URL на ваш URL для обработки формы)
         try {
+            setValue(params[lastIndex])
             console.log($pickerOutput)
             const response = await fetch(`${$linkRoad}/api/user`, {
             method: 'POST',
@@ -61,6 +62,7 @@
 
             if (response.ok) {
             const data = await response.json();
+            console.log(data)
                 goto('/targets/my-data')
             } else {
             throw new Error('Произошла ошибка при отправке формы.');
@@ -71,11 +73,14 @@
         }
     }
 
+    // console.log(params[lastIndex])
+
     onMount(()=>{
-        console.log(JSON.stringify(params[lastIndex]))
+        // console.log(JSON.stringify(params[lastIndex]))
+        console.log(params[lastIndex])
         setValue(params[lastIndex])
     })
-    
+
 </script>
 
 <TrainingHeader>
@@ -91,7 +96,7 @@
         <div class="params-grid-item bg-l-gray" on:click={()=>{handleClick(chest, contextParams.chest)}}>
             <img src="{chest}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">{contextParams.chest}</div>
-            {#if !params[lastIndex].chest && !$pickerOutput.chest}
+            {#if !params[lastIndex] && !$pickerOutput.chest}
                 <div class="params-item-add text-14s c-blue">Добавить</div>
             {:else}
                 <div class="value text-14s">{$pickerOutput.chest ? $pickerOutput.chest : params[lastIndex].chest}</div>
@@ -101,7 +106,7 @@
         <div class="params-grid-item bg-l-gray" on:click={()=>{handleClick(waist, contextParams.waist)}}>
             <img src="{waist}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">{contextParams.waist}</div>
-            {#if !params[lastIndex].waist && !$pickerOutput.waist}
+            {#if !params[lastIndex] && !$pickerOutput.waist}
             <div class="params-item-add text-14s c-blue">Добавить</div>
             {:else}
             <div class="value text-14s">{$pickerOutput.waist ? $pickerOutput.waist : params[lastIndex].waist}</div>
@@ -111,7 +116,7 @@
         <div class="params-grid-item bg-l-gray" on:click={()=>{handleClick(hips, contextParams.hips)}}>
             <img src="{hips}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">{contextParams.hips}</div>
-            {#if !params[lastIndex].hips && !$pickerOutput.hips}
+            {#if !params[lastIndex] && !$pickerOutput.hips}
             <div class="params-item-add text-14s c-blue">Добавить</div>
             {:else}
             <div class="value text-14s">{$pickerOutput.hips ? $pickerOutput.hips : params[lastIndex].hips}</div>
@@ -121,7 +126,7 @@
         <div class="params-grid-item bg-l-gray" on:click={()=>{handleClick(arm, contextParams.arm)}}>
             <img src="{arm}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">{contextParams.arm}</div>
-            {#if !params.arm && !$pickerOutput.arm}
+            {#if !params[lastIndex] && !$pickerOutput.arm}
             <div class="params-item-add text-14s c-blue">Добавить</div>
             {:else}
             <div class="value text-14s">{$pickerOutput.arm ? $pickerOutput.arm : params[lastIndex].arm}</div>
@@ -131,7 +136,7 @@
         <div class="params-grid-item bg-l-gray" on:click={()=>{handleClick(hip, contextParams.hip)}}>
             <img src="{hip}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">{contextParams.hip}</div>
-            {#if !params[lastIndex].hip && !$pickerOutput.hip}
+            {#if !params[lastIndex] && !$pickerOutput.hip}
             <div class="params-item-add text-14s c-blue">Добавить</div>
             {:else}
             <div class="value text-14s">{$pickerOutput.hip ? $pickerOutput.hip : params[lastIndex].hip}</div>
@@ -141,7 +146,7 @@
         <div class="params-grid-item bg-l-gray" on:click={()=>{handleClick(leg, contextParams.leg)}}>
             <img src="{leg}" alt="" class="item-icon">
             <div class="item-title text-12s c-dark-gray">{contextParams.leg}</div>
-            {#if !params[lastIndex].leg && !$pickerOutput.leg}
+            {#if !params[lastIndex] && !$pickerOutput.leg}
             <div class="params-item-add text-14s c-blue">Добавить</div>
             {:else}
             <div class="value text-14s">{$pickerOutput.leg ? $pickerOutput.leg : params[lastIndex].leg}</div>
